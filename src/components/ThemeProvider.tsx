@@ -1,6 +1,6 @@
-// src/components/ThemeProvider.tsx
 "use client";
 
+import { COLORS, BACKGROUNDS, FILTERS } from "@/lib/theme";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "light";
@@ -12,27 +12,46 @@ interface ThemeContextType {
         background: string;
         text: string;
         accent: string;
+        scroll: string;
+        highlightBg: string;
+        highlightText: string;
+        fontBackground: string;
+        svgFilter: string;
+        noiseFilter: string;
     };
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const themeColors = {
+const themeValues = {
     dark: {
-        background: "#17181C",
-        text: "#F4F1EA",
-        accent: "#D7482F",
+        background: COLORS.DARK.BACKGROUND,
+        text: COLORS.DARK.TEXT,
+        accent: COLORS.DARK.ACCENT,
+        scroll: COLORS.DARK.SCROLL,
+        highlightBg: COLORS.DARK.HIGHLIGHT_BG,
+        highlightText: COLORS.DARK.HIGHLIGHT_TEXT,
+        fontBackground: BACKGROUNDS.DARK.FONT,
+        svgFilter: FILTERS.DARK.SVG,
+        noiseFilter: FILTERS.DARK.NOISE,
     },
     light: {
-        background: "#F4F1EA",
-        text: "#001ECB",
-        accent: "#28B7D0",
+        background: COLORS.LIGHT.BACKGROUND,
+        text: COLORS.LIGHT.TEXT,
+        accent: COLORS.LIGHT.ACCENT,
+        scroll: COLORS.LIGHT.SCROLL,
+        highlightBg: COLORS.LIGHT.HIGHLIGHT_BG,
+        highlightText: COLORS.LIGHT.HIGHLIGHT_TEXT,
+        fontBackground: BACKGROUNDS.LIGHT.FONT,
+        svgFilter: FILTERS.LIGHT.SVG,
+        noiseFilter: FILTERS.LIGHT.NOISE,
     },
 };
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [theme, setTheme] = useState<Theme>("dark");
-    const [colors, setColors] = useState(themeColors.dark);
+    const [colors, setColors] = useState(themeValues.dark);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         // Get the theme from localStorage if available
@@ -45,8 +64,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             localStorageTheme ?? (systemSettingDark ? "dark" : "light");
         setTheme(initialTheme);
         setColors(
-            initialTheme === "dark" ? themeColors.dark : themeColors.light
+            initialTheme === "dark" ? themeValues.dark : themeValues.light
         );
+        setMounted(true);
 
         // Add listener for system theme changes
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -55,7 +75,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
                 const newTheme = e.matches ? "dark" : "light";
                 setTheme(newTheme);
                 setColors(
-                    newTheme === "dark" ? themeColors.dark : themeColors.light
+                    newTheme === "dark" ? themeValues.dark : themeValues.light
                 );
             }
         };
@@ -68,6 +88,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     useEffect(() => {
+        if (!mounted) return;
+
         // Update the data-theme attribute on the document element
         document.documentElement.setAttribute("data-theme", theme);
         document.documentElement.classList.remove("dark", "light");
@@ -75,22 +97,56 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
         // Update CSS variables for theming
         document.documentElement.style.setProperty(
-            "--bg-color",
+            "--background-color",
             colors.background
         );
-        document.documentElement.style.setProperty("--text-color", colors.text);
+        document.documentElement.style.setProperty("--font-color", colors.text);
         document.documentElement.style.setProperty(
             "--accent-color",
             colors.accent
         );
-    }, [theme, colors]);
+        document.documentElement.style.setProperty(
+            "--accent-color-constant",
+            colors.accent
+        );
+        document.documentElement.style.setProperty(
+            "--scroll-color",
+            colors.scroll
+        );
+        document.documentElement.style.setProperty(
+            "--highlight-color",
+            colors.highlightBg
+        );
+        document.documentElement.style.setProperty(
+            "--highlight-font-color",
+            colors.highlightText
+        );
+        document.documentElement.style.setProperty(
+            "--font-background",
+            colors.fontBackground
+        );
+        document.documentElement.style.setProperty(
+            "--svg-theme-filter",
+            colors.svgFilter
+        );
+        document.documentElement.style.setProperty(
+            "--noise-filter",
+            colors.noiseFilter
+        );
+    }, [theme, colors, mounted]);
 
     const toggleTheme = () => {
         const newTheme = theme === "dark" ? "light" : "dark";
         setTheme(newTheme);
-        setColors(newTheme === "dark" ? themeColors.dark : themeColors.light);
+        setColors(newTheme === "dark" ? themeValues.dark : themeValues.light);
         localStorage.setItem("theme", newTheme);
     };
+
+    // Avoid rendering with default theme to prevent flashing
+    if (!mounted) {
+        // Provide a minimal div with no content to ensure hydration doesn't fail
+        return <div className="hidden" />;
+    }
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme, colors }}>

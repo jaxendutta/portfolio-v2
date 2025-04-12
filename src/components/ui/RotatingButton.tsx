@@ -36,9 +36,9 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     fontSize = 14,
     textColor = "currentColor",
     hoverTextColor,
-    iconColor = "currentColor",
-    hoverIconColor = "accent",
-    centerBgColor = "transparent",
+    iconColor,
+    hoverIconColor,
+    centerBgColor,
     hoverCenterBgColor,
 }) => {
     const svgRef = useRef<SVGSVGElement>(null);
@@ -154,6 +154,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         <div
             className={twMerge(
                 `relative inline-flex items-center justify-center rounded-full group`,
+                `text-[${textColor}]`,
                 className
             )}
             style={{ width: size, height: size }}
@@ -180,16 +181,12 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                         : "",
                     hoverCenterBgColor
                         ? `group-hover:bg-[${hoverCenterBgColor}]`
-                        : ""
+                        : "",
+                    `t-${radius - innerRadius}px l-${radius - innerRadius}px`,
+                    `bg-[${centerBgColor}]`,
+                    `text-[${iconColor}]`,
+                    `w-${innerRadius * 2}px h-${innerRadius * 2}px`
                 )}
-                style={{
-                    width: innerRadius * 2,
-                    height: innerRadius * 2,
-                    backgroundColor: centerBgColor,
-                    color: iconColor,
-                    left: radius - innerRadius,
-                    top: radius - innerRadius,
-                }}
             >
                 {renderIcon()}
             </div>
