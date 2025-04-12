@@ -1,0 +1,74 @@
+/* All imports must come first */
+@import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Fira+Code&family=Xanh+Mono:ital@0;1&family=Orbitron:wght@400..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap");
+@import "tailwindcss";
+
+@layer base {
+    html {
+        @apply scroll-smooth;
+    }
+
+    body {
+        @apply m-0 overflow-x-hidden w-screen min-h-screen bg-[#17181C] text-[#F4F1EA] font-mono dark:bg-[#17181C] dark:text-[#F4F1EA];
+    }
+}
+
+@layer components {
+    /* Removed the caseglitch animation that was causing issues */
+
+    /* Noise effect */
+    .noise {
+        @apply mt-[-15%] w-screen h-screen;
+        background: radial-gradient(
+                circle at 50% 10%,
+                rgba(0, 0, 0, 1),
+                rgba(0, 0, 0, 0)
+            ),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 700 700' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        filter: contrast(145%) brightness(650%) invert(100%);
+        mix-blend-mode: screen;
+    }
+
+    .dark .noise {
+        filter: contrast(145%) brightness(650%) invert(100%);
+    }
+
+    .light .noise {
+        mix-blend-mode: difference;
+        background: radial-gradient(
+                circle at 50% 10%,
+                rgb(0, 20, 90),
+                rgba(255, 255, 0, 0)
+            ),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 700 700' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .cardish {
+        @apply p-4 rounded-[20px] bg-white/10 backdrop-blur-md shadow-lg text-left font-normal italic relative mb-8 max-w-fit;
+    }
+
+    .light .cardish {
+        @apply border-2 border-dashed border-[#001ECB] bg-black/5 backdrop-blur-none shadow-none;
+    }
+
+    /* Hide scrollbar for Firefox */
+    .hide-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@layer utilities {
+    .blend-difference {
+        mix-blend-mode: difference;
+    }
+
+    .clip-text {
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+}

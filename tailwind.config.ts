@@ -1,4 +1,3 @@
-// File: tailwind.config.ts
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -10,43 +9,38 @@ const config: Config = {
     darkMode: "class",
     theme: {
         extend: {
+            fontFamily: {
+                header: ["'Poppins'", "sans-serif"],
+                mono: ["'Fira Code'", "monospace"],
+                majorMono: ["'Major Mono Display'", "monospace"],
+                garamond: ["'EB Garamond'", "serif"],
+                orbitron: ["'Orbitron'", "sans-serif"],
+            },
             colors: {
                 background: {
-                    dark: "#17181C",
+                    DEFAULT: "#17181C",
                     light: "#F4F1EA",
                 },
-                text: {
-                    dark: "#F4F1EA",
+                textColor: {
+                    DEFAULT: "#F4F1EA",
                     light: "#001ECB",
                 },
-                nav: {
-                    dark: "#F4F1EA",
-                    light: "#FFE134",
-                },
                 accent: {
-                    dark: "#D7482F",
+                    DEFAULT: "#D7482F",
                     light: "#28B7D0",
-                    constant: "#D7482F",
                 },
                 scroll: "#DEEFB7",
-                grey: "lightgrey",
-            },
-            fontFamily: {
-                heading: ["var(--font-major-mono)", "monospace"],
-                code: ["var(--font-fira-code)", "monospace"],
-                serif: ["var(--font-eb-garamond)", "serif"],
-                orbitron: ["var(--font-orbitron)", "sans-serif"],
-                xanh: ["var(--font-xanh-mono)", "monospace"],
+                highlight: "darkblue",
+                highlightLight: "#001AA8",
+                highlightFont: "palegreen",
             },
             animation: {
                 "spin-slow": "spin 10s linear infinite",
-                "soft-bounce": "soft-bounce 3s infinite ease-in-out",
-                "role-change": "change 10s infinite",
-                scroll: "scroll 5s linear infinite",
-                "scroll-backward": "scroll-backward 5s linear infinite",
+                "soft-bounce": "softBounce 3s ease-in-out infinite",
+                "roles-change": "change 10s infinite",
             },
             keyframes: {
-                "soft-bounce": {
+                softBounce: {
                     "0%, 100%": { transform: "translateY(0)" },
                     "50%": { transform: "translateY(-10px)" },
                 },
@@ -58,21 +52,6 @@ const config: Config = {
                     "66.64%, 79.3%": { transform: "translate3d(0, -50%, 0)" },
                     "83.3%, 95.96%": { transform: "translate3d(0, -25%, 0)" },
                 },
-                scroll: {
-                    "0%": { transform: "translateX(0)" },
-                    "100%": { transform: "translateX(-100%)" },
-                },
-                "scroll-backward": {
-                    "0%": { transform: "translateX(-100%)" },
-                    "100%": { transform: "translateX(0%)" },
-                },
-            },
-            backgroundImage: {
-                "noise-dark":
-                    "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 700 700' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
-                "font-dark": "url('https://i.gifer.com/ByRk.gif')",
-                "font-light":
-                    "url('https://media.giphy.com/media/YAxpwobytgjWgmIbP9/giphy.gif')",
             },
         },
     },
