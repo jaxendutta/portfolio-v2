@@ -1,63 +1,104 @@
 // src/components/navigation/Navbar.tsx
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+
+// Define nav link type with proper typing
+type NavLinkType = {
+    name: string;
+    href: string;
+    section: string;
+};
+
+// Navigation data
+const navLinks: NavLinkType[] = [
+    { name: "HOME", href: "#main", section: "main" },
+    { name: "PROJECTS", href: "#projects", section: "projects" },
+    { name: "WORK", href: "#work", section: "work" },
+    { name: "CONTACT", href: "#contact", section: "contact" },
+];
 
 export default function Navbar() {
+    const pathname = usePathname();
+
+    // Track scroll position to highlight active section
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentPosition = window.scrollY + window.innerHeight / 3;
+
+            // Find the active section
+            for (const link of navLinks) {
+                const element = document.getElementById(link.section);
+                if (!element) continue;
+
+                const { top, bottom } = element.getBoundingClientRect();
+                const sectionTop = top + window.scrollY;
+                const sectionBottom = bottom + window.scrollY;
+
+                if (
+                    currentPosition >= sectionTop &&
+                    currentPosition <= sectionBottom
+                ) {
+                    break;
+                }
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        handleScroll(); // Check immediately
+
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [pathname]); // Re-run when page changes
+
+    // Split links for layout
+    const linkLength = navLinks.length / 2;
+    const leftLinks = navLinks.slice(0, linkLength);
+    const rightLinks = navLinks.slice(linkLength);
+
     return (
-        <div className="flex flex-row-reverse fixed w-screen transform translate-x-0 translate-y-0 z-50 mix-blend-difference">
-            <menu className="flex list-none p-0 m-5 gap-10 font-majorMono text-xl w-full">
-                <li>
-                    <Link
-                        href="#main"
-                        className="text-[#F4F1EA] no-underline mix-blend-difference group"
-                    >
-                        HOME
-                        <motion.span
-                            className="block w-0 h-0.5 bg-[#D7482F] transition-all duration-200"
-                            whileHover={{ width: "100%" }}
-                        />
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        href="#projects"
-                        className="text-[#F4F1EA] no-underline mix-blend-difference group"
-                    >
-                        PROJECTS
-                        <motion.span
-                            className="block w-0 h-0.5 bg-[#D7482F] transition-all duration-200"
-                            whileHover={{ width: "100%" }}
-                        />
-                    </Link>
-                </li>
-                <li className="flex-1"></li>
-                <li>
-                    <Link
-                        href="#work"
-                        className="text-[#F4F1EA] no-underline mix-blend-difference group"
-                    >
-                        WORK
-                        <motion.span
-                            className="block w-0 h-0.5 bg-[#D7482F] transition-all duration-200"
-                            whileHover={{ width: "100%" }}
-                        />
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        href="#contact"
-                        className="text-[#F4F1EA] no-underline mix-blend-difference group"
-                    >
-                        CONTACT
-                        <motion.span
-                            className="block w-0 h-0.5 bg-[#D7482F] transition-all duration-200"
-                            whileHover={{ width: "100%" }}
-                        />
-                    </Link>
-                </li>
-            </menu>
+        <div className="flex justify-between p-4 w-full fixed z-50 mix-blend-difference">
+            {[leftLinks, rightLinks].map((links, index) => (
+                <div key={index} className={`flex gap-[5vw]`}>
+                    {links.map((link) => (
+                        <NavLink key={link.name} {...link} />
+                    ))}
+                </div>
+            ))}
         </div>
+    );
+}
+
+// NavLink component with proper hover effects
+function NavLink(link: NavLinkType) {
+    // Hover state for custom effects that can't be done with Tailwind alone
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <Link
+            href={link.href}
+            className={`flex items-center gap-1 relative transition-colors duration-200
+                         font-heading text-md md:text-lg lg:text-xl`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            {/* Prefix symbol that changes on hover (similar to original site) */}
+            <span className="transition-opacity duration-200">
+                {isHovered ? ">" : "\\"}
+            </span>
+
+            {/* Link text */}
+            {link.name}
+
+            {/* Underline indicator ONLY for hover state, not active state */}
+            <motion.div
+                className="absolute bottom-0 left-0 h-0.5 bg-[#D7482F]"
+                initial={{ width: "0%" }}
+                animate={{ width: isHovered ? "100%" : "0%" }}
+                transition={{ duration: 0.2 }}
+            />
+        </Link>
     );
 }
