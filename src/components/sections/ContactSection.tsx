@@ -16,6 +16,7 @@ const SocialItem = ({ item, index }: { item: Social; index: number }) => {
             rel="noopener noreferrer"
             className={`w-full p-4 font-mono text-3xl md:text-4xl text-[#F4F1EA] hover:bg-[darkblue]
                 flex flex-row justify-between items-center
+                border-b border-[#F4F1EA] hover:text-[palegreen]
                 transition-all duration-300 ease-in-out`}
         >
             <div className="flex items-center gap-4">
@@ -45,12 +46,7 @@ const SocialItems = ({ socials }: { socials: Social[] }) => {
     return (
         <div className="w-full p-[5vw] flex flex-col items-center justify-center self-center">
             {socials.map((social, index) => (
-                <>
-                    <SocialItem key={index} item={social} index={index} />
-                    {index < socials.length - 1 && (
-                        <div className="w-full h-[1px] bg-[#F4F1EA]"></div>
-                    )}
-                </>
+                <SocialItem key={index} item={social} index={index} />
             ))}
         </div>
     );

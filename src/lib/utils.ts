@@ -1,13 +1,4 @@
 // src/lib/utils.ts
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-/**
- * Combine multiple className strings with Tailwind CSS support
- */
-export function cn(...inputs: ClassValue[]) {
-    return twMerge(clsx(inputs));
-}
 
 /**
  * Calculate the brightness of a color (0-1)
@@ -37,24 +28,6 @@ export function formatDate(dateString: string): string {
     };
 
     return new Date(dateString).toLocaleDateString("en-US", options);
-}
-
-/**
- * Throttle a function to limit the rate at which it can fire
- */
-export function throttle<T extends (...args: any[]) => any>(
-    func: T,
-    limit: number
-): (...args: Parameters<T>) => void {
-    let inThrottle: boolean;
-
-    return function (...args: Parameters<T>): void {
-        if (!inThrottle) {
-            func(...args);
-            inThrottle = true;
-            setTimeout(() => (inThrottle = false), limit);
-        }
-    };
 }
 
 /**

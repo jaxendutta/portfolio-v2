@@ -156,7 +156,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         <div
             className={twMerge(
                 `relative inline-flex items-center justify-center rounded-full cursor-pointer group`,
-                `hover:text-accent-dark dark:hover:text-accent-light`,
+                `hover:text-dark-accent dark:hover:text-accent-light`,
                 className
             )}
             style={{ width: size, height: size }}
