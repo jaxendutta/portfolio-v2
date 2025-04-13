@@ -91,7 +91,7 @@ export default function HeroSection() {
                     <RolesSwitcher roles={roles} />
                 </div>
 
-                <div className="w-3/4 flex justify-end pr-[5%]">
+                <div className="w-2/3 flex justify-end">
                     <RotatingButton
                         texts={["PROJECTS", "WORK", "RÉSUMÉ"]}
                         delimiters={["✦"]}

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
+import { COLORS } from "@/lib/theme";
 
 interface RotatingButtonProps {
     texts: string[];
@@ -36,9 +37,9 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     rotationDuration = 10,
     fontSize = 14,
     textColor = "currentColor",
-    hoverTextColor,
+    hoverTextColor = COLORS.DARK.ACCENT,
     iconColor,
-    hoverIconColor,
+    hoverIconColor = COLORS.DARK.ACCENT,
     centerBgColor,
     hoverCenterBgColor,
 }) => {
@@ -154,8 +155,8 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     const buttonContent = (
         <div
             className={twMerge(
-                `relative inline-flex items-center justify-center rounded-full group`,
-                `text-[${textColor}]`,
+                `relative inline-flex items-center justify-center rounded-full cursor-pointer group`,
+                `hover:text-accent-dark dark:hover:text-accent-light`,
                 className
             )}
             style={{ width: size, height: size }}

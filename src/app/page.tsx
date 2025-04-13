@@ -1,8 +1,8 @@
 // src/app/page.tsx
 import ContactSection from "@/components/sections/ContactSection";
 import HeroSection from "@/components/sections/HeroSection";
-import ProjectsSection from "@/components/sections/ProjectsSection";
-import WorkSection from "@/components/sections/WorkSection";
+import ProjectsSection from "@/components/project/ProjectsSection";
+import WorkSection from "@/components/work/WorkSection";
 import ThemeSwitch from "@/components/ui/ThemeSwitch";
 import { Footer } from "@/components/sections/Footer";
 import Navbar from "@/components/navigation/Navbar";
