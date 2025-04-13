@@ -4,6 +4,7 @@ import HeroSection from "@/components/sections/HeroSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import WorkSection from "@/components/sections/WorkSection";
 import ThemeSwitch from "@/components/ui/ThemeSwitch";
+import { Footer } from "@/components/sections/Footer";
 import Navbar from "@/components/navigation/Navbar";
 
 export default function Home() {
@@ -24,6 +25,9 @@ export default function Home() {
                         More sections coming...
                     </h2>
                 </div>
+
+                {/* Footer */}
+                <Footer />
             </main>
         </>
     );

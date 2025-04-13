@@ -1,19 +1,18 @@
-// src/components/sections/ProjectsSection.tsx
+// components/sections/ProjectsSection.tsx
 "use client";
 
 import Divider from "@/components/ui/Divider";
 import ProjectCard from "@/components/project/ProjectCard";
-import SectionHeader from "@/components/ui/SectionHeader";
+import Section from "@/components/ui/Section";
 import { projectsData } from "@/data/projectData";
 
 export default function ProjectsSection() {
     const projectIds = Object.keys(projectsData);
 
     return (
-        <section id="projects" className="relative">
-            <SectionHeader title="PROJECTS" />
-
-            <div className="my-20 flex flex-col items-center">
+        <Section title="PROJECTS">
+            <Divider index={0} />
+            {/*<div className="my-20 flex flex-col items-center">
                 {projectIds.map((id, index) => (
                     <div key={id} className="w-full">
                         <ProjectCard
@@ -31,7 +30,7 @@ export default function ProjectsSection() {
                         )}
                     </div>
                 ))}
-            </div>
-        </section>
+            </div>*/}
+        </Section>
     );
 }

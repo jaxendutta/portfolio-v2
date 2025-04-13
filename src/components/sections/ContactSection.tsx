@@ -1,9 +1,60 @@
 "use client";
 
-import SectionHeader from "@/components/ui/SectionHeader";
+import Section from "@/components/ui/Section";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
+import Link from "next/link";
+import { Social, socials } from "@/data/contactData";
+import Marquee from "react-fast-marquee";
+
+const SocialItem = ({ item, index }: { item: Social; index: number }) => {
+    return (
+        <Link
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`w-full p-4 font-mono text-3xl md:text-4xl text-[#F4F1EA] hover:bg-[darkblue]
+                flex flex-row justify-between items-center
+                transition-all duration-300 ease-in-out`}
+        >
+            <div className="flex items-center gap-4">
+                <span>{`${(index + 1).toString().padStart(2, "0")}.`}</span>
+                <span>{item.platform}</span>
+            </div>
+            <div className="hidden md:flex items-center gap-4 text-2xl opacity-60">
+                <span>{item.handle}</span>
+                <div className="w-[1em] h-[1.5em] flex items-center gap-6 text-2xl overflow-clip">
+                    <Marquee
+                        direction="right"
+                        speed={20}
+                        loop={0}
+                        autoFill={true}
+                        pauseOnHover={true}
+                        className="flex items-center px-2"
+                    >
+                        <FaArrowRightLong className="px-1.5" />
+                    </Marquee>
+                </div>
+            </div>
+        </Link>
+    );
+};
+
+const SocialItems = ({ socials }: { socials: Social[] }) => {
+    return (
+        <div className="w-full p-[5vw] flex flex-col items-center justify-center self-center">
+            {socials.map((social, index) => (
+                <>
+                    <SocialItem key={index} item={social} index={index} />
+                    {index < socials.length - 1 && (
+                        <div className="w-full h-[1px] bg-[#F4F1EA]"></div>
+                    )}
+                </>
+            ))}
+        </div>
+    );
+};
 
 export default function ContactSection() {
     const [formData, setFormData] = useState({
@@ -72,69 +123,13 @@ export default function ContactSection() {
         }
     };
 
-    const socials = [
-        {
-            platform: "E-MAIL",
-            handle: "jaxendutta[at]gmail.com",
-            url: "mailto:jaxendutta@gmail.com",
-        },
-        {
-            platform: "GITHUB",
-            handle: "/jaxendutta",
-            url: "https://github.com/jaxendutta",
-        },
-        {
-            platform: "LINKEDIN",
-            handle: "/jaxen",
-            url: "https://www.linkedin.com/in/jaxen/",
-        },
-        {
-            platform: "RÉSUMÉ",
-            handle: "",
-            url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/11mhUfmYKXO7jPN1rP6znr2B5zCl0hlrE0pKqAU2lKtU/export?format=pdf",
-        },
-    ];
-
     return (
-        <section id="contact" className="relative">
-            <SectionHeader title="CONTACT" />
+        <Section title="CONTACT">
+            <SocialItems socials={socials} />
 
             <div className="my-20 flex flex-col items-center">
                 <div className="w-[90vw] flex flex-col items-center justify-center self-center">
-                    <div className="w-full flex flex-col items-center justify-center counter-reset-[social-counter]">
-                        {socials.map((social, index) => (
-                            <div key={social.platform} className="w-full">
-                                <a
-                                    href={social.url}
-                                    target="_blank"
-                                    rel="noopener"
-                                    className={`self-center w-[88vw] outline-none font-mono h-[1.2em] text-4xl text-[#F4F1EA] no-underline flex flex-row justify-between items-center border-b border-b-[#F4F1EA] transition-all duration-300 ease-in-out bg-transparent p-2 ${
-                                        index === socials.length - 1
-                                            ? "border-b-0"
-                                            : ""
-                                    } hover:bg-[darkblue]`}
-                                >
-                                    <div className="flex items-center">
-                                        <div className="mr-2 before:content-[counter(social-counter,decimal-leading-zero)] before:counter-increment-[social-counter]">
-                                            {(index + 1)
-                                                .toString()
-                                                .padStart(2, "0")}
-                                            .
-                                        </div>
-                                        <div className="text-lg md:text-4xl">
-                                            {social.platform}
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-row justify-between items-center gap-2 text-xs md:text-xl">
-                                        <span className="hidden md:inline">
-                                            {social.handle}
-                                        </span>
-                                        <FaArrowRightLong className="w-4 h-4 text-[#F4F1EA]" />
-                                    </div>
-                                </a>
-                            </div>
-                        ))}
-                    </div>
+                    <div className="w-full flex flex-col items-center justify-center counter-reset-[social-counter]"></div>
 
                     <motion.div
                         className="outline-none font-majorMono text-5xl text-[#D7482F] text-center my-10 inline-block"
@@ -228,10 +223,6 @@ export default function ContactSection() {
                     </div>
                 </div>
             </div>
-
-            <footer className="font-sans w-screen h-10 mt-[10%] text-center self-center text-[#F4F1EA] uppercase">
-                Jaxen Anirban Dutta //
-            </footer>
-        </section>
+        </Section>
     );
 }
