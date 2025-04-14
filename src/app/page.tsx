@@ -9,7 +9,7 @@ import Navbar from "@/components/layout/Navbar";
 
 export default function Home() {
     return (
-        <>
+        <div className="max-w-screen overflow-clip">
             <Navbar />
             <main className="flex flex-col items-center justify-center relative">
                 <ThemeSwitch />
@@ -21,6 +21,6 @@ export default function Home() {
 
                 <Footer />
             </main>
-        </>
+        </div>
     );
 }

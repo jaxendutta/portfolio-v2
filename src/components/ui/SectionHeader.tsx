@@ -3,26 +3,28 @@
 
 import React from "react";
 import { heading } from "@/styles/fonts";
-import { motion } from "framer-motion";
 import { FaPersonWalking } from "react-icons/fa6";
 import Marquee from "@/components/ui/Marquee";
+import RotatingButton, {
+    RotatingButtonProps,
+} from "@/components/ui/RotatingButton";
 
 export interface SectionHeaderProps {
     title: string;
     delimiter?: string;
-    actionButton?: React.ReactNode;
-    actionButtonPosition?: number; // Between 0 and 1
+    buttonProps?: RotatingButtonProps;
+    buttonPosition?: number; // Between 0 and 1
 }
 
 export default function SectionHeader({
     title,
     delimiter = "⚕♨✦❍",
-    actionButton,
-    actionButtonPosition = 2 / 3,
+    buttonProps: actionButton,
+    buttonPosition = 2 / 3,
 }: SectionHeaderProps) {
     if (
-        actionButtonPosition !== undefined &&
-        (actionButtonPosition < 0 || actionButtonPosition > 1)
+        buttonPosition !== undefined &&
+        (buttonPosition < 0 || buttonPosition > 1)
     ) {
         throw new Error(
             "actionButtonPosition must be between 0 and 1! Pass the position as a fraction of the width, e.g. 2/3 for 66.67%."
@@ -67,12 +69,12 @@ export default function SectionHeader({
             </div>
 
             {actionButton && (
-                <motion.div
-                    className="absolute top-1/2 -translate-y-1/2 z-10 p-2 rounded-full backdrop-blur-lg bg-opacity-60"
-                    style={{ left: `${actionButtonPosition * 100}%` }}
-                >
-                    {actionButton}
-                </motion.div>
+                <RotatingButton
+                    className={`transition-all duration-300 ease-in-out absolute z-100 top-1/2 p-2
+                 -translate-y-1/2 left-[${(buttonPosition * 100).toFixed(2)}%]`}
+                    variant="frost"
+                    {...actionButton}
+                />
             )}
         </div>
     );

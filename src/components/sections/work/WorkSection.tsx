@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { GiLockedChest, GiOpenTreasureChest } from "react-icons/gi";
 import Section from "@/components/ui/Section";
-import RotatingButton from "@/components/ui/RotatingButton";
 import { WorkItems } from "@/components/sections/work/WorkItem";
 import { workData } from "@/data/workData";
-import { GiLockedChest, GiOpenTreasureChest } from "react-icons/gi";
 
 export default function WorkSection() {
     const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
@@ -38,22 +37,17 @@ export default function WorkSection() {
 
     return (
         <Section
-            sectionHeaderProps={{
+            headerProps={{
                 title: "WORK",
-                actionButton: (
-                    <RotatingButton
-                        className="transition-all duration-300 ease-in-out z-100"
-                        onClick={toggleAll}
-                        texts={
-                            allExpanded
-                                ? ["Click Here", "To Collapse All"]
-                                : ["Click Here", "To Expand All"]
-                        }
-                        centerIcon={
-                            allExpanded ? GiOpenTreasureChest : GiLockedChest
-                        }
-                    />
-                ),
+                buttonProps: {
+                    onClick: toggleAll,
+                    texts: allExpanded
+                        ? ["Click Here", "To Collapse All"]
+                        : ["Click Here", "To Expand All"],
+                    centerIcon: allExpanded
+                        ? GiOpenTreasureChest
+                        : GiLockedChest,
+                },
             }}
         >
             <WorkItems expandedItems={expandedItems} toggleItem={toggleItem} />

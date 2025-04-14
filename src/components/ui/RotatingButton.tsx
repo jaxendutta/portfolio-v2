@@ -8,11 +8,19 @@ import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
 import { COLORS } from "@/lib/theme";
 
-interface RotatingButtonProps
+const variants = {
+    default: "",
+    frost: "bg-white/10 backdrop-blur-lg blue-2xl shadow-3xl shadow-white-50 hover:shadow-white-500/30",
+    raised: "shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-shadow duration-300",
+    glow: "shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:shadow-[0_0_20px_rgba(59,130,246,0.7)]",
+};
+
+export interface RotatingButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     texts: string[];
     delimiters?: string[];
     size?: number;
+    variant?: keyof typeof variants;
     href?: string;
     onClick?: () => void;
     centerIcon?: ReactNode | IconType;
@@ -31,6 +39,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     texts,
     delimiters = ["✦"],
     size = 120,
+    variant = "default",
     href,
     onClick,
     centerIcon,
@@ -131,8 +140,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         <motion.div
             ref={containerRef}
             className={twMerge(
-                "relative inline-flex items-center justify-center rounded-full cursor-pointer",
-                className
+                "relative inline-flex items-center justify-center rounded-full cursor-pointer"
             )}
             style={{
                 width: size,
@@ -179,36 +187,31 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     );
 
     // Render the appropriate element based on props
-    if (onClick) {
-        return (
-            <button
-                onClick={onClick}
-                className="focus:outline-none flex items-center justify-center"
-                aria-label={texts[0] || "Rotating button"}
-            >
-                {buttonContent}
-            </button>
-        );
-    }
-
-    if (href) {
-        return (
-            <Link
-                href={href}
-                className="focus:outline-none flex items-center justify-center"
-                aria-label={texts[0] || "Rotating link button"}
-            >
-                {buttonContent}
-            </Link>
-        );
-    }
-
     return (
         <div
-            className="focus:outline-none flex items-center justify-center"
-            aria-label={texts[0] || "Rotating element"}
+            className={twMerge(
+                "relative inline-flex items-center justify-center rounded-full cursor-pointer",
+                variants[variant],
+                className
+            )}
         >
-            {buttonContent}
+            {onClick || href ? (
+                <Link
+                    href={href || ""}
+                    onClick={onClick || undefined}
+                    className="focus:outline-none flex items-center justify-center"
+                    aria-label={texts[0] || "Rotating button"}
+                >
+                    {buttonContent}
+                </Link>
+            ) : (
+                <div
+                    className="focus:outline-none flex items-center justify-center"
+                    aria-label={texts[0] || "Rotating element"}
+                >
+                    {buttonContent}
+                </div>
+            )}
         </div>
     );
 };

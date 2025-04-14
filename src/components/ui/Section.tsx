@@ -8,26 +8,26 @@ import SectionHeader, {
 } from "@/components/ui/SectionHeader";
 
 interface SectionProps {
-    sectionHeaderProps: SectionHeaderProps;
+    headerProps: SectionHeaderProps;
     children: React.ReactNode;
     className?: string;
     id?: string;
 }
 
 export default function Section({
-    sectionHeaderProps,
+    headerProps: headerProps,
     children,
     className = "",
 }: SectionProps) {
     return (
         <section
-            id={sectionHeaderProps.title.toLowerCase()}
+            id={headerProps.title.toLowerCase()}
             className={twMerge(
                 "relative w-full text-[4rem] md:text-[6rem] lg:text-[10em]",
                 className
             )}
         >
-            <SectionHeader {...sectionHeaderProps} />
+            <SectionHeader {...headerProps} />
             <div className="p-[5vw]">{children}</div>
         </section>
     );

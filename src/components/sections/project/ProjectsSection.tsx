@@ -2,24 +2,18 @@
 "use client";
 
 import Section from "@/components/ui/Section";
-import RotatingButton from "@/components/ui/RotatingButton";
 import { GiStrongbox } from "react-icons/gi";
 
 export default function ProjectsSection() {
-    const ActionButton = () => (
-        <RotatingButton
-            className="transition-all duration-300 ease-in-out z-100"
-            onClick={() => window.location.href = "/projects"}
-            texts={["Click Here", "Access the Vault"]}
-            centerIcon={GiStrongbox}
-        />
-    );
-
     return (
         <Section
-            sectionHeaderProps={{
+            headerProps={{
                 title: "PROJECTS",
-                actionButton: ActionButton(),
+                buttonProps: {
+                    onClick: () => (window.location.href = "/projects"),
+                    texts: ["Click Here", "Access the Vault"],
+                    centerIcon: GiStrongbox,
+                },
             }}
         >
             <div className="h-64" />

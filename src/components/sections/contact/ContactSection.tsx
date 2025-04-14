@@ -5,7 +5,6 @@ import Section from "@/components/ui/Section";
 import SocialItems from "@/components/sections/contact/SocialItem";
 import ContactForm from "@/components/sections/contact/ContactForm";
 import { socials } from "@/data/contactData";
-import RotatingButton from "@/components/ui/RotatingButton";
 import { GiLinkedRings, GiQuillInk } from "react-icons/gi";
 
 export default function ContactSection() {
@@ -16,23 +15,16 @@ export default function ContactSection() {
 
     return (
         <Section
-            sectionHeaderProps={{
+            headerProps={{
                 title: "CONTACT",
-                actionButton: (
-                    <RotatingButton
-                        className="transition-all duration-300 ease-in-out z-100"
-                        onClick={() => toggleView()}
-                        size={140}
-                        texts={
-                            showSocialItems
-                                ? ["Click Here", "To Access", "Contact Form"]
-                                : ["Click for", "LinkedIn", "Resume", "GitHub"]
-                        }
-                        centerIcon={
-                            showSocialItems ? GiQuillInk : GiLinkedRings
-                        }
-                    />
-                ),
+                buttonProps: {                    
+                    onClick: () => toggleView(),
+                    size: 140,
+                    texts: showSocialItems
+                        ? ["Click Here", "To Access", "Contact Form"]
+                        : ["Click for", "LinkedIn", "Resume", "GitHub"],
+                    centerIcon: showSocialItems ? GiQuillInk : GiLinkedRings
+                }
             }}
             className="text-3xl md:text-4xl"
         >
