@@ -2,13 +2,9 @@
 "use client";
 
 import Divider from "@/components/ui/Divider";
-import ProjectCard from "@/components/project/ProjectCard";
 import Section from "@/components/ui/Section";
-import { projectsData } from "@/data/projectData";
 
 export default function ProjectsSection() {
-    const projectIds = Object.keys(projectsData);
-
     return (
         <Section sectionHeaderProps={{ title: "PROJECTS" }}>
             <Divider index={0} />

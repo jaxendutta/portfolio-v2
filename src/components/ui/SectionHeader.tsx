@@ -26,7 +26,7 @@ export default function SectionHeader({
 
     return (
         <div className={twMerge("relative flex items-center", className)}>
-            <div className="w-full font-heading text-6xl md:text-8xl lg:text-10xl overflow-hidden">
+            <div className="w-full font-heading text-6xl md:text-8xl lg:text-10xl">
                 {["right", "left"].map((direction, index) => (
                     <Marquee
                         key={index}
@@ -49,7 +49,7 @@ export default function SectionHeader({
             </div>
             {actionButton && (
                 <div
-                    className={`absolute w-full left-${x} z-10 p-2 rounded overflow-visible bg-background-dark dark:bg-background-dark`}
+                    className={`absolute left-${x} top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-[--background-color]`}
                 >
                     {actionButton}
                 </div>
