@@ -1,7 +1,7 @@
 // src/components/ui/RotatingButton.tsx
 "use client";
 
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
@@ -38,18 +38,19 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     fontSize = 14,
     textColor = "currentColor",
     hoverTextColor = COLORS.DARK.ACCENT,
-    iconColor,
+    iconColor = "currentColor",
     hoverIconColor = COLORS.DARK.ACCENT,
-    centerBgColor,
-    hoverCenterBgColor,
+    centerBgColor = "transparent",
+    hoverCenterBgColor = "transparent",
 }) => {
-    const svgRef = useRef<SVGSVGElement>(null);
-    const [textPaths, setTextPaths] = useState<React.ReactNode[]>([]);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isHovered, setIsHovered] = useState(false);
+    const [pathId] = useState(
+        `circle-path-${Math.random().toString(36).slice(2, 11)}`
+    );
 
     // Calculate the radius based on the size
     const radius = size / 2;
-
-    // Calculate the inner circle radius (where the icon sits)
     const innerRadius = radius * 0.65;
 
     // Path definition for text to follow
@@ -59,12 +60,8 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         radius * 0.8
     } 0 1,1 -${radius * 1.6},0`;
 
-    // Calculate the circumference of the text path circle
-    const circumference = 2 * Math.PI * (radius * 0.8);
-
-    useEffect(() => {
-        if (!svgRef.current) return;
-
+    // Create text segment with appropriate spacing - using the original calculation
+    const createTextSegments = () => {
         // Create interleaved segments array
         const segments: string[] = [];
         texts.forEach((text, index) => {
@@ -76,6 +73,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         });
 
         // Calculate total text length to determine spacing
+        const circumference = 2 * Math.PI * (radius * 0.8);
         const totalTextLength = segments.reduce(
             (acc, segment) => acc + segment.length,
             0
@@ -85,8 +83,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         const emptySpace = circumference - totalTextLength * fontSize * 0.5; // Approximate char width
         const spaceBetweenSegments = emptySpace / segments.length;
 
-        // Create textPath elements with appropriate spacing
-        const textPathElements = segments.map((segment, index) => {
+        return segments.map((segment, index) => {
             // Calculate offset based on previous segments and spacing
             let offset = 0;
             for (let i = 0; i < index; i++) {
@@ -101,13 +98,11 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 <text
                     key={index}
                     fontSize={fontSize}
-                    fill={textColor}
-                    className={
-                        hoverTextColor ? `group-hover:${hoverTextColor}` : ""
-                    }
+                    fill={isHovered ? hoverTextColor : textColor}
+                    className="transition-all duration-300 ease-in-out"
                 >
                     <textPath
-                        href={`#circle-path-${size}`}
+                        href={`#${pathId}`}
                         startOffset={`${offsetPercentage}%`}
                     >
                         {segment}
@@ -115,92 +110,78 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 </text>
             );
         });
+    };
 
-        setTextPaths(textPathElements);
-    }, [
-        texts,
-        delimiters,
-        fontSize,
-        circumference,
-        size,
-        textColor,
-        hoverTextColor,
-    ]);
-
-    // Render the Icon, supporting both ReactNode and IconType
+    // Render icon
     const renderIcon = () => {
         if (!centerIcon) return null;
 
-        // Check if centerIcon is an IconType from react-icons
         if (typeof centerIcon === "function") {
             const IconComponent = centerIcon as IconType;
             return <IconComponent size={innerRadius * 0.8} />;
         }
 
-        // Otherwise, render it as a ReactNode
         return centerIcon;
-    };
-
-    // Animation settings for framer-motion
-    const animationSettings = {
-        animate: { rotate: 360 },
-        transition: {
-            duration: rotationDuration,
-            repeat: Infinity,
-            ease: "linear",
-        },
     };
 
     // The main button content
     const buttonContent = (
-        <div
+        <motion.div
+            ref={containerRef}
             className={twMerge(
-                `relative inline-flex items-center justify-center rounded-full cursor-pointer group`,
-                `hover:text-dark-accent dark:hover:text-accent-light`,
+                "relative inline-flex items-center justify-center rounded-full cursor-pointer",
                 className
             )}
-            style={{ width: size, height: size }}
+            style={{
+                width: size,
+                height: size,
+            }}
+            onHoverStart={() => setIsHovered(true)}
+            onHoverEnd={() => setIsHovered(false)}
         >
-            {/* Rotating text using SVG */}
+            {/* Rotating SVG with text */}
             <motion.svg
-                ref={svgRef}
                 className="absolute inset-0 w-full h-full"
                 viewBox={`0 0 ${size} ${size}`}
-                {...animationSettings}
+                animate={{ rotate: 360 }}
+                transition={{
+                    duration: rotationDuration,
+                    repeat: Infinity,
+                    ease: "linear",
+                }}
             >
                 <defs>
-                    <path id={`circle-path-${size}`} d={pathDefinition} />
+                    <path id={pathId} d={pathDefinition} />
                 </defs>
-                {textPaths}
+                {createTextSegments()}
             </motion.svg>
 
             {/* Center circle with icon */}
-            <div
-                className={twMerge(
-                    "absolute flex items-center justify-center rounded-full",
-                    hoverIconColor
-                        ? `group-hover:text-[${hoverIconColor}]`
-                        : "",
-                    hoverCenterBgColor
-                        ? `group-hover:bg-[${hoverCenterBgColor}]`
-                        : "",
-                    `t-${radius - innerRadius}px l-${radius - innerRadius}px`,
-                    `bg-[${centerBgColor}]`,
-                    `text-[${iconColor}]`,
-                    `w-${innerRadius * 2}px h-${innerRadius * 2}px`
-                )}
+            <motion.div
+                className="absolute flex items-center justify-center rounded-full"
+                style={{
+                    width: innerRadius * 2,
+                    height: innerRadius * 2,
+                    top: radius - innerRadius,
+                    left: radius - innerRadius,
+                    backgroundColor: isHovered
+                        ? hoverCenterBgColor
+                        : centerBgColor,
+                    color: isHovered ? hoverIconColor : iconColor,
+                    transition: "color 0.3s ease",
+                }}
             >
                 {renderIcon()}
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 
-    // Render as button if onClick is provided
+    // Render the appropriate element based on props
     if (onClick) {
         return (
             <button
                 onClick={onClick}
-                className="focus:outline-none"
+                className="focus:outline-none flex items-center justify-center"
                 aria-label={texts[0] || "Rotating button"}
             >
                 {buttonContent}
@@ -208,12 +189,11 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         );
     }
 
-    // Render as Link if href is provided
     if (href) {
         return (
             <Link
                 href={href}
-                className="focus:outline-none"
+                className="focus:outline-none flex items-center justify-center"
                 aria-label={texts[0] || "Rotating link button"}
             >
                 {buttonContent}
@@ -221,10 +201,9 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         );
     }
 
-    // Fallback to div if neither onClick nor href is provided
     return (
         <div
-            className="focus:outline-none"
+            className="focus:outline-none flex items-center justify-center"
             aria-label={texts[0] || "Rotating element"}
         >
             {buttonContent}

@@ -120,7 +120,7 @@ export default function ContactSection() {
     };
 
     return (
-        <Section title="CONTACT">
+        <Section sectionHeaderProps={{ title: "CONTACT" }} >
             <SocialItems socials={socials} />
 
             <div className="my-20 flex flex-col items-center">

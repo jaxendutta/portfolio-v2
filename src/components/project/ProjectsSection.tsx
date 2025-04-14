@@ -10,8 +10,9 @@ export default function ProjectsSection() {
     const projectIds = Object.keys(projectsData);
 
     return (
-        <Section title="PROJECTS">
+        <Section sectionHeaderProps={{ title: "PROJECTS" }}>
             <Divider index={0} />
+            <div className="h-64" />
             {/*<div className="my-20 flex flex-col items-center">
                 {projectIds.map((id, index) => (
                     <div key={id} className="w-full">

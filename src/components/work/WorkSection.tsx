@@ -210,7 +210,50 @@ const WorkItem = ({
     );
 };
 
-const WorkItems = () => {
+const ActionButton = ({
+    allExpanded,
+    toggleAll,
+}: {
+    allExpanded: boolean;
+    toggleAll: () => void;
+}) => {
+    return (
+        <RotatingButton
+            className="transition-all duration-300 ease-in-out z-100"
+            onClick={toggleAll}
+            texts={
+                allExpanded
+                    ? ["Collapse All", "Collapse All"]
+                    : ["Expand All", "Expand All", "Expand All"]
+            }
+            centerIcon={allExpanded ? RxCross2 : RxPlus}
+        />
+    );
+};
+
+const WorkItems = ({
+    expandedItems,
+    toggleItem,
+}: {
+    expandedItems: Record<string, boolean>;
+    toggleItem: (id: string) => void;
+}) => {
+    return (
+        <div className="flex flex-col w-full p-[5vw]">
+            {Object.entries(workData).map(([id, experience], index) => (
+                <WorkItem
+                    key={id}
+                    data={experience}
+                    index={index}
+                    isActive={!!expandedItems[id]}
+                    onToggle={() => toggleItem(id)}
+                />
+            ))}
+        </div>
+    );
+};
+
+export default function WorkSection() {
     const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
         {}
     );
@@ -240,37 +283,18 @@ const WorkItems = () => {
     };
 
     return (
-        <div className="flex flex-col w-full p-[5vw]">
-            <div className="w-5/6 flex justify-end">
-                <RotatingButton
-                    className="transition-all duration-300 ease-in-out"
-                    onClick={toggleAll}
-                    texts={
-                        allExpanded
-                            ? ["Collapse All", "Collapse All"]
-                            : ["Expand All", "Expand All", "Expand All"]
-                    }
-                    centerIcon={allExpanded ? RxCross2 : RxPlus}
-                />
-            </div>
-
-            {Object.entries(workData).map(([id, experience], index) => (
-                <WorkItem
-                    key={id}
-                    data={experience}
-                    index={index}
-                    isActive={!!expandedItems[id]}
-                    onToggle={() => toggleItem(id)}
-                />
-            ))}
-        </div>
-    );
-};
-
-export default function WorkSection() {
-    return (
-        <Section title="WORK">
-            <WorkItems />
+        <Section
+            sectionHeaderProps={{
+                title: "WORK",
+                actionButton: (
+                    <ActionButton
+                        allExpanded={allExpanded}
+                        toggleAll={toggleAll}
+                    />
+                ),
+            }}
+        >
+            <WorkItems expandedItems={expandedItems} toggleItem={toggleItem} />
         </Section>
     );
 }
