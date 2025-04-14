@@ -28,7 +28,7 @@ export default function Section({
             )}
         >
             <SectionHeader {...sectionHeaderProps} />
-            {children}
+            <div className="p-[5vw]">{children}</div>
         </section>
     );
 }

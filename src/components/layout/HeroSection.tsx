@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { PiGlobeSimpleThin } from "react-icons/pi";
 import { twMerge } from "tailwind-merge";
 import { display } from "@/styles/fonts";
+import { GiMaterialsScience } from "react-icons/gi";
 
 export default function HeroSection() {
     const { theme } = useTheme();
@@ -98,7 +99,7 @@ export default function HeroSection() {
                         texts={["PROJECTS", "WORK", "RÉSUMÉ"]}
                         delimiters={["✦"]}
                         href="#projects"
-                        centerIcon={PiGlobeSimpleThin}
+                        centerIcon={GiMaterialsScience}
                     />
                 </div>
             </div>

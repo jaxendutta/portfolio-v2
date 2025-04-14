@@ -8,7 +8,7 @@ import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
 import { COLORS } from "@/lib/theme";
 
-interface RotatingButtonProps {
+interface RotatingButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     texts: string[];
     delimiters?: string[];
     size?: number;

@@ -1,13 +1,27 @@
 // components/sections/ProjectsSection.tsx
 "use client";
 
-import Divider from "@/components/ui/Divider";
 import Section from "@/components/ui/Section";
+import RotatingButton from "@/components/ui/RotatingButton";
+import { GiStrongbox } from "react-icons/gi";
 
 export default function ProjectsSection() {
+    const ActionButton = () => (
+        <RotatingButton
+            className="transition-all duration-300 ease-in-out z-100"
+            onClick={() => window.location.href = "/projects"}
+            texts={["Click Here", "Access the Vault"]}
+            centerIcon={GiStrongbox}
+        />
+    );
+
     return (
-        <Section sectionHeaderProps={{ title: "PROJECTS" }}>
-            <Divider index={0} />
+        <Section
+            sectionHeaderProps={{
+                title: "PROJECTS",
+                actionButton: ActionButton(),
+            }}
+        >
             <div className="h-64" />
             {/*<div className="my-20 flex flex-col items-center">
                 {projectIds.map((id, index) => (

@@ -7,6 +7,7 @@ import parse from "html-react-parser";
 import { RxPlus } from "react-icons/rx";
 import { TbArrowLeftFromArc } from "react-icons/tb";
 import { workData } from "@/data/workData";
+import { code } from "@/styles/fonts";
 
 // Individual work item component with animations
 export const WorkItem = ({
@@ -22,7 +23,7 @@ export const WorkItem = ({
 }) => {
     return (
         <motion.div
-            className={`relative overflow-hidden flex flex-col justify-center font-code w-full border-b border-current`}
+            className={`relative overflow-hidden flex flex-col justify-center w-full border-b border-current ${code}`}
             initial={false}
             animate={{
                 height: isActive ? "auto" : "6rem",
@@ -47,11 +48,11 @@ export const WorkItem = ({
                 onClick={() => !isActive && onToggle()}
             >
                 <div className="flex items-center">
-                    <div className="text-4xl md:text-5xl mr-5 flex items-center">
+                    <div className="text-3xl md:text-4xl lg:text-5xl mr-5 flex items-center">
                         {(index + 1).toString().padStart(2, "0")}.
                     </div>
                     <div className="flex-grow flex flex-col justify-center pr-8">
-                        <div className="md:font-bold text-lg md:text-2xl">
+                        <div className="md:font-medium text-lg md:text-2xl">
                             {data.title}
                         </div>
                         <div className="text-sm md:text-xl flex flex-wrap items-center">
@@ -214,17 +215,13 @@ export const WorkItems = ({
     expandedItems: Record<string, boolean>;
     toggleItem: (id: string) => void;
 }) => {
-    return (
-        <div className="flex flex-col w-full p-[5vw]">
-            {Object.entries(workData).map(([id, experience], index) => (
-                <WorkItem
-                    key={id}
-                    data={experience}
-                    index={index}
-                    isActive={!!expandedItems[id]}
-                    onToggle={() => toggleItem(id)}
-                />
-            ))}
-        </div>
-    );
+    return Object.entries(workData).map(([id, experience], index) => (
+        <WorkItem
+            key={id}
+            data={experience}
+            index={index}
+            isActive={!!expandedItems[id]}
+            onToggle={() => toggleItem(id)}
+        />
+    ));
 };

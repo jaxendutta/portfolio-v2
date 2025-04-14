@@ -8,16 +8,7 @@ const config: Config = {
         "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
-        extend: {
-            fontFamily: {
-                heading: ["var(--font-major-mono)", "monospace"],
-                display: ["var(--font-major-mono)", "monospace"],
-                code: ["var(--font-fira-code)", "monospace"],
-                serif: ["var(--font-eb-garamond)", "serif"],
-                orbitron: ["var(--font-orbitron)", "sans-serif"],
-                system: ["system-ui", "-apple-system", "sans-serif"],
-            },
-        },
+        extend: {},
     },
     plugins: [],
 };

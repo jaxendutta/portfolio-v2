@@ -1,12 +1,11 @@
 // src/app/page.tsx
-import ContactSection from "@/components/sections/ContactSection";
-import HeroSection from "@/components/sections/HeroSection";
-import ProjectsSection from "@/components/project/ProjectsSection";
-import WorkSection from "@/components/work/WorkSection";
+import ContactSection from "@/components/sections/contact/ContactSection";
+import HeroSection from "@/components/layout/HeroSection";
+import ProjectsSection from "@/components/sections/project/ProjectsSection";
+import WorkSection from "@/components/sections/work/WorkSection";
 import ThemeSwitch from "@/components/ui/ThemeSwitch";
-import { Footer } from "@/components/sections/Footer";
-import Navbar from "@/components/navigation/Navbar";
-import { display } from "@/styles/fonts";
+import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
 
 export default function Home() {
     return (
@@ -20,14 +19,6 @@ export default function Home() {
                 <WorkSection />
                 <ContactSection />
 
-                {/* Add other sections here */}
-                <div className="w-full h-screen flex items-center justify-center text-center">
-                    <h2 className={`text-4xl ${display} text-[#F4F1EA]`}>
-                        More sections coming...
-                    </h2>
-                </div>
-
-                {/* Footer */}
                 <Footer />
             </main>
         </>

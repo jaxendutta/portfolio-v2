@@ -28,3 +28,32 @@ export const socials: Social[] = [
         url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/11mhUfmYKXO7jPN1rP6znr2B5zCl0hlrE0pKqAU2lKtU/export?format=pdf",
     },
 ];
+
+export type ContactFormField = {
+    name: string;
+    type: string;
+    required: boolean;
+};
+
+export const contactFormFields: ContactFormField[] = [
+    {
+        name: "name",
+        type: "text",
+        required: true,
+    },
+    {
+        name: "email",
+        type: "email",
+        required: true,
+    },
+    {
+        name: "linkedin",
+        type: "link",
+        required: false,
+    },
+    {
+        name: "message",
+        type: "textarea",
+        required: true,
+    },
+];

@@ -88,7 +88,7 @@ export const workData: WorkData = {
         ],
     },
     opentext2: {
-        title: "SOFTWARE DEVELOPER + TECHNICAL WRITER",
+        title: "SOFTWARE DEVELOPER + TECH WRITER",
         company: "OPENTEXT",
         url: "https://opentext.com",
         duration: {
