@@ -43,6 +43,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     centerBgColor = "transparent",
     hoverCenterBgColor = "transparent",
 }) => {
+    texts = texts.map((text) => text.toUpperCase());
     const containerRef = useRef<HTMLDivElement>(null);
     const [isHovered, setIsHovered] = useState(false);
     const [pathId] = useState(

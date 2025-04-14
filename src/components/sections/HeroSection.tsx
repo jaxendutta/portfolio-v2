@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { PiGlobeSimpleThin } from "react-icons/pi";
 import { twMerge } from "tailwind-merge";
+import { display } from "@/styles/fonts";
 
 export default function HeroSection() {
     const { theme } = useTheme();
@@ -73,17 +74,18 @@ export default function HeroSection() {
             </div>
 
             {/* Main intro content */}
-            <div className="absolute text-center top-[15vh] w-screen h-screen font-majorMono text-3xl md:text-5xl text-[#F4F1EA] flex flex-col justify-center items-center gap-[5vh]">
+            <div className="absolute text-center top-[15vh] w-screen h-screen text-3xl md:text-5xl text-[#F4F1EA] flex flex-col justify-center items-center gap-[5vh]">
                 <div className="hero-container">
                     <h1
                         className={twMerge(
-                            "text-6xl md:text-[6.5rem] italic pr-[0.1em] clip-text",
+                            display,
+                            "text-8xl md:text-[6.5rem] italic pr-[0.1em] clip-text",
                             theme === "dark"
                                 ? "bg-[url('https://i.gifer.com/ByRk.gif')] bg-cover bg-top"
                                 : "bg-[url('https://media.giphy.com/media/YAxpwobytgjWgmIbP9/giphy.gif')] bg-cover bg-top"
                         )}
                     >
-                        {`¿ JAXEN DUTTA ?`}
+                        <em>{`¿ JAXEN DUTTA ?`}</em>
                     </h1>
                 </div>
 

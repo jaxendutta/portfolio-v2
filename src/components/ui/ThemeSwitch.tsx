@@ -19,9 +19,13 @@ export default function ThemeSwitch() {
             }}
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
-            className="flex items-center justify-center fixed bottom-3 right-3 text-4xl opacity-75 cursor-pointer z-10 mixed-blend-difference"
+            className="flex items-center justify-center fixed bottom-3 right-3 text-4xl opacity-75 cursor-pointer z-10 text-secondary dark:text-secondary light:text-secondary-light mixed-blend-difference"
         >
-            {theme === "dark" ? <GiUbisoftSun /> : <SiIcomoon className="text-4xl p-0.5" />}
+            {theme === "dark" ? (
+                <GiUbisoftSun />
+            ) : (
+                <SiIcomoon className="text-4xl p-0.5" />
+            )}
         </motion.button>
     );
 }

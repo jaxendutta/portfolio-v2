@@ -1,20 +1,22 @@
 import type { Config } from "tailwindcss";
-import { THEME } from "@/lib/theme";
 
 const config: Config = {
+    darkMode: "class",
     content: [
-        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-        "./components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./app/**/*.{js,ts,jsx,tsx,mdx}",
-        "./lib/**/*.{js,ts}",
+        "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
-    darkMode: ["class", '[data-theme="dark"]'],
     theme: {
         extend: {
-            colors: THEME.colors,
-            fontFamily: THEME.fontFamily,
-            backgroundImage: THEME.backgroundImage,
-            transitionProperty: THEME.transitionProperty,
+            fontFamily: {
+                heading: ["var(--font-major-mono)", "monospace"],
+                display: ["var(--font-major-mono)", "monospace"],
+                code: ["var(--font-fira-code)", "monospace"],
+                serif: ["var(--font-eb-garamond)", "serif"],
+                orbitron: ["var(--font-orbitron)", "sans-serif"],
+                system: ["system-ui", "-apple-system", "sans-serif"],
+            },
         },
     },
     plugins: [],

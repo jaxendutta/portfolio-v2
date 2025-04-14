@@ -1,9 +1,10 @@
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import type { Metadata } from "next";
+import { majorMono, firaCode } from "@/styles/fonts";
 
 export const metadata: Metadata = {
-    title: "Anirban Dutta",
+    title: "Jaxen",
     description:
         "Personal portfolio website for Anirban (Jaxen) Dutta - UX/UI Engineer, HCI Researcher, Web Designer, App Developer",
 };
@@ -14,7 +15,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html
+            lang="en"
+            suppressHydrationWarning
+            className={`${majorMono.className} ${firaCode.className}`}
+        >
             <head>
                 <meta charSet="utf-8" />
                 <meta
@@ -23,7 +28,6 @@ export default function RootLayout({
                 />
                 <link rel="icon" href="/favicon.ico" sizes="any" />
                 <link rel="icon" href="/favicon.png" type="image/png" />
-                {/*<link rel="apple-touch-icon" href="/icon.png" />*/}
             </head>
             <body>
                 <ThemeProvider>{children}</ThemeProvider>

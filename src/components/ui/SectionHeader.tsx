@@ -1,8 +1,10 @@
+// src/components/ui/SectionHeader.tsx
 "use client";
 
 import React from "react";
 import Marquee from "react-fast-marquee";
 import { twMerge } from "tailwind-merge";
+import { heading } from "@/styles/fonts";
 
 export interface SectionHeaderProps {
     title: string;
@@ -22,11 +24,11 @@ export default function SectionHeader({
     actionButtonPosition = "2/3",
     className = "",
 }: SectionHeaderProps) {
-    const x = actionButtonPosition;
-
     return (
-        <div className={twMerge("relative flex items-center", className)}>
-            <div className="w-full font-heading text-6xl md:text-8xl lg:text-10xl">
+        <div className={twMerge("relative flex items-center mt-25 mb-15", className)}>
+            <div
+                className={`w-full text-6xl md:text-8xl lg:text-10xl ${heading}`}
+            >
                 {["right", "left"].map((direction, index) => (
                     <Marquee
                         key={index}
@@ -36,12 +38,8 @@ export default function SectionHeader({
                         autoFill={true}
                         gradient={false}
                         className={
-                            direction === "left" ? "-mt-[0.6em]" : "opacity-20"
+                            direction === "left" ? "-mt-[0.75em]" : "opacity-20"
                         }
-                        style={{
-                            fontSize: "inherit",
-                            fontFamily: "inherit",
-                        }}
                     >
                         <span className="px-[0.25em]">{`${title} ${symbol}`}</span>
                     </Marquee>
@@ -49,7 +47,7 @@ export default function SectionHeader({
             </div>
             {actionButton && (
                 <div
-                    className={`absolute left-${x} top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-[--background-color]`}
+                    className={`absolute top-1/2 left-${actionButtonPosition} -translate-y-1/2 z-10 p-2 rounded-full bg-theme`}
                 >
                     {actionButton}
                 </div>

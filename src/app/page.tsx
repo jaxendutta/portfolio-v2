@@ -6,6 +6,7 @@ import WorkSection from "@/components/work/WorkSection";
 import ThemeSwitch from "@/components/ui/ThemeSwitch";
 import { Footer } from "@/components/sections/Footer";
 import Navbar from "@/components/navigation/Navbar";
+import { display } from "@/styles/fonts";
 
 export default function Home() {
     return (
@@ -20,8 +21,8 @@ export default function Home() {
                 <ContactSection />
 
                 {/* Add other sections here */}
-                <div className="w-full h-screen flex items-center justify-center">
-                    <h2 className="text-4xl font-majorMono text-[#F4F1EA]">
+                <div className="w-full h-screen flex items-center justify-center text-center">
+                    <h2 className={`text-4xl ${display} text-[#F4F1EA]`}>
                         More sections coming...
                     </h2>
                 </div>

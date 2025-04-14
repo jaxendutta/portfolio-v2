@@ -23,7 +23,7 @@ export default function Section({
         <section
             id={sectionHeaderProps.title.toLowerCase()}
             className={twMerge(
-                "relative w-full font-heading text-[4rem] md:text-[6rem] lg:text-[10em]",
+                "relative w-full text-[4rem] md:text-[6rem] lg:text-[10em]",
                 className
             )}
         >
