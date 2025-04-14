@@ -61,6 +61,15 @@ export const ContactForm: React.FC = () => {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const handleReset = () => {
+        setFormData(emptyForm);
+        // remove focus from inputs
+        const inputs = document.querySelectorAll("input, textarea");
+        inputs.forEach((input) => {
+            (input as HTMLInputElement | HTMLTextAreaElement).blur();
+        });
+    };
+
     return (
         <div className="flex flex-col justify-center self-center">
             <form
@@ -95,7 +104,7 @@ export const ContactForm: React.FC = () => {
                         centerIcon={<GiFloorHatch />}
                         texts={["CLEAR", "RESET", "RESTART"]}
                         type="reset"
-                        onClick={() => setFormData(emptyForm)}
+                        onClick={handleReset}
                     />
                     <RotatingButton
                         className="w-full mt-4"

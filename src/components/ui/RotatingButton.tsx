@@ -8,7 +8,8 @@ import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
 import { COLORS } from "@/lib/theme";
 
-interface RotatingButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface RotatingButtonProps
+    extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     texts: string[];
     delimiters?: string[];
     size?: number;
@@ -74,7 +75,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         });
 
         // Calculate total text length to determine spacing
-        const circumference = 2 * Math.PI * (radius * 0.8);
+        const circumference = 2 * Math.PI * (radius * 0.7);
         const totalTextLength = segments.reduce(
             (acc, segment) => acc + segment.length,
             0

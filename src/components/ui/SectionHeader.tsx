@@ -2,22 +2,21 @@
 "use client";
 
 import React from "react";
-import Marquee from "react-fast-marquee";
 import { heading } from "@/styles/fonts";
 import { motion } from "framer-motion";
 import { FaPersonWalking } from "react-icons/fa6";
+import Marquee from "@/components/ui/Marquee";
 
 export interface SectionHeaderProps {
     title: string;
-    symbol?: string;
+    delimiter?: string;
     actionButton?: React.ReactNode;
-    repeat?: number;
     actionButtonPosition?: number; // Between 0 and 1
 }
 
 export default function SectionHeader({
     title,
-    symbol = "⚕♨✦❍",
+    delimiter = "⚕♨✦❍",
     actionButton,
     actionButtonPosition = 2 / 3,
 }: SectionHeaderProps) {
@@ -30,38 +29,43 @@ export default function SectionHeader({
         );
     }
 
-    return (
-        <div className="relative flex items-center w-full h-full mt-25 mb-10">
-            <div className={`text-6xl md:text-8xl lg:text-10xl ${heading}`}>
-                <Marquee
-                    key={0}
-                    direction={"right"}
-                    speed={50}
-                    loop={0}
-                    autoFill={true}
-                    gradient={false}
-                    className={"opacity-20 text-4xl"}
-                >
-                    <FaPersonWalking />
-                </Marquee>
-                {["left", "right"].map((direction, index) => (
-                    <Marquee
-                        key={index}
-                        direction={direction as "left" | "right"}
-                        speed={50}
-                        loop={0}
-                        autoFill={true}
-                        gradient={false}
-                        className={
-                            direction === "right"
-                                ? "-mt-[0.75em]"
-                                : "opacity-20"
-                        }
-                    >
-                        <span className="px-[0.25em]">{`${title} ${symbol}`}</span>
-                    </Marquee>
+    // Format the content with proper spacing
+    const iconContent = (
+        <div className="flex items-center">
+            {Array(8)
+                .fill(0)
+                .map((_, index) => (
+                    <FaPersonWalking key={index} className="mx-10 text-4xl" />
                 ))}
+        </div>
+    );
+
+    const textContent = (
+        <span className="flex px-4 gap-8 whitespace-nowrap">
+            <span>{title}</span>
+            <span>{delimiter}</span>
+        </span>
+    );
+
+    return (
+        <div className="relative mt-20 mb-10">
+            <div className={`text-6xl md:text-8xl lg:text-10xl ${heading}`}>
+                {/* Top marquee with walking icons */}
+                <Marquee direction="right" className="opacity-20">
+                    {iconContent}
+                </Marquee>
+
+                {/* Main title marquee */}
+                <Marquee direction="left" className="opacity-100">
+                    {textContent}
+                </Marquee>
+
+                {/* Bottom marquee (opposite direction) */}
+                <Marquee direction="right" className="-mt-10 opacity-20">
+                    {textContent}
+                </Marquee>
             </div>
+
             {actionButton && (
                 <motion.div
                     className="absolute top-1/2 -translate-y-1/2 z-10 p-2 rounded-full backdrop-blur-lg bg-opacity-60"

@@ -22,10 +22,11 @@ export default function ContactSection() {
                     <RotatingButton
                         className="transition-all duration-300 ease-in-out z-100"
                         onClick={() => toggleView()}
+                        size={140}
                         texts={
                             showSocialItems
-                                ? ["Click Here For", "Contact Form"]
-                                : ["Click for", "Socials", "Resume"]
+                                ? ["Click Here", "To Access", "Contact Form"]
+                                : ["Click for", "LinkedIn", "Resume", "GitHub"]
                         }
                         centerIcon={
                             showSocialItems ? GiQuillInk : GiLinkedRings

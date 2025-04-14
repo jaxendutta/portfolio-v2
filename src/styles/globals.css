@@ -137,3 +137,54 @@ body {
 .font-background {
     background-image: var(--font-background);
 }
+
+/* Marquee styling */
+.marquee-container {
+    display: flex;
+    overflow: hidden;
+}
+
+.marquee-content {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-around;
+    gap: var(--gap);
+    min-width: 100%;
+    animation: marquee var(--duration) linear infinite;
+}
+
+.reverse .marquee-content {
+    animation-direction: reverse;
+}
+
+.pause-on-hover:hover .marquee-content {
+    animation-play-state: paused;
+}
+
+.vertical {
+    flex-direction: column;
+    height: 300px;
+}
+
+.vertical .marquee-content {
+    flex-direction: column;
+    animation: marquee-vertical var(--duration) linear infinite;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-100% - var(--gap)));
+    }
+}
+
+@keyframes marquee-vertical {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc(-100% - var(--gap)));
+    }
+}
