@@ -4,15 +4,21 @@ import Link from "next/link";
 import { Social } from "@/data/contactData";
 import { BsArrowUpRight } from "react-icons/bs";
 
-export const SocialItem = ({ item, index }: { item: Social; index: number }) => {
+export const SocialItem = ({
+    item,
+    index,
+}: {
+    item: Social;
+    index: number;
+}) => {
     return (
         <Link
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`w-full p-4 font-mono text-[#F4F1EA] hover:bg-[darkblue]
+            className={`w-full p-4 font-mono hover:bg-[darkblue]
                 flex flex-row justify-between items-center group
-                border-b border-[#F4F1EA] hover:text-[palegreen]
+                border-b  color-highlight-text
                 transition-all duration-300 ease-in-out`}
         >
             <div className="flex items-center gap-4">
@@ -29,7 +35,7 @@ export const SocialItem = ({ item, index }: { item: Social; index: number }) => 
 
 export const SocialItems = ({ socials }: { socials: Social[] }) => {
     return (
-        <div className="w-full flex flex-col items-center justify-center self-center">
+        <div className="w-full flex flex-col items-center justify-center self-center hover:color-heighlight-text">
             {socials.map((social, index) => (
                 <SocialItem key={index} item={social} index={index} />
             ))}

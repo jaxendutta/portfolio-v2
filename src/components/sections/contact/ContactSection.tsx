@@ -22,11 +22,12 @@ export default function ContactSection() {
                     size: 140,
                     texts: showSocialItems
                         ? ["Click Here", "To Access", "Contact Form"]
-                        : ["Click for", "LinkedIn", "Resume", "GitHub"],
-                    centerIcon: showSocialItems ? GiQuillInk : GiLinkedRings
+                        : ["Click for", "LinkedIn", "RÉSUMÉ", "GitHub"],
+                    centerIcon: showSocialItems ? GiQuillInk : GiLinkedRings,
+                    className: "right-1/6",
                 }
             }}
-            className="text-3xl md:text-4xl"
+            className="text-3xl md:text-4xl lg:text-4xl"
         >
             {showSocialItems ? (
                 <SocialItems socials={socials} />

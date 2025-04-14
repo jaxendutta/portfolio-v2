@@ -10,9 +10,9 @@ import { COLORS } from "@/lib/theme";
 
 const variants = {
     default: "",
-    frost: "bg-white/10 backdrop-blur-lg blue-2xl shadow-3xl shadow-white-50 hover:shadow-white-500/30",
+    frost: "bg-white/10 backdrop-blur-lg shadow-3xl shadow-white-50 hover:shadow-white-500/30",
     raised: "shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-shadow duration-300",
-    glow: "shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:shadow-[0_0_20px_rgba(59,130,246,0.7)]",
+    glow: "shadow-[0px_0px_15px_15px_rgba(23,24,28,1)] hover:shadow-[0px_0px_45px_45px_rgba(23,24,28,1)]",
 };
 
 export interface RotatingButtonProps
@@ -190,20 +190,28 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     return (
         <div
             className={twMerge(
-                "relative inline-flex items-center justify-center rounded-full cursor-pointer",
+                "relative inline-flex items-center justify-center rounded-full cursor-pointer bg-theme",
                 variants[variant],
                 className
             )}
         >
-            {onClick || href ? (
+            {href ? (
                 <Link
-                    href={href || ""}
-                    onClick={onClick || undefined}
+                    href={href}
+                    onClick={onClick}
                     className="focus:outline-none flex items-center justify-center"
                     aria-label={texts[0] || "Rotating button"}
                 >
                     {buttonContent}
                 </Link>
+            ) : onClick ? (
+                <button
+                    onClick={onClick}
+                    className="focus:outline-none flex items-center justify-center"
+                    aria-label={texts[0] || "Rotating button"}
+                >
+                    {buttonContent}
+                </button>
             ) : (
                 <div
                     className="focus:outline-none flex items-center justify-center"

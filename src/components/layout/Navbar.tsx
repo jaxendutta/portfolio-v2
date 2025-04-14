@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { GlassMorphism } from "@/components/ui/GlassMorphism";
+import { twMerge } from "tailwind-merge";
 
 // Define nav link type with proper typing
 type NavLinkType = {
@@ -23,15 +24,22 @@ const navLinks: NavLinkType[] = [
 ];
 
 // NavLink component with proper hover effects
-function NavLink(link: NavLinkType) {
+interface NavLinkProps extends NavLinkType {
+    className?: string;
+}
+
+function NavLink({ name, href, className = "" }: NavLinkProps) {
     // Hover state for custom effects that can't be done with Tailwind alone
     const [isHovered, setIsHovered] = useState(false);
 
     return (
         <Link
-            href={link.href}
-            className={`flex items-center gap-1 relative transition-colors duration-200
-                mix-blend-difference text-black font-heading text-md md:text-lg lg:text-xl`}
+            href={href}
+            className={twMerge(
+                `flex items-center gap-1 relative transition-colors duration-200
+               font-heading font-medium text-md md:text-lg lg:text-xl`,
+                className
+            )}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -41,7 +49,7 @@ function NavLink(link: NavLinkType) {
             </span>
 
             {/* Link text */}
-            {link.name}
+            {name}
 
             {/* Underline indicator ONLY for hover state, not active state */}
             <motion.div
@@ -145,32 +153,40 @@ export default function Navbar() {
     }, [showGlassEffect]); // Add dependency to ensure correct comparison
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-3 transition-all duration-300 ease-in-out">
+        <nav className="fixed top-0 left-0 right-0 z-50 p-4 transition-all duration-300 ease-in-out">
             {showGlassEffect ? (
                 <GlassMorphism>
+                    {[leftLinks, rightLinks].map((links, index) => (
+                        <div
+                            key={index}
+                            className="flex justify-between items-center gap-6 mix-blend-normal text-white"
+                        >
+                            {links.map((link) => (
+                                <NavLink
+                                    key={link.name}
+                                    className="text-white"
+                                    {...link}
+                                />
+                            ))}
+                        </div>
+                    ))}
+                </GlassMorphism>
+            ) : (
+                <div className="flex justify-between items-center ">
                     {[leftLinks, rightLinks].map((links, index) => (
                         <div
                             key={index}
                             className="flex justify-between items-center gap-6"
                         >
                             {links.map((link) => (
-                                <NavLink key={link.name} {...link} />
+                                <NavLink
+                                    key={link.name}
+                                    className="bmix-blend-difference"
+                                    {...link}
+                                />
                             ))}
                         </div>
                     ))}
-                </GlassMorphism>
-            ) : (
-                <div className="flex justify-between items-center p-3">
-                    <div className="flex gap-6">
-                        {leftLinks.map((link) => (
-                            <NavLink key={link.name} {...link} />
-                        ))}
-                    </div>
-                    <div className="flex gap-6">
-                        {rightLinks.map((link) => (
-                            <NavLink key={link.name} {...link} />
-                        ))}
-                    </div>
                 </div>
             )}
         </nav>

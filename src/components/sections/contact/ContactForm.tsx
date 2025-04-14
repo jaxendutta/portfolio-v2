@@ -96,9 +96,8 @@ export const ContactForm: React.FC = () => {
                     );
                 })}
 
-                <div className="flex justify-between gap-4 px-8 md:px-16 py-4">
+                <div className="flex justify-between gap-4 px-8 md:px-16 py-8">
                     <RotatingButton
-                        className="w-full mt-4"
                         size={100}
                         rotationDuration={10}
                         centerIcon={<GiFloorHatch />}
@@ -107,7 +106,6 @@ export const ContactForm: React.FC = () => {
                         onClick={handleReset}
                     />
                     <RotatingButton
-                        className="w-full mt-4"
                         size={100}
                         rotationDuration={10}
                         centerIcon={<GiHandTruck />}

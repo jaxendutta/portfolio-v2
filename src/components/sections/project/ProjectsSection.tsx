@@ -13,6 +13,7 @@ export default function ProjectsSection() {
                     onClick: () => (window.location.href = "/projects"),
                     texts: ["Click Here", "Access the Vault"],
                     centerIcon: GiStrongbox,
+                    className: "right-5/8"
                 },
             }}
         >

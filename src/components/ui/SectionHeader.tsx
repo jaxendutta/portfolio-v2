@@ -2,6 +2,7 @@
 "use client";
 
 import React from "react";
+import { twMerge } from "tailwind-merge";
 import { heading } from "@/styles/fonts";
 import { FaPersonWalking } from "react-icons/fa6";
 import Marquee from "@/components/ui/Marquee";
@@ -20,17 +21,7 @@ export default function SectionHeader({
     title,
     delimiter = "⚕♨✦❍",
     buttonProps: actionButton,
-    buttonPosition = 2 / 3,
 }: SectionHeaderProps) {
-    if (
-        buttonPosition !== undefined &&
-        (buttonPosition < 0 || buttonPosition > 1)
-    ) {
-        throw new Error(
-            "actionButtonPosition must be between 0 and 1! Pass the position as a fraction of the width, e.g. 2/3 for 66.67%."
-        );
-    }
-
     // Format the content with proper spacing
     const iconContent = (
         <div className="flex items-center">
@@ -52,30 +43,32 @@ export default function SectionHeader({
     return (
         <div className="relative mt-20 mb-10">
             <div className={`text-6xl md:text-8xl lg:text-10xl ${heading}`}>
-                {/* Top marquee with walking icons */}
-                <Marquee direction="right" className="opacity-20">
-                    {iconContent}
-                </Marquee>
+            {/* Top marquee with walking icons */}
+            <Marquee direction="right" className="opacity-20">
+                {iconContent}
+            </Marquee>
 
-                {/* Main title marquee */}
-                <Marquee direction="left" className="opacity-100">
-                    {textContent}
-                </Marquee>
+            {/* Main title marquee */}
+            <Marquee direction="left" className="-mt-[0.2em] opacity-100">
+                {textContent}
+            </Marquee>
 
-                {/* Bottom marquee (opposite direction) */}
-                <Marquee direction="right" className="-mt-10 opacity-20">
-                    {textContent}
-                </Marquee>
+            {/* Bottom marquee (opposite direction) */}
+            <Marquee direction="right" className="-mt-[0.7em] opacity-20">
+                {textContent}
+            </Marquee>
             </div>
 
-            {actionButton && (
+            {actionButton && (() => {
+            const { className, ...restButtonProps } = actionButton;
+            return (
                 <RotatingButton
-                    className={`transition-all duration-300 ease-in-out absolute z-100 top-1/2 p-2
-                 -translate-y-1/2 left-[${(buttonPosition * 100).toFixed(2)}%]`}
-                    variant="frost"
-                    {...actionButton}
+                className={twMerge(className, `transition-all duration-300 ease-in-out font-medium absolute top-1/2 md:p-2 -translate-y-1/2`)}
+                {...restButtonProps}
+                variant={"glow"}
                 />
-            )}
+            );
+            })()}
         </div>
     );
 }
