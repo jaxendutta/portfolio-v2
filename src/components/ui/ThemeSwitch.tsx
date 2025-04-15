@@ -1,8 +1,9 @@
 // src/components/ui/ThemeSwitch.tsx
 "use client";
 
+import { motion, AnimatePresence } from "framer-motion";
+import { twMerge } from "tailwind-merge";
 import { useTheme } from "@/components/ThemeProvider";
-import { motion } from "framer-motion";
 import { GiUbisoftSun } from "react-icons/gi";
 import { SiIcomoon } from "react-icons/si";
 
@@ -11,21 +12,27 @@ export default function ThemeSwitch() {
 
     return (
         <motion.button
-            animate={{ rotate: 360 }}
-            transition={{
-                duration: 75,
-                repeat: Infinity,
-                ease: "linear",
-            }}
             onClick={toggleTheme}
-            aria-label={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
-            className="flex items-center justify-center fixed bottom-3 right-3 text-4xl opacity-75 cursor-pointer z-10 text-secondary dark:text-secondary light:text-secondary-light mixed-blend-difference"
-        >
-            {theme === "dark" ? (
-                <GiUbisoftSun />
-            ) : (
-                <SiIcomoon className="text-4xl p-0.5" />
+            aria-label={`Switch to ${theme} mode`}
+            className={twMerge(
+                "flex items-center justify-center fixed bottom-3 right-3 text-4xl cursor-pointer z-10 mixed-blend-difference",
+                theme === "dark" ? "opacity-75" : ""
             )}
+        >
+            <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                    key={theme}
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1 }}
+                >
+                    {theme === "dark" ? (
+                        <GiUbisoftSun />
+                    ) : (
+                        <SiIcomoon className="p-0.5" />
+                    )}
+                </motion.div>
+            </AnimatePresence>
         </motion.button>
     );
 }

@@ -27,7 +27,7 @@ export default function ContactSection() {
                     className: "right-1/6",
                 }
             }}
-            className="text-3xl md:text-4xl lg:text-4xl"
+            className="text-3xl md:text-4xl lg:text-4xl theme-bg theme-text"
         >
             {showSocialItems ? (
                 <SocialItems socials={socials} />

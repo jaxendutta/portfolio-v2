@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { motion } from "framer-motion";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { contactFormFields } from "@/data/contactData";
 import { GiFloorHatch, GiHandTruck } from "react-icons/gi";
@@ -11,37 +12,46 @@ export const Input: React.FC<
         type?: string;
     }
 > = ({ name, type, required, placeholder, value, onChange, ...rest }) => {
-    return type === "textarea" ? (
-        <textarea
-            name={name}
-            required={required}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
+    return (
+        <motion.div
             className={twMerge(
-                `w-full p-4 border-t border-t-[#F4F1EA] text-[#F4F1EA]
-                hover:bg-[darkblue] hover:text-[palegreen] focus:bg-[darkblue] focus:text-[palegreen]
-                transition-all duration-300 ease-in-out h-32 border-b border-b-[#F4F1EA]`
+                "flex p-4 border-t border-theme-text focus:outline-none",
+                type === "textarea" ? "border-b" : ""
             )}
-            cols={50}
-            rows={20}
-            {...rest}
-        />
-    ) : (
-        <input
-            name={name}
-            type={type}
-            required={required}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            className={twMerge(
-                `w-full p-4 border-t border-t-[#F4F1EA] text-[#F4F1EA]
-                hover:bg-[darkblue] hover:text-[palegreen] focus:bg-[darkblue] focus:text-[palegreen]
-                transition-all duration-300 ease-in-out h-16`
+            whileHover={{
+                background: "var(--color-highlight-bg)",
+                color: "var(--color-highlight-text)",
+            }}
+            whileFocus={{
+                background: "var(--color-highlight-bg)",
+                color: "var(--color-highlight-text)",
+            }}
+        >
+            {type === "textarea" ? (
+                <textarea
+                    name={name}
+                    required={required}
+                    placeholder={placeholder}
+                    value={value}
+                    className="flex-grow focus:outline-none"
+                    onChange={onChange}
+                    cols={50}
+                    rows={10}
+                    {...rest}
+                />
+            ) : (
+                <input
+                    name={name}
+                    type={type}
+                    required={required}
+                    placeholder={placeholder}
+                    value={value}
+                    className="flex-grow focus:outline-none"
+                    onChange={onChange}
+                    {...rest}
+                />
             )}
-            {...rest}
-        />
+        </motion.div>
     );
 };
 

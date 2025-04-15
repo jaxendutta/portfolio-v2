@@ -159,12 +159,11 @@ export default function Navbar() {
                     {[leftLinks, rightLinks].map((links, index) => (
                         <div
                             key={index}
-                            className="flex justify-between items-center gap-6 mix-blend-normal text-white"
+                            className="flex justify-between items-center gap-6"
                         >
                             {links.map((link) => (
                                 <NavLink
                                     key={link.name}
-                                    className="text-white"
                                     {...link}
                                 />
                             ))}

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { Social } from "@/data/contactData";
 import { BsArrowUpRight } from "react-icons/bs";
+import { motion } from "framer-motion";
+import { code } from "@/styles/fonts";
 
 export const SocialItem = ({
     item,
@@ -12,24 +14,31 @@ export const SocialItem = ({
     index: number;
 }) => {
     return (
-        <Link
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`w-full p-4 font-mono hover:bg-[darkblue]
-                flex flex-row justify-between items-center group
-                border-b  color-highlight-text
-                transition-all duration-300 ease-in-out`}
+        <motion.div
+            className="w-full"
+            whileHover={{
+                background: "var(--color-highlight-bg)",
+                color: "var(--color-highlight-text)",
+            }}
         >
-            <div className="flex items-center gap-4">
-                <span>{`${(index + 1).toString().padStart(2, "0")}.`}</span>
-                <span>{item.platform}</span>
-            </div>
-            <div className="flex items-center gap-4 text-2xl opacity-60">
-                <span className="hidden md:flex">{item.handle}</span>
-                <BsArrowUpRight />
-            </div>
-        </Link>
+            <Link
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full p-4 ${code}
+                flex flex-row justify-between items-center group
+                border-b transition-all duration-300 ease-in-out`}
+            >
+                <div className="flex items-center gap-4">
+                    <span>{`${(index + 1).toString().padStart(2, "0")}.`}</span>
+                    <span>{item.platform}</span>
+                </div>
+                <div className="flex items-center gap-4 text-2xl opacity-60">
+                    <span className="hidden md:flex">{item.handle}</span>
+                    <BsArrowUpRight />
+                </div>
+            </Link>
+        </motion.div>
     );
 };
 

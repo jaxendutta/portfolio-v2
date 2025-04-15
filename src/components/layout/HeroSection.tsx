@@ -57,7 +57,9 @@ export default function HeroSection() {
             </div>
 
             {/* Globe & Time Display */}
-            <div className="flex flex-row items-center justify-center fixed bottom-2.5 left-2.5 gap-2 text-[#F4F1EA] opacity-40 mix-blend-difference">
+            <div className={twMerge(`flex flex-row items-center justify-center gap-2`,
+                `fixed bottom-2.5 left-2.5 theme-text`,
+                theme === "light" ? "font-semibold opacity-70" : "opacity-40")}>
                 <motion.div
                     animate={{ rotate: 360 }}
                     transition={{
