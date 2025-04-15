@@ -6,13 +6,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
-import { COLORS } from "@/lib/theme";
 
 const variants = {
     default: "",
-    frost: "bg-white/10 backdrop-blur-lg shadow-3xl shadow-white-50 hover:shadow-white-500/30",
-    raised: "shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-shadow duration-300",
-    glow: "shadow-[0px_0px_15px_15px_rgba(23,24,28,1)] hover:shadow-[0px_0px_45px_45px_rgba(23,24,28,1)]",
+    frost: "bg-theme/10 backdrop-blur-lg shadow-3xl shadow-theme/50 hover:shadow-theme/30",
+    raised: "shadow-lg shadow-theme/20 hover:shadow-theme/30 transition-shadow duration-300",
+    glow: "shadow-[0px_0px_15px_15px_var(--color-bg)] hover:shadow-[0px_0px_45px_45px_var(--color-bg)]",
 };
 
 export interface RotatingButtonProps
@@ -27,10 +26,6 @@ export interface RotatingButtonProps
     className?: string;
     rotationDuration?: number;
     fontSize?: number;
-    textColor?: string;
-    hoverTextColor?: string;
-    iconColor?: string;
-    hoverIconColor?: string;
     centerBgColor?: string;
     hoverCenterBgColor?: string;
 }
@@ -46,10 +41,6 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     className = "",
     rotationDuration = 10,
     fontSize = 14,
-    textColor = "currentColor",
-    hoverTextColor = COLORS.DARK.ACCENT,
-    iconColor = "currentColor",
-    hoverIconColor = COLORS.DARK.ACCENT,
     centerBgColor = "transparent",
     hoverCenterBgColor = "transparent",
 }) => {
@@ -109,7 +100,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 <text
                     key={index}
                     fontSize={fontSize}
-                    fill={isHovered ? hoverTextColor : textColor}
+                    fill={isHovered ? `text-accent` : `text-theme`}
                     className="transition-all duration-300 ease-in-out"
                 >
                     <textPath
@@ -177,7 +168,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                     backgroundColor: isHovered
                         ? hoverCenterBgColor
                         : centerBgColor,
-                    color: isHovered ? hoverIconColor : iconColor,
+                    color: isHovered ? `text-accent` : `text-theme`,
                     transition: "color 0.3s ease",
                 }}
             >
@@ -206,6 +197,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 </Link>
             ) : onClick ? (
                 <button
+                    type="button"
                     onClick={onClick}
                     className="focus:outline-none flex items-center justify-center"
                     aria-label={texts[0] || "Rotating button"}

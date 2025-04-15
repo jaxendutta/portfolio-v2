@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { GlassMorphism } from "@/components/ui/GlassMorphism";
 import { twMerge } from "tailwind-merge";
 
 // Define nav link type with proper typing
@@ -53,7 +52,7 @@ function NavLink({ name, href, className = "" }: NavLinkProps) {
 
             {/* Underline indicator ONLY for hover state, not active state */}
             <motion.div
-                className="absolute bottom-0 left-0 h-0.5 bg-[#D7482F]"
+                className="absolute bottom-0 left-0 h-0.5 bg-accent"
                 initial={{ width: "0%" }}
                 animate={{ width: isHovered ? "100%" : "0%" }}
                 transition={{ duration: 0.2 }}
@@ -64,6 +63,7 @@ function NavLink({ name, href, className = "" }: NavLinkProps) {
 
 export default function Navbar() {
     const pathname = usePathname();
+    const [showGlassEffect, setShowGlassEffect] = useState(false);
 
     // Track scroll position to highlight active section
     useEffect(() => {
@@ -89,73 +89,57 @@ export default function Navbar() {
         };
 
         window.addEventListener("scroll", handleScroll, { passive: true });
-        handleScroll(); // Check immediately
+        handleScroll();
 
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [pathname]); // Re-run when page changes
-
-    // Split links for layout
-    const linkLength = navLinks.length / 2;
-    const leftLinks = navLinks.slice(0, linkLength);
-    const rightLinks = navLinks.slice(linkLength);
+    }, [pathname]);
 
     // Track whether user has scrolled past hero section
-    const [showGlassEffect, setShowGlassEffect] = useState(false);
-
     useEffect(() => {
         const handleScroll = () => {
-            // Get the hero section - try both by ID and by looking for a main element
             const heroSection =
                 document.getElementById("main") ||
                 document.querySelector("main") ||
                 document.querySelector("section:first-of-type");
 
             if (heroSection) {
-                // Calculate when we've scrolled past ~10% of the hero section
                 const scrollThreshold = heroSection.offsetHeight * 0.1;
+                const shouldShowGlass = window.scrollY > scrollThreshold;
 
-                // Also check if we're near the top of the page (within 5vh)
-                const topThreshold = window.innerHeight * 0.05;
-
-                // Show glass when we're past hero AND not at the top of the page
-                const shouldShowGlass =
-                    window.scrollY > scrollThreshold &&
-                    window.scrollY > topThreshold;
-
-                // Update state only if changed
-                if (showGlassEffect !== shouldShowGlass) {
-                    console.log(
-                        "Updating glass effect:",
-                        shouldShowGlass,
-                        "at scrollY:",
-                        window.scrollY
-                    );
-                    setShowGlassEffect(shouldShowGlass);
-                }
-            } else {
-                console.log("Hero section not found, waiting for DOM to load");
-                // Default to showing navbar without glass effect if section not found
-                setShowGlassEffect(false);
+                setShowGlassEffect(shouldShowGlass);
             }
         };
 
-        // Add a small delay for initial check to ensure DOM is loaded
-        const initialCheckTimer = setTimeout(handleScroll, 100);
-
         window.addEventListener("scroll", handleScroll, { passive: true });
-        window.addEventListener("resize", handleScroll, { passive: true });
+        handleScroll(); // Initial check
 
-        return () => {
-            clearTimeout(initialCheckTimer);
-            window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("resize", handleScroll);
-        };
-    }, [showGlassEffect]); // Add dependency to ensure correct comparison
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    // Split links for layout
+    const linkLength = navLinks.length / 2;
+    const leftLinks = navLinks.slice(0, linkLength);
+    const rightLinks = navLinks.slice(linkLength);
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 p-4 transition-all duration-300 ease-in-out">
-            {showGlassEffect ? (
-                <GlassMorphism>
+        <motion.nav
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="fixed top-0 left-0 right-0 z-10 p-4"
+        >
+            <motion.div
+                initial="transparent"
+                animate={showGlassEffect ? "glass" : "transparent"}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className={twMerge(
+                    "rounded-full p-4",
+                    showGlassEffect
+                        ? "backdrop-blur-md bg-white/10 border border-white/20 shadow-lg"
+                        : ""
+                )}
+            >
+                <div className="flex justify-between items-center">
                     {[leftLinks, rightLinks].map((links, index) => (
                         <div
                             key={index}
@@ -164,30 +148,18 @@ export default function Navbar() {
                             {links.map((link) => (
                                 <NavLink
                                     key={link.name}
-                                    {...link}
-                                />
-                            ))}
-                        </div>
-                    ))}
-                </GlassMorphism>
-            ) : (
-                <div className="flex justify-between items-center ">
-                    {[leftLinks, rightLinks].map((links, index) => (
-                        <div
-                            key={index}
-                            className="flex justify-between items-center gap-6"
-                        >
-                            {links.map((link) => (
-                                <NavLink
-                                    key={link.name}
-                                    className="bmix-blend-difference"
+                                    className={
+                                        !showGlassEffect
+                                            ? "mix-blend-difference"
+                                            : "mix-blend-normal"
+                                    }
                                     {...link}
                                 />
                             ))}
                         </div>
                     ))}
                 </div>
-            )}
-        </nav>
+            </motion.div>
+        </motion.nav>
     );
 }

@@ -2,11 +2,11 @@
 
 @theme {
     /* Dark theme colors */
-    --color-bg: #17181c;
-    --color-text: #f4f1ea;
-    --color-accent: #d7482f;
-    --color-highlight-bg: darkblue;
-    --color-highlight-text: palegreen;
+    --color-bg: rgb(23 24 28);
+    --color-text: rgb(244 241 234);
+    --color-accent: rgb(215 72 47);
+    --color-highlight-bg: rgb(0 0 139);
+    --color-highlight-text: rgb(152 251 152);
 
     --font-background: url("https://i.gifer.com/ByRk.gif");
     --svg-filter: invert(100%);
@@ -15,11 +15,11 @@
 
 .light {
     /* Light theme colors */
-    --color-bg: #f4f1ea;
-    --color-text: #001ecb;
-    --color-accent: #28b7d0;
-    --color-highlight-bg: lightblue;
-    --color-highlight-text: darkgreen;
+    --color-bg: rgb(244 241 234);
+    --color-text: rgb(0 30 203);
+    --color-accent: rgb(40 183 208);
+    --color-highlight-bg: rgb(173 216 230);
+    --color-highlight-text: rgb(0 100 0);
 
     --font-background: url("https://media.giphy.com/media/YAxpwobytgjWgmIbP9/giphy.gif");
     --svg-filter: none;
@@ -136,6 +136,16 @@ body {
 
 .font-background {
     background-image: var(--font-background);
+}
+
+/* Link styling */
+.a {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    :hover {
+        color: var(--color-accent);
+    }
 }
 
 /* Marquee styling */

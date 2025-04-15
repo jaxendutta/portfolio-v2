@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Social } from "@/data/contactData";
-import { BsArrowUpRight } from "react-icons/bs";
 import { motion } from "framer-motion";
+import { twMerge } from "tailwind-merge";
+import { BsArrowUpRight } from "react-icons/bs";
 import { code } from "@/styles/fonts";
+import { useTheme } from "@/components/ThemeProvider";
+import { Social } from "@/data/contactData";
 
 export const SocialItem = ({
     item,
@@ -13,6 +15,7 @@ export const SocialItem = ({
     item: Social;
     index: number;
 }) => {
+    const { theme } = useTheme();
     return (
         <motion.div
             className="w-full"
@@ -33,7 +36,12 @@ export const SocialItem = ({
                     <span>{`${(index + 1).toString().padStart(2, "0")}.`}</span>
                     <span>{item.platform}</span>
                 </div>
-                <div className="flex items-center gap-4 text-2xl opacity-60">
+                <div
+                    className={twMerge(
+                        "flex items-center gap-4 text-2xl",
+                        theme === "dark" ? "opacity-60" : ""
+                    )}
+                >
                     <span className="hidden md:flex">{item.handle}</span>
                     <BsArrowUpRight />
                 </div>
