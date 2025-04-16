@@ -6,20 +6,40 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
+import { COLORS } from "@/lib/theme";
+import { useTheme } from "@/components/ThemeProvider";
 
-const variants = {
-    default: "",
-    frost: "bg-theme/10 backdrop-blur-lg shadow-3xl shadow-theme/50 hover:shadow-theme/30",
-    raised: "shadow-lg shadow-theme/20 hover:shadow-theme/30 transition-shadow duration-300",
-    glow: "shadow-[0px_0px_15px_15px_var(--color-bg)] hover:shadow-[0px_0px_45px_45px_var(--color-bg)]",
-};
+const variants = (centerBgColor: string) => ({
+    default: {},
+    frost: {
+        backgroundColor: `${centerBgColor}, 0.1)`,
+        backdropFilter: "blur(10px)",
+        boxShadow: `0 4px 6px ${centerBgColor}, 0.5)`,
+        ":hover": {
+            boxShadow: "0 4px 6px rgba(var(--theme-color), 0.3)",
+        },
+    },
+    raised: {
+        boxShadow: `0 4px 6px ${centerBgColor}, 0.2)`,
+        transition: "box-shadow 0.3s ease",
+        ":hover": {
+            boxShadow: `0 4px 6px ${centerBgColor}, 0.3)`,
+        },
+    },
+    glow: {
+        boxShadow: `0 0 15px 15px ${centerBgColor}`,
+        ":hover": {
+            boxShadow: `0 0 45px 45px ${centerBgColor}`,
+        },
+    },
+});
 
 export interface RotatingButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     texts: string[];
     delimiters?: string[];
     size?: number;
-    variant?: keyof typeof variants;
+    variant?: keyof ReturnType<typeof variants>;
     href?: string;
     onClick?: () => void;
     centerIcon?: ReactNode | IconType;
@@ -42,8 +62,10 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     rotationDuration = 10,
     fontSize = 14,
     centerBgColor = "transparent",
-    hoverCenterBgColor = "transparent",
+    hoverCenterBgColor = centerBgColor,
 }) => {
+    const { theme } = useTheme();
+
     texts = texts.map((text) => text.toUpperCase());
     const containerRef = useRef<HTMLDivElement>(null);
     const [isHovered, setIsHovered] = useState(false);
@@ -100,7 +122,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 <text
                     key={index}
                     fontSize={fontSize}
-                    fill={isHovered ? `text-accent` : `text-theme`}
+                    fill={isHovered ? COLORS.ACCENT[theme] : COLORS.TEXT[theme]}
                     className="transition-all duration-300 ease-in-out"
                 >
                     <textPath
@@ -165,10 +187,9 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                     height: innerRadius * 2,
                     top: radius - innerRadius,
                     left: radius - innerRadius,
-                    backgroundColor: isHovered
-                        ? hoverCenterBgColor
-                        : centerBgColor,
-                    color: isHovered ? `text-accent` : `text-theme`,
+                    color: isHovered
+                        ? COLORS.ACCENT[theme]
+                        : COLORS.TEXT[theme],
                     transition: "color 0.3s ease",
                 }}
             >
@@ -179,12 +200,15 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
 
     // Render the appropriate element based on props
     return (
-        <div
+        <motion.div
             className={twMerge(
-                "relative inline-flex items-center justify-center rounded-full cursor-pointer bg-theme",
-                variants[variant],
+                "relative inline-flex items-center justify-center rounded-full cursor-pointer",
                 className
             )}
+            style={{
+                backgroundColor: isHovered ? hoverCenterBgColor : centerBgColor,
+                ...variants(centerBgColor)[variant],
+            }}
         >
             {href ? (
                 <Link
@@ -212,7 +236,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                     {buttonContent}
                 </div>
             )}
-        </div>
+        </motion.div>
     );
 };
 

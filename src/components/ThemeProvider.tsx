@@ -3,7 +3,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "dark" | "light";
+type Theme = "DARK" | "LIGHT";
 
 interface ThemeContextType {
     theme: Theme;
@@ -13,7 +13,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setTheme] = useState<Theme>("dark");
+    const [theme, setTheme] = useState<Theme>("DARK");
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         ).matches;
 
         const initialTheme =
-            localStorageTheme ?? (systemSettingDark ? "dark" : "light");
+            localStorageTheme ?? (systemSettingDark ? "DARK" : "LIGHT");
         setTheme(initialTheme);
         setMounted(true);
 
@@ -32,7 +32,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
         const handleChange = (e: MediaQueryListEvent) => {
             if (!localStorage.getItem("theme")) {
-                const newTheme = e.matches ? "dark" : "light";
+                const newTheme = e.matches ? "DARK" : "LIGHT";
                 setTheme(newTheme);
             }
         };
@@ -48,17 +48,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         if (!mounted) return;
 
         // Toggle the dark/light classes for Tailwind
-        if (theme === "dark") {
-            document.documentElement.classList.add("dark");
-            document.documentElement.classList.remove("light");
+        if (theme === "DARK") {
+            document.documentElement.classList.add("DARK");
+            document.documentElement.classList.remove("LIGHT");
         } else {
-            document.documentElement.classList.remove("dark");
-            document.documentElement.classList.add("light");
+            document.documentElement.classList.remove("DARK");
+            document.documentElement.classList.add("LIGHT");
         }
     }, [theme, mounted]);
 
     const toggleTheme = () => {
-        const newTheme = theme === "dark" ? "light" : "dark";
+        const newTheme = theme === "DARK" ? "LIGHT" : "DARK";
         setTheme(newTheme);
         localStorage.setItem("theme", newTheme);
     };

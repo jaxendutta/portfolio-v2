@@ -16,7 +16,7 @@ export default function ThemeSwitch() {
             aria-label={`Switch to ${theme} mode`}
             className={twMerge(
                 "flex items-center justify-center fixed bottom-3 right-3 text-4xl cursor-pointer z-10 mixed-blend-difference",
-                theme === "dark" ? "opacity-75" : ""
+                theme === "DARK" ? "opacity-75" : ""
             )}
         >
             <AnimatePresence mode="wait" initial={false}>
@@ -26,7 +26,7 @@ export default function ThemeSwitch() {
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1 }}
                 >
-                    {theme === "dark" ? (
+                    {theme === "DARK" ? (
                         <GiUbisoftSun />
                     ) : (
                         <SiIcomoon className="p-0.5" />

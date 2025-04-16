@@ -3,12 +3,14 @@
 
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import { heading } from "@/styles/fonts";
+import { headingFont } from "@/styles/fonts";
 import { FaPersonWalking } from "react-icons/fa6";
 import Marquee from "@/components/ui/Marquee";
 import RotatingButton, {
     RotatingButtonProps,
 } from "@/components/ui/RotatingButton";
+import { useTheme } from "@/components/ThemeProvider";
+import { COLORS } from "@/lib/theme";
 
 export interface SectionHeaderProps {
     title: string;
@@ -22,6 +24,8 @@ export default function SectionHeader({
     delimiter = "⚕♨✦❍",
     buttonProps: actionButton,
 }: SectionHeaderProps) {
+    const { theme } = useTheme();
+    
     // Format the content with proper spacing
     const iconContent = (
         <div className="flex items-center">
@@ -42,7 +46,7 @@ export default function SectionHeader({
 
     return (
         <div className="relative mt-20 mb-10">
-            <div className={`text-6xl md:text-8xl lg:text-10xl ${heading}`}>
+            <div className={`text-6xl md:text-8xl lg:text-10xl ${headingFont}`}>
             {/* Top marquee with walking icons */}
             <Marquee direction="right" className="opacity-20">
                 {iconContent}
@@ -63,6 +67,7 @@ export default function SectionHeader({
             const { className, ...restButtonProps } = actionButton;
             return (
                 <RotatingButton
+                centerBgColor={COLORS.BACKGROUND[theme]}
                 className={twMerge(className, `transition-all duration-300 ease-in-out font-medium absolute top-1/2 md:p-2 -translate-y-1/2`)}
                 {...restButtonProps}
                 variant={"glow"}

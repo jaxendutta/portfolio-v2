@@ -4,29 +4,12 @@
 import { useTheme } from "@/components/ThemeProvider";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { PiGlobeSimpleThin } from "react-icons/pi";
 import { twMerge } from "tailwind-merge";
-import { display } from "@/styles/fonts";
+import { displayFont } from "@/styles/fonts";
 import { GiMaterialsScience } from "react-icons/gi";
 
 export default function HeroSection() {
     const { theme } = useTheme();
-    const [currentTime, setCurrentTime] = useState("");
-
-    // Update time every second
-    useEffect(() => {
-        const updateTime = () => {
-            const estTime = new Date().toLocaleString("nl-NL", {
-                timeZone: "America/Toronto",
-            });
-            setCurrentTime(estTime);
-        };
-
-        updateTime();
-        const interval = setInterval(updateTime, 1000);
-        return () => clearInterval(interval);
-    }, []);
 
     return (
         <section
@@ -49,34 +32,14 @@ export default function HeroSection() {
                 </div>
             </div>
 
-            {/* Globe & Time Display */}
-            <div className={twMerge(`flex flex-row items-center justify-center gap-2`,
-                `fixed bottom-2.5 left-2.5 theme-text`,
-                theme === "light" ? "font-semibold opacity-70" : "opacity-40")}>
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{
-                        duration: 100,
-                        repeat: Infinity,
-                        ease: "linear",
-                    }}
-                >
-                    <PiGlobeSimpleThin className="text-4xl" />
-                </motion.div>
-                <div className="flex flex-col text-sm">
-                    <span>WATERLOO, ON</span>
-                    <span>{currentTime}</span>
-                </div>
-            </div>
-
             {/* Main intro content */}
             <div className="absolute text-center top-[15vh] w-screen h-screen text-3xl md:text-5xl text-[#F4F1EA] flex flex-col justify-center items-center gap-[5vh]">
                 <div className="hero-container">
                     <h1
                         className={twMerge(
-                            display,
+                            displayFont,
                             "text-8xl md:text-[6.5rem] italic pr-[0.1em] clip-text",
-                            theme === "dark"
+                            theme === "DARK"
                                 ? "bg-[url('https://i.gifer.com/ByRk.gif')] bg-cover bg-top"
                                 : "bg-[url('https://media.giphy.com/media/YAxpwobytgjWgmIbP9/giphy.gif')] bg-cover bg-top"
                         )}

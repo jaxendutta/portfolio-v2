@@ -24,6 +24,6 @@ export const orbitron = Orbitron({
     display: "swap",
 });
 
-export const heading = majorMono.className;
-export const display = majorMono.className;
-export const code = firaCode.className;
+export const headingFont = majorMono.className;
+export const displayFont = majorMono.className;
+export const codeFont = firaCode.className;

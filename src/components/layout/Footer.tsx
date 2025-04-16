@@ -12,7 +12,7 @@ const Footer = ({ className = "" }) => {
             className={twMerge(
                 "flex justify-center items-center overflow-hidden",
                 "h-4 m-4 mt-20 font-sans uppercase",
-                theme === "dark" ? "opacity-60" : "",
+                theme === "DARK" ? "opacity-60" : "",
                 className
             )}
         >

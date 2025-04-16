@@ -2,21 +2,29 @@
 // Used by both the React components and Tailwind config
 
 export const COLORS = {
-    DARK: {
-        BACKGROUND: "#17181C",
-        TEXT: "#F4F1EA",
-        ACCENT: "#D7482F",
-        SCROLL: "#DEEFB7",
-        HIGHLIGHT_BG: "darkblue",
-        HIGHLIGHT_TEXT: "palegreen",
+    BACKGROUND: {
+        DARK: "#17181C",
+        LIGHT: "#F4F1EA",
     },
-    LIGHT: {
-        BACKGROUND: "#F4F1EA",
-        TEXT: "#001ECB",
-        ACCENT: "#28B7D0",
-        SCROLL: "#DEEFB7", // Reusing dark theme scroll color for light theme
-        HIGHLIGHT_BG: "lightblue",
-        HIGHLIGHT_TEXT: "darkgreen",
+    TEXT: {
+        DARK: "#F4F1EA",
+        LIGHT: "#001ECB",
+    },
+    ACCENT: {
+        DARK: "#D7482F",
+        LIGHT: "#28B7D0",
+    },
+    SCROLL: {
+        DARK: "#DEEFB7",
+        LIGHT: "#DEEFB7", // Reusing dark theme scroll color for light theme
+    },
+    HIGHLIGHT_BG: {
+        DARK: "darkblue",
+        LIGHT: "lightblue",
+    },
+    HIGHLIGHT_TEXT: {
+        DARK: "palegreen",
+        LIGHT: "darkgreen",
     },
 };
 
@@ -91,20 +99,20 @@ export const SPACING = {
 export const THEME = {
     colors: {
         // Dark theme colors
-        "background-dark": COLORS.DARK.BACKGROUND,
-        "text-dark": COLORS.DARK.TEXT,
-        "accent-dark": COLORS.DARK.ACCENT,
-        "scroll-dark": COLORS.DARK.SCROLL,
-        "highlight-bg-dark": COLORS.DARK.HIGHLIGHT_BG,
-        "highlight-text-dark": COLORS.DARK.HIGHLIGHT_TEXT,
+        "background-dark": COLORS.BACKGROUND.DARK,
+        "text-dark": COLORS.TEXT.DARK,
+        "accent-dark": COLORS.ACCENT.DARK,
+        "scroll-dark": COLORS.SCROLL.DARK,
+        "highlight-bg-dark": COLORS.HIGHLIGHT_BG.DARK,
+        "highlight-text-dark": COLORS.HIGHLIGHT_TEXT.DARK,
 
         // Light theme colors
-        "background-light": COLORS.LIGHT.BACKGROUND,
-        "text-light": COLORS.LIGHT.TEXT,
-        "accent-light": COLORS.LIGHT.ACCENT,
-        "scroll-light": COLORS.LIGHT.SCROLL,
-        "highlight-bg-light": COLORS.LIGHT.HIGHLIGHT_BG,
-        "highlight-text-light": COLORS.LIGHT.HIGHLIGHT_TEXT,
+        "background-light": COLORS.BACKGROUND.LIGHT,
+        "text-light": COLORS.TEXT.LIGHT,
+        "accent-light": COLORS.ACCENT.LIGHT,
+        "scroll-light": COLORS.SCROLL.LIGHT,
+        "highlight-bg-light": COLORS.HIGHLIGHT_BG.LIGHT,
+        "highlight-text-light": COLORS.HIGHLIGHT_TEXT.LIGHT,
     },
     fontFamily: {
         heading: [FONTS.HEADING.FAMILY, ...FONTS.HEADING.FALLBACK.split(", ")],

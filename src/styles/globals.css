@@ -35,8 +35,6 @@ body {
     overflow-x: hidden;
     width: 100vw;
     min-height: 100vh;
-    background-color: var(--color-bg);
-    color: var(--color-text);
 }
 
 /* Noise effect */

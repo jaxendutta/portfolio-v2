@@ -9,26 +9,31 @@ import ThemeSwitch from "@/components/ui/ThemeSwitch";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import Critter from "@/components/ui/Critter";
+import DateTimePlace from "@/components/ui/DateTimePlace";
 import { useTheme } from "@/components/ThemeProvider";
-import { THEME } from "@/lib/theme";
+import { COLORS } from "@/lib/theme";
+import { motion } from "framer-motion";
 
 export default function Home() {
     const { theme } = useTheme();
     return (
-        <div className="max-w-screen overflow-clip">
+        <motion.div
+            className="max-w-screen overflow-clip"
+            style={{
+                backgroundColor: COLORS.BACKGROUND[theme],
+                color: COLORS.TEXT[theme],
+            }}
+        >
             <Navbar />
             <main className="flex flex-col items-center justify-center relative">
+                <DateTimePlace />
                 <ThemeSwitch />
                 <HeroSection />
                 <Critter
                     size={1}
                     legs={8}
                     tail={20}
-                    color={
-                        theme === "dark"
-                            ? THEME.colors["text-dark"]
-                            : THEME.colors["text-light"]
-                    }
+                    color={COLORS.TEXT[theme]}
                     className="opacity-50"
                 />
                 <ProjectsSection />
@@ -37,6 +42,6 @@ export default function Home() {
 
                 <Footer />
             </main>
-        </div>
+        </motion.div>
     );
 }

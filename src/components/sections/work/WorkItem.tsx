@@ -7,7 +7,7 @@ import parse from "html-react-parser";
 import { RxPlus } from "react-icons/rx";
 import { TbArrowLeftFromArc } from "react-icons/tb";
 import { workData } from "@/data/workData";
-import { code } from "@/styles/fonts";
+import { codeFont } from "@/styles/fonts";
 
 // Individual work item component with animations
 export const WorkItem = ({
@@ -23,7 +23,7 @@ export const WorkItem = ({
 }) => {
     return (
         <motion.div
-            className={`px-2 md:px-4 py-2 relative overflow-hidden flex flex-col justify-center w-full border-b border-current ${code}`}
+            className={`px-2 md:px-4 py-2 relative overflow-hidden flex flex-col justify-center w-full border-b border-current ${codeFont}`}
             initial={false}
             animate={{
                 height: isActive ? "auto" : "6rem",
