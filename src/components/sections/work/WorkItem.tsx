@@ -23,7 +23,7 @@ export const WorkItem = ({
 }) => {
     return (
         <motion.div
-            className={`relative overflow-hidden flex flex-col justify-center w-full border-b border-current ${code}`}
+            className={`px-2 md:px-4 py-2 relative overflow-hidden flex flex-col justify-center w-full border-b border-current ${code}`}
             initial={false}
             animate={{
                 height: isActive ? "auto" : "6rem",
@@ -42,7 +42,7 @@ export const WorkItem = ({
         >
             {/* Header section - clickable */}
             <motion.div
-                className={`px-2 md:px-4 py-2 flex justify-between items-center relative flex-shrink-0 z-20 ${
+                className={`flex justify-between items-center relative flex-shrink-0 z-20 ${
                     !isActive ? "cursor-pointer" : ""
                 }`}
                 onClick={() => !isActive && onToggle()}
@@ -82,7 +82,7 @@ export const WorkItem = ({
 
                 {/* Toggle button */}
                 <motion.button
-                    className="relative z-30 flex items-center justify-center cursor-pointer rounded-full"
+                    className="relative z-30 flex items-center justify-center cursor-pointer rounded-full flex-shrink-0"
                     onClick={(e) => {
                         e.stopPropagation();
                         onToggle();
@@ -100,7 +100,7 @@ export const WorkItem = ({
                     }}
                 >
                     <RxPlus
-                        className="w-6 h-6 md:w-8 md:h-8"
+                        className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0"
                         style={{
                             filter: !isActive
                                 ? "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1))"
@@ -114,7 +114,7 @@ export const WorkItem = ({
             <AnimatePresence>
                 {isActive && (
                     <motion.div
-                        className="w-3/4 px-10 py-5 opacity-0 flex flex-col items-start relative left-0 right-0 z-10 cursor-default"
+                        className="w-3/4 px-4 py-6 opacity-0 flex flex-col items-start relative left-0 right-0 z-10 cursor-default"
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
@@ -124,7 +124,7 @@ export const WorkItem = ({
                             {data.skills.map((skill) => (
                                 <motion.span
                                     key={skill}
-                                    className="font-sans text-base align-middle p-[5px_7.5px] border border-current rounded-full"
+                                    className="font-sans text-xs md:text-base align-middle p-[5px_7px] border border-current rounded-full"
                                     whileHover={{
                                         backgroundColor:
                                             "var(--text-color, #F4F1EA)",
@@ -138,7 +138,7 @@ export const WorkItem = ({
                         </div>
 
                         {data.team && (
-                            <div className="py-4 text-xl w-full border-b border-current">
+                            <div className="py-6 text-xl w-full border-b border-current">
                                 {data.team.url ? (
                                     <Link
                                         href={data.team.url}
@@ -181,7 +181,7 @@ export const WorkItem = ({
             <AnimatePresence>
                 {isActive && (
                     <motion.div
-                        className="absolute right-5 top-20 bottom-5 flex flex-col items-center justify-between z-10"
+                        className="absolute right-3 md:right-6 top-20 bottom-5 flex flex-col items-center justify-between z-10"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}

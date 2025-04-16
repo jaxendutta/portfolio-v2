@@ -2,7 +2,6 @@
 "use client";
 
 import { useTheme } from "@/components/ThemeProvider";
-import RolesSwitcher from "@/components/ui/RolesSwitcher";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -14,12 +13,6 @@ import { GiMaterialsScience } from "react-icons/gi";
 export default function HeroSection() {
     const { theme } = useTheme();
     const [currentTime, setCurrentTime] = useState("");
-    const roles = [
-        "UX/UI Engineer",
-        "HCI Researcher",
-        "Web Designer",
-        "App Developer",
-    ];
 
     // Update time every second
     useEffect(() => {
@@ -90,10 +83,6 @@ export default function HeroSection() {
                     >
                         <em>{`¿ JAXEN DUTTA ?`}</em>
                     </h1>
-                </div>
-
-                <div className="flex items-center">
-                    <RolesSwitcher roles={roles} />
                 </div>
 
                 <div className="w-2/3 flex justify-end">
