@@ -1,18 +1,32 @@
 // Theme configuration - single source of truth for the entire application
 // Used by both the React components and Tailwind config
 
-export const COLORS = {
+export type ColorSet = {
+    DARK: string;
+    LIGHT: string;
+};
+
+export type ThemeColors = {
+    BACKGROUND: ColorSet;
+    TEXT: ColorSet;
+    ACCENT: ColorSet;
+    SCROLL: ColorSet;
+    HIGHLIGHT_BG: ColorSet;
+    HIGHLIGHT_TEXT: ColorSet;
+};
+
+export const COLORS: ThemeColors = {
     BACKGROUND: {
         DARK: "#17181C",
-        LIGHT: "#F4F1EA",
+        LIGHT: "whitesmoke",
     },
     TEXT: {
-        DARK: "#F4F1EA",
-        LIGHT: "#001ECB",
+        DARK: "whitesmoke",
+        LIGHT: "blue",
     },
     ACCENT: {
-        DARK: "#D7482F",
-        LIGHT: "#28B7D0",
+        DARK: "crimson",
+        LIGHT: "tomato",
     },
     SCROLL: {
         DARK: "#DEEFB7",
@@ -20,11 +34,11 @@ export const COLORS = {
     },
     HIGHLIGHT_BG: {
         DARK: "darkblue",
-        LIGHT: "lightblue",
+        LIGHT: "blue",
     },
     HIGHLIGHT_TEXT: {
         DARK: "palegreen",
-        LIGHT: "darkgreen",
+        LIGHT: "palegreen",
     },
 };
 

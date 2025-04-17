@@ -2,10 +2,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
 import { twMerge } from "tailwind-merge";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { codeFont } from "@/styles/fonts";
+import { COLORS } from "@/lib/theme";
+import { useTheme } from "@/components/ThemeProvider";
 
 // Define nav link type with proper typing
 type NavLinkType = {
@@ -30,19 +33,24 @@ interface NavLinkProps extends NavLinkType {
 function NavLink({ name, href, className = "" }: NavLinkProps) {
     // Hover state for custom effects that can't be done with Tailwind alone
     const [isHovered, setIsHovered] = useState(false);
+    const { theme } = useTheme();
 
     return (
         <Link
             href={href}
             className={twMerge(
-                `flex items-center gap-1 relative transition-colors duration-200
-               font-heading font-medium text-md md:text-lg lg:text-xl`,
+                `flex items-center gap-1 font-medium text-md md:text-lg lg:text-xl relative`,
+                codeFont,
                 className
             )}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            style={{
+                color: "inherit",
+                textDecoration: "none",
+            }}
         >
-            {/* Prefix symbol that changes on hover (similar to original site) */}
+            {/* Prefix symbol that changes on hover */}
             <span className="transition-opacity duration-200">
                 {isHovered ? ">" : "\\"}
             </span>
@@ -50,9 +58,10 @@ function NavLink({ name, href, className = "" }: NavLinkProps) {
             {/* Link text */}
             {name}
 
-            {/* Underline indicator ONLY for hover state, not active state */}
+            {/* Underline indicator that animates from left to right */}
             <motion.div
-                className="absolute bottom-0 left-0 h-0.5 bg-accent"
+                className="absolute bottom-0 left-0 h-0.5"
+                style={{ backgroundColor: COLORS.ACCENT[theme] }}
                 initial={{ width: "0%" }}
                 animate={{ width: isHovered ? "100%" : "0%" }}
                 transition={{ duration: 0.2 }}
@@ -122,44 +131,39 @@ export default function Navbar() {
     const rightLinks = navLinks.slice(linkLength);
 
     return (
-        <motion.nav
+        <motion.div
             initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="fixed top-0 left-0 right-0 z-90 p-4"
+            animate={{
+                y: 0,
+                opacity: 1,
+                backdropFilter: showGlassEffect ? "blur(10px)" : "blur(0px)",
+                backgroundColor: showGlassEffect
+                    ? "rgba(255, 255, 255, 0.1)"
+                    : "rgba(255, 255, 255, 0)",
+                borderColor: showGlassEffect
+                    ? "rgba(255, 255, 255, 0.2)"
+                    : "rgba(255, 255, 255, 0)",
+                boxShadow: showGlassEffect
+                    ? "0 4px 6px rgba(0, 0, 0, 0.1)"
+                    : "none",
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className={twMerge(
+                "fixed top-0 left-0 right-0 z-90 rounded-full m-4 p-4"
+            )}
         >
-            <motion.div
-                initial="transparent"
-                animate={showGlassEffect ? "glass" : "transparent"}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className={twMerge(
-                    "rounded-full p-4",
-                    showGlassEffect
-                        ? "backdrop-blur-md bg-white/10 border border-white/20 shadow-lg"
-                        : ""
-                )}
-            >
-                <div className="flex justify-between items-center">
-                    {[leftLinks, rightLinks].map((links, index) => (
-                        <div
-                            key={index}
-                            className="flex justify-between items-center gap-6"
-                        >
-                            {links.map((link) => (
-                                <NavLink
-                                    key={link.name}
-                                    className={
-                                        !showGlassEffect
-                                            ? "mix-blend-difference"
-                                            : "mix-blend-normal"
-                                    }
-                                    {...link}
-                                />
-                            ))}
-                        </div>
-                    ))}
-                </div>
-            </motion.div>
-        </motion.nav>
+            <div className="flex justify-between items-center">
+                {[leftLinks, rightLinks].map((links, index) => (
+                    <div
+                        key={index}
+                        className="flex justify-between items-center gap-6"
+                    >
+                        {links.map((link) => (
+                            <NavLink key={link.name} {...link} />
+                        ))}
+                    </div>
+                ))}
+            </div>
+        </motion.div>
     );
 }

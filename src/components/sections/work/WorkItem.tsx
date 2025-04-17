@@ -2,12 +2,13 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { WorkExperience } from "@/types/work";
-import Link from "next/link";
 import parse from "html-react-parser";
 import { RxPlus } from "react-icons/rx";
-import { TbArrowLeftFromArc } from "react-icons/tb";
 import { workData } from "@/data/workData";
 import { codeFont } from "@/styles/fonts";
+import { COLORS } from "@/lib/theme";
+import { useTheme } from "@/components/ThemeProvider";
+import StyledLink from "@/components/ui/StyledLink";
 
 // Individual work item component with animations
 export const WorkItem = ({
@@ -21,6 +22,7 @@ export const WorkItem = ({
     isActive: boolean;
     onToggle: () => void;
 }) => {
+    const { theme } = useTheme();
     return (
         <motion.div
             className={`px-2 md:px-4 py-2 relative overflow-hidden flex flex-col justify-center w-full border-b border-current ${codeFont}`}
@@ -34,8 +36,9 @@ export const WorkItem = ({
             whileHover={
                 !isActive
                     ? {
-                          backgroundColor: "var(--highlight-color, darkblue)",
-                          color: "var(--highlight-font-color, palegreen)",
+                          backgroundColor: COLORS.HIGHLIGHT_BG[theme],
+                          color: COLORS.HIGHLIGHT_TEXT[theme],
+                          opacity: 0.8,
                       }
                     : {}
             }
@@ -55,28 +58,12 @@ export const WorkItem = ({
                         <div className="md:font-medium text-lg md:text-2xl">
                             {data.title}
                         </div>
-                        <div className="text-sm md:text-xl flex flex-wrap items-center">
-                            <Link
-                                href={data.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-inherit no-underline flex items-center z-30"
-                                style={{
-                                    transition: "color 0.3s ease",
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.color =
-                                        "var(--accent-color-constant, #D7482F)";
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.color = "";
-                                }}
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                {data.company}
-                                <TbArrowLeftFromArc className="ml-1 transform transition-transform duration-300 hover:translate-x-0.5 hover:-translate-y-0.5" />
-                            </Link>
-                        </div>
+                        <StyledLink
+                            href={data.url}
+                            className={`flex flex-wrap gap-1 items-center text-inherit text-sm md:text-xl no-underline z-30`}
+                            onClick={(e) => e.stopPropagation()}
+                            text={data.company}
+                        />
                     </div>
                 </div>
 
@@ -138,28 +125,12 @@ export const WorkItem = ({
                         </div>
 
                         {data.team && (
-                            <div className="py-6 text-xl w-full border-b border-current">
+                            <div className="pt-8 pb-2 text-xl w-full border-b border-current">
                                 {data.team.url ? (
-                                    <Link
+                                    <StyledLink
                                         href={data.team.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2"
-                                        style={{
-                                            transition: "color 0.3s ease",
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.color =
-                                                "#D7482F";
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.color = "";
-                                        }}
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        {data.team.name}
-                                        <TbArrowLeftFromArc className="transform transition-transform duration-300" />
-                                    </Link>
+                                        text={data.team.name}
+                                    />
                                 ) : (
                                     data.team.name
                                 )}

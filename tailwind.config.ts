@@ -1,3 +1,4 @@
+import { COLORS } from "@/lib/theme";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -9,6 +10,14 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            colors: {
+                bg: COLORS.BACKGROUND,
+                text: COLORS.TEXT,
+                accent: COLORS.ACCENT,
+                scroll: COLORS.SCROLL,
+                highlight_bg: COLORS.HIGHLIGHT_BG,
+                highlight_text: COLORS.HIGHLIGHT_TEXT,
+            },
             animation: {
                 marquee: "marquee var(--duration) linear infinite",
                 "marquee-vertical":

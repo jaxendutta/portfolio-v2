@@ -21,7 +21,7 @@ export default function HeroSection() {
                 <div className="noise" id="noiseId"></div>
                 <div className="absolute top-0 w-full h-full flex justify-center items-center">
                     <motion.div
-                        className="w-[200px] h-[200px] bg-black dark:bg-black rounded-full absolute top-[-50px]"
+                        className="w-[200px] h-[200px] bg-black rounded-full absolute top-[-50px]"
                         animate={{ y: [-10, 0, -10] }}
                         transition={{
                             duration: 3,

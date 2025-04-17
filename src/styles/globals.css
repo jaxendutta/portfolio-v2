@@ -1,28 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-    /* Dark theme colors */
-    --color-bg: rgb(23 24 28);
-    --color-text: rgb(244 241 234);
-    --color-accent: rgb(215 72 47);
-    --color-highlight-bg: rgb(0 0 139);
-    --color-highlight-text: rgb(152 251 152);
-
     --font-background: url("https://i.gifer.com/ByRk.gif");
-    --svg-filter: invert(100%);
     --noise-filter: contrast(145%) brightness(650%) invert(100%);
 }
 
 .light {
-    /* Light theme colors */
-    --color-bg: rgb(244 241 234);
-    --color-text: rgb(0 30 203);
-    --color-accent: rgb(40 183 208);
-    --color-highlight-bg: rgb(173 216 230);
-    --color-highlight-text: rgb(0 100 0);
-
     --font-background: url("https://media.giphy.com/media/YAxpwobytgjWgmIbP9/giphy.gif");
-    --svg-filter: none;
     --noise-filter: contrast(125%) brightness(400%) invert(0%);
 }
 
@@ -35,6 +19,14 @@ body {
     overflow-x: hidden;
     width: 100vw;
     min-height: 100vh;
+}
+
+a {
+    text-decoration: underline;
+}
+
+a:hover {
+    color: crimson;
 }
 
 /* Noise effect */
@@ -54,28 +46,6 @@ body {
 
 .light .noise {
     mix-blend-mode: difference;
-}
-
-.cardish {
-    padding: 1rem;
-    border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.1);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    text-align: left;
-    font-style: italic;
-    position: relative;
-    margin-bottom: 2rem;
-    max-width: fit-content;
-}
-
-.light .cardish {
-    border: 2px dashed var(--color-text);
-    background-color: rgba(0, 0, 0, 0.05);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: none;
 }
 
 /* Hide scrollbar for Firefox */
