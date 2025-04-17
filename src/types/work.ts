@@ -5,8 +5,8 @@ export interface WorkTeam {
 }
 
 export interface WorkDuration {
-    start: string;
-    end: string;
+    start: Date;
+    end: Date;
 }
 
 export interface WorkExperience {

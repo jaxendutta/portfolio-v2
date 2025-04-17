@@ -7,8 +7,8 @@ export const workData: WorkData = {
         company: "GOVERNMENT OF ONTARIO",
         url: "https://www.ontario.ca/page/ministry-attorney-general",
         duration: {
-            start: "SEP 2024",
-            end: "DEC 2024",
+            start: new Date("2024-09-07"),
+            end: new Date("2024-12-18"),
         },
         team: {
             name: "OPGT Financial Technology Team",
@@ -37,8 +37,8 @@ export const workData: WorkData = {
         company: "AUGMENTED INTELLIGENCE LAB",
         url: "https://edithlaw.ca",
         duration: {
-            start: "SEP 2023",
-            end: "DEC 2023",
+            start: new Date("2023-09-06"),
+            end: new Date("2023-12-22"),
         },
         team: null,
         skills: [
@@ -62,8 +62,8 @@ export const workData: WorkData = {
         company: "GOOGLE",
         url: "https://cloud.google.com",
         duration: {
-            start: "MAY 2022",
-            end: "AUG 2022",
+            start: new Date("2022-05-09"),
+            end: new Date("2022-08-19"),
         },
         team: {
             name: "Cloud Healthcare and Life Sciences Team",
@@ -92,8 +92,8 @@ export const workData: WorkData = {
         company: "OPENTEXT",
         url: "https://opentext.com",
         duration: {
-            start: "SEP 2021",
-            end: "DEC 2021",
+            start: new Date("2021-09-07"),
+            end: new Date("2021-12-23"),
         },
         team: {
             name: "Product Information Engineering Team",
@@ -123,8 +123,8 @@ export const workData: WorkData = {
         company: "OPENTEXT",
         url: "https://opentext.com",
         duration: {
-            start: "JAN 2021",
-            end: "APR 2021",
+            start: new Date("2020-01-07"),
+            end: new Date("2021-09-18"),
         },
         team: {
             name: "Localization Engineering Team",
@@ -151,8 +151,8 @@ export const workData: WorkData = {
         company: "APOLLO DIAGNOSTICS",
         url: "https://apollodiagnostics.in/",
         duration: {
-            start: "MAR 2018",
-            end: "AUG 2019",
+            start: new Date("2019-03-03"),
+            end: new Date("2019-08-30"),
         },
         team: {
             name: "Application Development & Engineering Team",

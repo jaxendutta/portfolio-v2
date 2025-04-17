@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import type { Metadata } from "next";
 import { majorMono, firaCode } from "@/styles/fonts";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
     title: "Jaxen",

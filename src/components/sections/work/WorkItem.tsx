@@ -10,7 +10,6 @@ import { COLORS } from "@/lib/theme";
 import { useTheme } from "@/components/ThemeProvider";
 import StyledLink from "@/components/ui/StyledLink";
 
-// Individual work item component with animations
 export const WorkItem = ({
     data,
     index,
@@ -24,28 +23,10 @@ export const WorkItem = ({
 }) => {
     const { theme } = useTheme();
     return (
-        <motion.div
-            className={`px-2 md:px-4 py-2 relative overflow-hidden flex flex-col justify-center w-full border-b border-current ${codeFont}`}
-            initial={false}
-            animate={{
-                height: isActive ? "auto" : "6rem",
-            }}
-            transition={{
-                height: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
-            }}
-            whileHover={
-                !isActive
-                    ? {
-                          backgroundColor: COLORS.HIGHLIGHT_BG[theme],
-                          color: COLORS.HIGHLIGHT_TEXT[theme],
-                          opacity: 0.8,
-                      }
-                    : {}
-            }
-        >
+        <div className={`w-full border-b border-current ${codeFont}`}>
             {/* Header section - clickable */}
-            <motion.div
-                className={`flex justify-between items-center relative flex-shrink-0 z-20 ${
+            <div
+                className={`flex justify-between items-center h-24 px-2 md:px-4 py-2 ${
                     !isActive ? "cursor-pointer" : ""
                 }`}
                 onClick={() => !isActive && onToggle()}
@@ -69,7 +50,7 @@ export const WorkItem = ({
 
                 {/* Toggle button */}
                 <motion.button
-                    className="relative z-30 flex items-center justify-center cursor-pointer rounded-full flex-shrink-0"
+                    className="relative flex items-center justify-center cursor-pointer rounded-full flex-shrink-0"
                     onClick={(e) => {
                         e.stopPropagation();
                         onToggle();
@@ -83,98 +64,133 @@ export const WorkItem = ({
                     }}
                     transition={{
                         duration: 0.3,
-                        ease: [0.25, 0.1, 0.25, 1],
+                        ease: "easeInOut",
                     }}
                 >
-                    <RxPlus
-                        className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0"
-                        style={{
-                            filter: !isActive
-                                ? "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1))"
-                                : "none",
-                        }}
-                    />
+                    <RxPlus className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0" />
                 </motion.button>
-            </motion.div>
+            </div>
 
-            {/* Content section - not clickable */}
-            <AnimatePresence>
+            {/* Content section - with proper dropdown animation */}
+            <AnimatePresence initial={false}>
                 {isActive && (
                     <motion.div
-                        className="w-3/4 px-4 py-6 opacity-0 flex flex-col items-start relative left-0 right-0 z-10 cursor-default"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
+                        initial={{ height: 0 }}
+                        animate={{ height: "auto" }}
+                        exit={{ height: 0 }}
+                        transition={{
+                            duration: 0.3,
+                            ease: [0.04, 0.62, 0.23, 0.98],
+                        }}
+                        className="overflow-hidden"
                     >
-                        <div className="flex flex-wrap justify-start gap-2.5 pointer-events-auto">
-                            {data.skills.map((skill) => (
-                                <motion.span
-                                    key={skill}
-                                    className="font-sans text-xs md:text-base align-middle p-[5px_7px] border border-current rounded-full"
-                                    whileHover={{
-                                        backgroundColor:
-                                            "var(--text-color, #F4F1EA)",
-                                        color: "var(--background-color, #17181C)",
-                                    }}
-                                    transition={{ duration: 0.25 }}
-                                >
-                                    {skill}
-                                </motion.span>
-                            ))}
-                        </div>
-
-                        {data.team && (
-                            <div className="pt-8 pb-2 text-xl w-full border-b border-current">
-                                {data.team.url ? (
-                                    <StyledLink
-                                        href={data.team.url}
-                                        text={data.team.name}
-                                    />
-                                ) : (
-                                    data.team.name
-                                )}
-                            </div>
-                        )}
-
-                        <div className="space-y-4 mt-4">
-                            {data.description.map((desc, i) => (
-                                <div key={i} className="text-base">
-                                    {parse(desc)}
+                        <div className="flex flex-row relative px-2 md:px-4 pb-8">
+                            {/* Main content */}
+                            <div className="w-3/4 pr-8">
+                                {/* Skills tags */}
+                                <div className="flex flex-wrap justify-start gap-2.5 pointer-events-auto mb-6">
+                                    {data.skills.map((skill) => (
+                                        <motion.span
+                                            key={skill}
+                                            className="font-sans text-xs md:text-base align-middle p-[5px_7px] border border-current rounded-full"
+                                            whileHover={{
+                                                backgroundColor:
+                                                    COLORS.TEXT[theme],
+                                                color: COLORS.BACKGROUND[theme],
+                                            }}
+                                            transition={{ duration: 0.1 }}
+                                        >
+                                            {skill}
+                                        </motion.span>
+                                    ))}
                                 </div>
-                            ))}
+
+                                {/* Team info if available */}
+                                {data.team && (
+                                    <div className="pt-4 pb-2 text-xl w-full border-b border-current mb-4">
+                                        {data.team.url ? (
+                                            <StyledLink
+                                                href={data.team.url}
+                                                text={data.team.name}
+                                            />
+                                        ) : (
+                                            data.team.name
+                                        )}
+                                    </div>
+                                )}
+
+                                {/* Description paragraphs */}
+                                <div className="space-y-4">
+                                    {data.description.map((desc, i) => (
+                                        <div key={i} className="text-base">
+                                            {parse(desc)}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Date timeline */}
+                            <div className="absolute right-4 md:right-6 lg:right-8 top-0 bottom-0 pb-8 flex flex-col items-center justify-between">
+                                <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm">
+                                    {new Date(data.duration.start)
+                                        .toLocaleString("en", {
+                                            year: "numeric",
+                                            month: "short",
+                                        })
+                                        .toUpperCase()}
+                                </span>
+
+                                <motion.div
+                                    className="flex-grow w-0.5 bg-current my-2.5 origin-top"
+                                    initial={{ scaleY: 0 }}
+                                    animate={{ scaleY: 1 }}
+                                    exit={{ scaleY: 0 }}
+                                    transition={{
+                                        duration: 0.4,
+                                        ease: "easeOut",
+                                        delay: 0.05,
+                                    }}
+                                />
+
+                                <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm">
+                                    {new Date(data.duration.end)
+                                        .toLocaleString("en", {
+                                            year: "numeric",
+                                            month: "short",
+                                        })
+                                        .toUpperCase()}
+                                </span>
+                            </div>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
+        </div>
+    );
+};
 
-            {/* Date vertical line */}
-            <AnimatePresence>
-                {isActive && (
-                    <motion.div
-                        className="absolute right-3 md:right-6 top-20 bottom-5 flex flex-col items-center justify-between z-10"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm">
-                            {data.duration.start.replace(" ", " ")}
-                        </span>
+// Hover effect handling for work items
+export const WorkItemWithHover = (props: {
+    data: WorkExperience;
+    index: number;
+    isActive: boolean;
+    onToggle: () => void;
+}) => {
+    const { theme } = useTheme();
 
-                        <motion.div
-                            className="flex-grow w-0.5 bg-current my-2.5 origin-top"
-                            initial={{ scaleY: 0 }}
-                            animate={{ scaleY: 1 }}
-                            transition={{ duration: 0.75, ease: "easeInOut" }}
-                        />
-
-                        <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm">
-                            {data.duration.end.replace(" ", " ")}
-                        </span>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+    return (
+        <motion.div
+            whileHover={
+                !props.isActive
+                    ? {
+                          backgroundColor: COLORS.HIGHLIGHT_BG[theme],
+                          color: COLORS.HIGHLIGHT_TEXT[theme],
+                          opacity: 0.8,
+                      }
+                    : {}
+            }
+        >
+            <WorkItem {...props} />
         </motion.div>
     );
 };
@@ -187,7 +203,7 @@ export const WorkItems = ({
     toggleItem: (id: string) => void;
 }) => {
     return Object.entries(workData).map(([id, experience], index) => (
-        <WorkItem
+        <WorkItemWithHover
             key={id}
             data={experience}
             index={index}
