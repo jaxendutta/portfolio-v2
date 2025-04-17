@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import Link, { LinkProps } from "next/link";
 import { IconType } from "react-icons";
 import { motion } from "framer-motion";
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import { COLORS } from "@/lib/theme";
 import { TbArrowLeftFromArc } from "react-icons/tb";
 

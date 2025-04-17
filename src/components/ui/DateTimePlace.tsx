@@ -2,7 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 import { PiGlobeSimpleThin } from "react-icons/pi";
 import { useState, useEffect } from "react";
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 export function DateTimePlace() {
     const { theme } = useTheme();

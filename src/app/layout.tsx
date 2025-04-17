@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { majorMono, firaCode } from "@/styles/fonts";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 export const metadata: Metadata = {
     title: "Jaxen",
@@ -29,7 +29,7 @@ export default function RootLayout({
                 <link rel="icon" href="/favicon.ico" sizes="any" />
                 <link rel="icon" href="/favicon.png" type="image/png" />
             </head>
-            <body>
+            <body className="min-h-screen">
                 <ThemeProvider>{children}</ThemeProvider>
             </body>
         </html>

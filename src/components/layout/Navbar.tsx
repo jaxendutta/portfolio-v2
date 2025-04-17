@@ -8,7 +8,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { codeFont } from "@/styles/fonts";
 import { COLORS } from "@/lib/theme";
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 // Define nav link type with proper typing
 type NavLinkType = {

@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
 import { COLORS } from "@/lib/theme";
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 const variants = (centerBgColor: string) => ({
     default: {},

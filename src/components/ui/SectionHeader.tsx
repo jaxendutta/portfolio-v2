@@ -9,7 +9,7 @@ import Marquee from "@/components/ui/Marquee";
 import RotatingButton, {
     RotatingButtonProps,
 } from "@/components/ui/RotatingButton";
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import { COLORS } from "@/lib/theme";
 
 export interface SectionHeaderProps {

@@ -1,14 +1,14 @@
 // src/components/sections/HeroSection.tsx
 "use client";
 
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 import { displayFont } from "@/styles/fonts";
 import { GiMaterialsScience } from "react-icons/gi";
 
-export default function HeroSection() {
+export default function Hero() {
     const { theme } = useTheme();
 
     return (

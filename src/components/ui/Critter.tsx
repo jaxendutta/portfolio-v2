@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 
 interface BugProps {
     size?: number;
@@ -413,6 +413,33 @@ const BugAnimation: React.FC<BugProps> = ({
     const input = useRef<InputHandler | null>(null);
     const animationId = useRef<number | null>(null);
     const creatureRef = useRef<Creature | null>(null);
+    const [isVisible, setIsVisible] = useState(true);
+
+    // Check localStorage for visibility setting on mount
+    useEffect(() => {
+        const storedVisibility = localStorage.getItem("showBug");
+        if (storedVisibility !== null) {
+            setIsVisible(storedVisibility === "true");
+        }
+    }, []);
+
+    // Listen for changes to the showBug setting
+    useEffect(() => {
+        const checkVisibility = () => {
+            const storedVisibility = localStorage.getItem("showBug");
+            if (storedVisibility !== null) {
+                setIsVisible(storedVisibility === "true");
+            }
+        };
+
+        // Check initially
+        checkVisibility();
+
+        // Set up interval to check periodically
+        const interval = setInterval(checkVisibility, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const setupLizard = useCallback(() => {
         if (!canvasRef.current) return;
@@ -541,7 +568,12 @@ const BugAnimation: React.FC<BugProps> = ({
     }, [size, legs, tail]);
 
     const animate = useCallback(() => {
-        if (!canvasRef.current || !creatureRef.current || !input.current)
+        if (
+            !canvasRef.current ||
+            !creatureRef.current ||
+            !input.current ||
+            !isVisible
+        )
             return;
 
         const ctx = canvasRef.current.getContext("2d");
@@ -561,7 +593,7 @@ const BugAnimation: React.FC<BugProps> = ({
         creatureRef.current.draw(ctx);
 
         animationId.current = requestAnimationFrame(animate);
-    }, [color]);
+    }, [color, isVisible]);
 
     useEffect(() => {
         // Initialize input handler
@@ -581,8 +613,10 @@ const BugAnimation: React.FC<BugProps> = ({
         resize();
         window.addEventListener("resize", resize);
 
-        // Start animation
-        animationId.current = requestAnimationFrame(animate);
+        // Start animation if visible
+        if (isVisible) {
+            animationId.current = requestAnimationFrame(animate);
+        }
 
         return () => {
             window.removeEventListener("resize", resize);
@@ -590,12 +624,39 @@ const BugAnimation: React.FC<BugProps> = ({
                 cancelAnimationFrame(animationId.current);
             }
         };
-    }, [setupLizard, animate]);
+    }, [setupLizard, animate, isVisible]);
+
+    // Update animation when visibility changes
+    useEffect(() => {
+        if (isVisible && !animationId.current) {
+            animationId.current = requestAnimationFrame(animate);
+        } else if (!isVisible && animationId.current) {
+            cancelAnimationFrame(animationId.current);
+            animationId.current = null;
+
+            // Clear canvas
+            if (canvasRef.current) {
+                const ctx = canvasRef.current.getContext("2d");
+                if (ctx) {
+                    ctx.clearRect(
+                        0,
+                        0,
+                        canvasRef.current.width,
+                        canvasRef.current.height
+                    );
+                }
+            }
+        }
+    }, [isVisible, animate]);
+
+    if (!isVisible) {
+        return null;
+    }
 
     return (
         <canvas
             ref={canvasRef}
-            className={`fixed inset-0 z-0 pointer-events-none ${className}`}
+            className={`fixed inset-0 z-0 pointer-events-none critter-canvas ${className}`}
         />
     );
 };

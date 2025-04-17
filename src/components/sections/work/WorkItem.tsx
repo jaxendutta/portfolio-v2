@@ -7,7 +7,7 @@ import { RxPlus } from "react-icons/rx";
 import { workData } from "@/data/workData";
 import { codeFont } from "@/styles/fonts";
 import { COLORS } from "@/lib/theme";
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import StyledLink from "@/components/ui/StyledLink";
 
 export const WorkItem = ({

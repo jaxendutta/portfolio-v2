@@ -1,10 +1,10 @@
 "use client";
 
 import Footer from "@/components/layout/Footer";
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import Critter from "@/components/ui/Critter";
 import RotatingButton from "@/components/ui/RotatingButton";
-import ThemeSwitch from "@/components/ui/ThemeSwitch";
+import ThemeSwitch from "@/components/theme/ThemeSwitch";
 import { motion } from "framer-motion";
 import { COLORS } from "@/lib/theme";
 import { GiParanoia } from "react-icons/gi";

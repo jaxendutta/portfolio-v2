@@ -3,7 +3,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { twMerge } from "tailwind-merge";
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import { GiUbisoftSun } from "react-icons/gi";
 import { SiIcomoon } from "react-icons/si";
 
@@ -12,7 +12,7 @@ export default function ThemeSwitch() {
 
     return (
         <motion.button
-            onClick={toggleTheme}
+            onClick={() => toggleTheme(theme === "DARK" ? "LIGHT" : "DARK")}
             aria-label={`Switch to ${theme} mode`}
             className={twMerge(
                 "flex items-center justify-center fixed bottom-3 right-3 text-4xl cursor-pointer z-10 mixed-blend-difference",

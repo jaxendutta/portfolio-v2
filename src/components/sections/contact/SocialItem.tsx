@@ -8,7 +8,7 @@ import { BsArrowUpRight, BsCopy } from "react-icons/bs";
 import { IoCheckboxOutline } from "react-icons/io5";
 import { codeFont } from "@/styles/fonts";
 import { COLORS } from "@/lib/theme";
-import { useTheme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import { Social } from "@/data/contactData";
 
 export const SocialItem = ({
