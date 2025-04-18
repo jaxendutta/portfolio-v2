@@ -296,7 +296,7 @@ export default function ThemeSwitchSprite({
             {/* Fixed positioning wrapper with proper clickable area */}
             <motion.div
                 className={twMerge(
-                    "fixed bottom-4 right-2 z-50 cursor-pointer flex flex-col items-center gap-1",
+                    "fixed bottom-4 right-2 z-50 cursor-pointer flex flex-col items-center gap-4",
                     className
                 )}
                 onClick={() => setShowModal(true)}

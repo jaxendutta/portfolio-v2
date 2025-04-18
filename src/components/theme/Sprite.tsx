@@ -1,4 +1,3 @@
-// src/components/sprite/Sprite.tsx
 "use client";
 
 import React from "react";
@@ -249,26 +248,6 @@ const Sprite: React.FC<SpriteProps> = ({
                     left: 0;
                     width: 1em;
                     height: 1em;
-                    box-shadow:
-            /* line 19 */ -2em -7em ${colors.white},
-                        2em -7em ${colors.white},
-                        /* line 20 */ -2em -8em ${colors.whiteLight},
-                        -1em -8em ${colors.whiteLight}, 0 -8em ${colors.white},
-                        1em -8em ${colors.white}, 3em -8em ${colors.whiteLight},
-                        /* line 21 */ -1em -9em ${colors.whiteLight},
-                        0 -9em ${colors.white}, 1em -9em ${colors.whiteLight},
-                        2em -9em ${colors.whiteLight},
-                        /* line 22 */ -1em -10em ${colors.whiteLight},
-                        0 -10em ${colors.whiteLight},
-                        1em -10em ${colors.whiteLight},
-                        4em -10em ${colors.whiteLight},
-                        /* line 23 */ 0 -11em ${colors.whiteLight},
-                        1em -11em ${colors.whiteLight},
-                        2em -11em ${colors.whiteLight},
-                        /* line 24 */ 1em -12em ${colors.whiteLight},
-                        /* line 25 */ 0 -13em ${colors.whiteLight},
-                        4em -13em ${colors.whiteLight},
-                        /* line 26 */ -2em -14em ${colors.whiteLight};
                 }
 
                 .shadow {
@@ -385,21 +364,71 @@ const Sprite: React.FC<SpriteProps> = ({
               /* line 19 */ -2em -7em ${colors.white},
                             2em -7em ${colors.white},
                             /* line 20 */ -2em -8em ${colors.whiteLight},
-                            -1em -8em ${colors.white}, 0 -8em ${colors.white},
-                            1em -8em ${colors.whiteLight},
-                            /* line 21 */ -2em -9em ${colors.white},
-                            -1em -9em ${colors.whiteLight},
+                            -1em -8em ${colors.whiteLight},
+                            0 -8em ${colors.white}, 1em -8em ${colors.white},
+                            3em -8em ${colors.whiteLight},
+                            /* line 21 */ -1em -9em ${colors.whiteLight},
                             0 -9em ${colors.white},
                             1em -9em ${colors.whiteLight},
                             2em -9em ${colors.whiteLight},
+                            /* line 22 */ -1em -10em ${colors.whiteLight},
+                            0 -10em ${colors.whiteLight},
+                            1em -10em ${colors.whiteLight},
+                            4em -10em ${colors.whiteLight},
+                            /* line 23 */ 0 -11em ${colors.whiteLight},
+                            1em -11em ${colors.whiteLight},
+                            2em -11em ${colors.whiteLight},
+                            /* line 24 */ 1em -12em ${colors.whiteLight},
+                            /* line 25 */ 0 -13em ${colors.whiteLight},
+                            4em -13em ${colors.whiteLight},
+                            /* line 26 */ -2em -14em ${colors.whiteLight};
+                    }
+                    25% {
+                        box-shadow:
+              /* line 19 */ -2em -7em ${colors.white},
+                            2em -7em ${colors.white},
+                            /* line 20 */ -2em -8em ${colors.whiteLight},
+                            -1em -8em ${colors.whiteLight},
+                            0 -8em ${colors.white}, 1em -8em ${colors.white},
+                            3em -8em ${colors.whiteLight},
+                            /* line 21 */ -1em -9em ${colors.whiteLight},
+                            0 -9em ${colors.whiteLight},
+                            1em -9em ${colors.whiteLight},
+                            2em -9em ${colors.whiteLight},
+                            /* line 22 */ 1em -13em ${colors.whiteLight},
+                            0 -10em ${colors.whiteLight},
+                            1em -10em ${colors.whiteLight},
+                            4em -10em ${colors.whiteLight},
+                            /* line 23 */ 2em -12em ${colors.whiteLight},
+                            1em -11em ${colors.whiteLight},
+                            2em -11em ${colors.white},
+                            /* line 24 */ 1em -12em ${colors.whiteLight},
+                            /* line 25 */ 0 -13em ${colors.whiteLight},
+                            0 -15em ${colors.whiteLight},
+                            2em -17em ${colors.whiteLight},
+                            /* line 26 */ -1em -14em ${colors.whiteLight};
+                    }
+                    50% {
+                        box-shadow:
+              /* line 19 */ -2em -7em ${colors.white},
+                            2em -7em ${colors.white},
+                            /* line 20 */ -3em -8em ${colors.whiteLight},
+                            -2em -8em ${colors.whiteLight},
+                            -1em -8em ${colors.whiteLight},
+                            0 -8em ${colors.white}, 1em -8em ${colors.white},
+                            /* line 21 */ -2em -9em ${colors.whiteLight},
+                            -1em -9em ${colors.whiteLight},
+                            0 -9em ${colors.whiteLight},
+                            1em -9em ${colors.whiteLight},
+                            2em -9em ${colors.white},
                             /* line 22 */ 0 -10em ${colors.whiteLight},
                             1em -10em ${colors.whiteLight},
                             -1em -10em ${colors.whiteLight},
-                            /* line 23 */ -4em -11em ${colors.whiteLight},
-                            -1em -11em ${colors.whiteLight},
-                            0 -11em ${colors.whiteLight},
+                            /* line 23 */ 0 -11em ${colors.white},
+                            1em -11em ${colors.whiteLight},
+                            1em -11em ${colors.whiteLight},
                             /* line 24 */ -1em -12em ${colors.whiteLight},
-                            1em -12em ${colors.whiteLight},
+                            0 -12em ${colors.whiteLight},
                             /* line 25 */ -1em -13em ${colors.whiteLight},
                             /* line 26 */ -2em -14em ${colors.whiteLight},
                             -3em -15em ${colors.whiteLight};
