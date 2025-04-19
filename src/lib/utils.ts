@@ -1,49 +1,39 @@
-// src/lib/utils.ts
+// src/lib/utils.ts (add these functions)
+import { twMerge } from "tailwind-merge";
+import { ThemeOption } from "@/lib/theme";
 
-/**
- * Calculate the brightness of a color (0-1)
- * @param color - Hex color with or without leading #
- */
-export function getBrightness(color: string): number {
-    // Remove any leading #
-    color = color.replace("#", "");
-
-    // Parse the color
-    const r = parseInt(color.substr(0, 2), 16) / 255;
-    const g = parseInt(color.substr(2, 2), 16) / 255;
-    const b = parseInt(color.substr(4, 2), 16) / 255;
-
-    // Calculate relative luminance
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+// Helper for getting theme classes without string interpolation
+export function getThemeClass(
+    type:
+        | "bg"
+        | "text"
+        | "border"
+        | "highlight-bg"
+        | "highlight-text"
+        | "accent",
+    theme: ThemeOption
+): string {
+    const prefix = type.startsWith("highlight") ? "theme-" : "theme-";
+    return `${type.startsWith("highlight") ? type : type}-${prefix}${type}-${theme.toLowerCase()}`;
 }
 
-/**
- * Format a date to display in a user-friendly way
- */
-export function formatDate(dateString: string): string {
-    const options: Intl.DateTimeFormatOptions = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    };
-
-    return new Date(dateString).toLocaleDateString("en-US", options);
-}
-
-/**
- * Strip HTML tags from a string
- */
-export function stripHtml(html: string): string {
-    return html.replace(/<[^>]*>/g, "");
-}
-
-/**
- * Get the project ID from the URL
- */
-export function getProjectIdFromUrl(): string {
-    if (typeof window === "undefined") return "index";
-
-    const path = window.location.pathname;
-    const segments = path.split("/").filter((segment) => segment.length > 0);
-    return segments[segments.length - 1] || "index";
+// Convenient function for common theme classes
+export function getThemedClasses(
+    theme: ThemeOption,
+    options: {
+        bg?: boolean;
+        text?: boolean;
+        accent?: boolean;
+        highlightBg?: boolean;
+        highlightText?: boolean;
+    }
+): string {
+    return twMerge(
+        options.bg && `bg-theme-bg-${theme.toLowerCase()}`,
+        options.text && `text-theme-text-${theme.toLowerCase()}`,
+        options.accent && `text-theme-accent-${theme.toLowerCase()}`,
+        options.highlightBg && `bg-theme-highlight-bg-${theme.toLowerCase()}`,
+        options.highlightText &&
+            `text-theme-highlight-text-${theme.toLowerCase()}`
+    );
 }

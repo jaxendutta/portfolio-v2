@@ -1,4 +1,3 @@
-import { COLORS } from "@/lib/theme";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -9,31 +8,7 @@ const config: Config = {
         "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
-        extend: {
-            colors: {
-                bg: COLORS.BACKGROUND,
-                text: COLORS.TEXT,
-                accent: COLORS.ACCENT,
-                scroll: COLORS.SCROLL,
-                highlight_bg: COLORS.HIGHLIGHT_BG,
-                highlight_text: COLORS.HIGHLIGHT_TEXT,
-            },
-            animation: {
-                marquee: "marquee var(--duration) linear infinite",
-                "marquee-vertical":
-                    "marquee-vertical var(--duration) linear infinite",
-            },
-            keyframes: {
-                marquee: {
-                    from: { transform: "translateX(0)" },
-                    to: { transform: "translateX(calc(-100% - var(--gap)))" },
-                },
-                "marquee-vertical": {
-                    from: { transform: "translateY(0)" },
-                    to: { transform: "translateY(calc(-100% - var(--gap)))" },
-                },
-            },
-        },
+        extend: {},
     },
     plugins: [],
 };

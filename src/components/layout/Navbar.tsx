@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { codeFont } from "@/styles/fonts";
-import { COLORS } from "@/lib/theme";
+import { THEME_COLORS } from "@/lib/theme";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
 // Define nav link type with proper typing
@@ -39,29 +39,30 @@ function NavLink({ name, href, className = "" }: NavLinkProps) {
         <Link
             href={href}
             className={twMerge(
-                `flex items-center gap-1 font-medium text-md md:text-lg lg:text-xl relative`,
+                `flex items-center gap-1 relative`,
+                `font-medium text-md md:text-lg lg:text-xl`,
                 codeFont,
                 className
             )}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{
-                color: "inherit",
+                color: "white",
+                mixBlendMode: "difference",
                 textDecoration: "none",
             }}
         >
-            {/* Prefix symbol that changes on hover */}
             <span className="transition-opacity duration-200">
                 {isHovered ? ">" : "\\"}
             </span>
 
-            {/* Link text */}
+            {/* Link</span> text */}
             {name}
 
             {/* Underline indicator that animates from left to right */}
             <motion.div
                 className="absolute bottom-0 left-0 h-0.5"
-                style={{ backgroundColor: COLORS.ACCENT[theme] }}
+                style={{ backgroundColor: THEME_COLORS.accent[theme] }}
                 initial={{ width: "0%" }}
                 animate={{ width: isHovered ? "100%" : "0%" }}
                 transition={{ duration: 0.2 }}
@@ -149,7 +150,7 @@ export default function Navbar() {
             }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className={twMerge(
-                "fixed top-0 left-0 right-0 z-90 rounded-full m-4 p-4"
+                "fixed top-0 left-0 right-0 z-1 rounded-full m-4 p-4"
             )}
         >
             <div className="flex justify-between items-center">

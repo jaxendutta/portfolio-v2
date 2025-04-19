@@ -2,12 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 import { BsArrowUpRight, BsCopy } from "react-icons/bs";
 import { IoCheckboxOutline } from "react-icons/io5";
 import { codeFont } from "@/styles/fonts";
-import { COLORS } from "@/lib/theme";
+import { THEME_COLORS } from "@/lib/theme";
 import { useTheme } from "@/components/theme/ThemeProvider";
 import { Social } from "@/data/contactData";
 
@@ -23,10 +22,13 @@ export const SocialItem = ({
     return (
         <motion.div
             className={`flex flex-row items-center w-full border-b ${codeFont}`}
+            initial={{
+                background: "transparent",
+                color: "currentColor",
+            }}
             whileHover={{
-                background: COLORS.HIGHLIGHT_BG[theme],
-                color: COLORS.HIGHLIGHT_TEXT[theme],
-                opacity: 0.8,
+                background: THEME_COLORS.highlight.bg[theme],
+                color: THEME_COLORS.highlight.text[theme],
             }}
         >
             <Link
@@ -43,22 +45,14 @@ export const SocialItem = ({
                     <span>{`${(index + 1).toString().padStart(2, "0")}.`}</span>
                     <span>{item.platform}</span>
                 </div>
-                <div
-                    className={twMerge(
-                        "flex items-center gap-4 text-2xl",
-                        theme === "DARK" ? "opacity-60" : ""
-                    )}
-                >
+                <div className="flex items-center gap-4 text-2xl">
                     <span className="hidden md:flex">{item.handle}</span>
                     <BsArrowUpRight />
                 </div>
             </Link>
             <motion.button
                 type="button"
-                className={twMerge(
-                    "cursor-pointer py-4 pr-4 text-2xl",
-                    theme === "DARK" ? "opacity-60" : ""
-                )}
+                className="cursor-pointer py-4 pr-4 text-2xl"
                 onClick={async (e) => {
                     e.preventDefault();
                     navigator.clipboard.writeText(item.url);

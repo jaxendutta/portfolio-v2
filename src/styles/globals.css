@@ -1,119 +1,78 @@
 @import "tailwindcss";
-
-@theme {
-    --font-background: url("https://i.gifer.com/ByRk.gif");
-    --noise-filter: contrast(145%) brightness(650%) invert(100%);
-}
-
-.light {
-    --font-background: url("https://media.giphy.com/media/YAxpwobytgjWgmIbP9/giphy.gif");
-    --noise-filter: contrast(125%) brightness(400%) invert(0%);
-}
+@import "./theme.css";
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    margin: 0;
-    overflow-x: hidden;
-    width: 100vw;
-    min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  width: 100vw;
+  min-height: 100vh;
+  color-scheme: dark light;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 a {
-    text-decoration: underline;
+  text-decoration: underline;
+  color: inherit;
 }
 
 a:hover {
-    color: crimson;
+  color: var(--color-accent);
+}
+
+/* Simple utility classes */
+.bg-theme {
+  background-color: var(--color-background);
+}
+
+.text-theme {
+  color: var(--color-text);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.bg-highlight {
+  background-color: var(--color-highlight-bg);
+}
+
+.text-highlight {
+  color: var(--color-highlight-text);
 }
 
 /* Noise effect */
 .noise {
-    margin-top: -15%;
-    width: 100vw;
-    height: 100vh;
-    background: radial-gradient(
-            circle at 50% 10%,
-            rgba(0, 0, 0, 1),
-            rgba(0, 0, 0, 0)
-        ),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 700 700' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    filter: var(--noise-filter);
-    mix-blend-mode: screen;
+  margin-top: -15%;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(
+      circle at 50% 10%,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0)
+    ),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 700 700' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  filter: var(--noise-filter);
+  mix-blend-mode: screen;
 }
 
 .light .noise {
-    mix-blend-mode: difference;
+  mix-blend-mode: difference;
 }
 
-/* Hide scrollbar for Firefox */
-.hide-scrollbar {
-    scrollbar-width: none;
-    overflow: -moz-scrollbars-none;
-    -ms-overflow-style: none;
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-
-.blend-difference {
-    mix-blend-mode: difference;
-}
-
+/* For clip-text effect */
 .clip-text {
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-/* Additional utility classes */
-.bg-theme {
-    background-color: var(--color-bg);
-}
-
-.text-theme {
-    color: var(--color-text);
-}
-
-.text-accent {
-    color: var(--color-accent);
-}
-
-.bg-accent {
-    background-color: var(--color-accent);
-}
-
-.hover\:text-accent:hover {
-    color: var(--color-accent);
-}
-
-.hover\:bg-accent:hover {
-    background-color: var(--color-accent);
-}
-
-.bg-highlight {
-    background-color: var(--color-highlight-bg);
-}
-
-.text-highlight {
-    color: var(--color-highlight-text);
-}
-
-.font-background {
-    background-image: var(--font-background);
-}
-
-/* Link styling */
-.a {
-    color: var(--color-text);
-    text-decoration: none;
-    transition: color 0.3s ease;
-    :hover {
-        color: var(--color-accent);
-    }
+  background-image: var(--font-background);
+  background-size: cover;
+  background-position: top left;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Marquee styling */

@@ -12,27 +12,29 @@ export default function ThemeSwitch() {
 
     return (
         <motion.button
-            onClick={() => toggleTheme(theme === "DARK" ? "LIGHT" : "DARK")}
+            onClick={() => toggleTheme()}
             aria-label={`Switch to ${theme} mode`}
             className={twMerge(
                 "flex items-center justify-center fixed bottom-3 right-3 text-4xl cursor-pointer z-10 mixed-blend-difference",
-                theme === "DARK" ? "opacity-75" : ""
+                theme === "dark" ? "opacity-75" : ""
             )}
         >
-            <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                    key={theme}
-                    initial={{ rotate: 0 }}
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1 }}
-                >
-                    {theme === "DARK" ? (
+            <motion.div
+                animate={{ rotate: 360 }}
+                transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "linear",
+                }}
+            >
+                <AnimatePresence mode="wait" initial={false}>
+                    {theme === "dark" ? (
                         <GiUbisoftSun />
                     ) : (
                         <SiIcomoon className="p-0.5" />
                     )}
-                </motion.div>
-            </AnimatePresence>
+                </AnimatePresence>
+            </motion.div>
         </motion.button>
     );
 }

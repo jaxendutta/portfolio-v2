@@ -1,5 +1,47 @@
 // src/lib/motionVariants.ts
 import { Variants } from "framer-motion";
+import { useMemo } from "react";
+
+export function useGlitchAnimation(steps = 50) {
+    return useMemo(() => {
+        const fontWeights = [100, 200, 300, 400, 500, 600, 700];
+        const fontStyles = ["normal", "italic"];
+        const textDecorations = ["none", "underline", "line-through"];
+        const textTransforms = ["none", "uppercase", "lowercase", "capitalize"];
+
+        const getRandomFrom = <T>(array: T[]): T =>
+            array[Math.floor(Math.random() * array.length)];
+
+        const animation = {
+            fontWeight: Array.from({ length: steps }, () =>
+                getRandomFrom(fontWeights)
+            ),
+            fontStyle: Array.from({ length: steps }, () =>
+                getRandomFrom(fontStyles)
+            ),
+            textDecoration: Array.from({ length: steps }, () =>
+                getRandomFrom(textDecorations)
+            ),
+            textTransform: Array.from({ length: steps }, () =>
+                getRandomFrom(textTransforms)
+            ),
+            scale: Array.from(
+                { length: steps },
+                () => 0.98 + Math.random() * 0.04
+            ),
+            skewX: Array.from(
+                { length: steps },
+                () => (Math.random() - 0.5) * 4
+            ),
+            opacity: Array.from(
+                { length: steps },
+                () => 0.9 + Math.random() * 0.1
+            ),
+        };
+
+        return animation;
+    }, [steps]);
+}
 
 /**
  * Fade in animation

@@ -10,7 +10,7 @@ import RotatingButton, {
     RotatingButtonProps,
 } from "@/components/ui/RotatingButton";
 import { useTheme } from "@/components/theme/ThemeProvider";
-import { COLORS } from "@/lib/theme";
+import { THEME_COLORS } from "@/lib/theme";
 
 export interface SectionHeaderProps {
     title: string;
@@ -25,7 +25,7 @@ export default function SectionHeader({
     buttonProps: actionButton,
 }: SectionHeaderProps) {
     const { theme } = useTheme();
-    
+
     // Format the content with proper spacing
     const iconContent = (
         <div className="flex items-center">
@@ -38,7 +38,7 @@ export default function SectionHeader({
     );
 
     const textContent = (
-        <span className="flex px-4 gap-8 whitespace-nowrap">
+        <span className={`flex px-4 gap-8 whitespace-nowrap`}>
             <span>{title}</span>
             <span>{delimiter}</span>
         </span>
@@ -47,33 +47,37 @@ export default function SectionHeader({
     return (
         <div className="relative mt-20 mb-10">
             <div className={`text-6xl md:text-8xl lg:text-10xl ${headingFont}`}>
-            {/* Top marquee with walking icons */}
-            <Marquee direction="right" className="opacity-20">
-                {iconContent}
-            </Marquee>
+                {/* Top marquee with walking icons */}
+                <Marquee direction="right" className="opacity-20">
+                    {iconContent}
+                </Marquee>
 
-            {/* Main title marquee */}
-            <Marquee direction="left" className="-mt-[0.2em] opacity-100">
-                {textContent}
-            </Marquee>
+                {/* Main title marquee */}
+                <Marquee direction="left" className="-mt-[0.2em] opacity-100">
+                    {textContent}
+                </Marquee>
 
-            {/* Bottom marquee (opposite direction) */}
-            <Marquee direction="right" className="-mt-[0.7em] opacity-20">
-                {textContent}
-            </Marquee>
+                {/* Bottom marquee (opposite direction) */}
+                <Marquee direction="right" className="-mt-[0.7em] opacity-20">
+                    {textContent}
+                </Marquee>
             </div>
 
-            {actionButton && (() => {
-            const { className, ...restButtonProps } = actionButton;
-            return (
-                <RotatingButton
-                centerBgColor={COLORS.BACKGROUND[theme]}
-                className={twMerge(className, `transition-all duration-300 ease-in-out font-medium absolute top-1/2 md:p-2 -translate-y-1/2`)}
-                {...restButtonProps}
-                variant={"glow"}
-                />
-            );
-            })()}
+            {actionButton &&
+                (() => {
+                    const { className, ...restButtonProps } = actionButton;
+                    return (
+                        <RotatingButton
+                            centerBgColor={THEME_COLORS.background[theme]}
+                            className={twMerge(
+                                className,
+                                `transition-all duration-300 ease-in-out font-medium absolute top-1/2 md:p-2 -translate-y-1/2`
+                            )}
+                            {...restButtonProps}
+                            variant={"glow"}
+                        />
+                    );
+                })()}
         </div>
     );
 }

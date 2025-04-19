@@ -51,9 +51,4 @@ export const contactFormFields: ContactFormField[] = [
         type: "link",
         required: false,
     },
-    {
-        name: "message",
-        type: "textarea",
-        required: true,
-    },
 ];

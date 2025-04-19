@@ -4,7 +4,7 @@ import Link, { LinkProps } from "next/link";
 import { IconType } from "react-icons";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
-import { COLORS } from "@/lib/theme";
+import { THEME_COLORS } from "@/lib/theme";
 import { TbArrowLeftFromArc } from "react-icons/tb";
 
 interface StyledLinkProps extends LinkProps {
@@ -24,14 +24,10 @@ const StyledLink = ({
     const { theme } = useTheme();
     return (
         <motion.div
-            className={twMerge(className, "flex items-start")}
-            style={{
-                color: "inherit",
-                textDecoration: "none",
-            }}
-            whileHover={{
-                color: COLORS.ACCENT[theme],
-            }}
+            className={twMerge(
+                className,
+                `flex items-start no-underline hover:text-[${THEME_COLORS.accent[theme]}]`
+            )}
         >
             <Link
                 replace

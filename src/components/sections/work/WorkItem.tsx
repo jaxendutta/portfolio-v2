@@ -1,12 +1,14 @@
 "use client";
 
+import React from "react";
+import { twMerge } from "tailwind-merge";
 import { motion, AnimatePresence } from "framer-motion";
 import { WorkExperience } from "@/types/work";
 import parse from "html-react-parser";
 import { RxPlus } from "react-icons/rx";
 import { workData } from "@/data/workData";
 import { codeFont } from "@/styles/fonts";
-import { COLORS } from "@/lib/theme";
+import { THEME_COLORS } from "@/lib/theme";
 import { useTheme } from "@/components/theme/ThemeProvider";
 import StyledLink from "@/components/ui/StyledLink";
 
@@ -26,9 +28,10 @@ export const WorkItem = ({
         <div className={`w-full border-b border-current ${codeFont}`}>
             {/* Header section - clickable */}
             <div
-                className={`flex justify-between items-center h-24 px-2 md:px-4 py-2 ${
+                className={twMerge(
+                    `flex justify-between items-center h-24 px-2 md:px-4 py-2`,
                     !isActive ? "cursor-pointer" : ""
-                }`}
+                )}
                 onClick={() => !isActive && onToggle()}
             >
                 <div className="flex items-center">
@@ -92,11 +95,20 @@ export const WorkItem = ({
                                     {data.skills.map((skill) => (
                                         <motion.span
                                             key={skill}
-                                            className="font-sans text-xs md:text-base align-middle p-[5px_7px] border border-current rounded-full"
+                                            className={twMerge(
+                                                `align-middle p-[5px_7px] border border-current rounded-full`,
+                                                `font-sans text-xs md:text-base`
+                                            )}
+                                            initial={{
+                                                color: "currentColor",
+                                                backgroundColor: "transparent",
+                                            }}
                                             whileHover={{
                                                 backgroundColor:
-                                                    COLORS.TEXT[theme],
-                                                color: COLORS.BACKGROUND[theme],
+                                                    THEME_COLORS.text[theme],
+                                                color: THEME_COLORS.background[
+                                                    theme
+                                                ],
                                             }}
                                             transition={{ duration: 0.1 }}
                                         >
@@ -183,9 +195,13 @@ export const WorkItemWithHover = (props: {
             whileHover={
                 !props.isActive
                     ? {
-                          backgroundColor: COLORS.HIGHLIGHT_BG[theme],
-                          color: COLORS.HIGHLIGHT_TEXT[theme],
-                          opacity: 0.8,
+                          backgroundColor:
+                              THEME_COLORS.highlight.bg[
+                                  theme as keyof typeof THEME_COLORS.highlight.bg
+                              ],
+                          color: THEME_COLORS.highlight.text[
+                              theme as keyof typeof THEME_COLORS.highlight.text
+                          ],
                       }
                     : {}
             }

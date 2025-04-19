@@ -27,7 +27,7 @@ export function DateTimePlace() {
             className={twMerge(
                 `flex flex-row items-center justify-center gap-2`,
                 `fixed bottom-2.5 left-2.5 theme-text`,
-                theme === "LIGHT" ? "font-semibold opacity-70" : "opacity-40"
+                theme === "light" ? "font-semibold opacity-70" : "opacity-40"
             )}
         >
             <motion.div

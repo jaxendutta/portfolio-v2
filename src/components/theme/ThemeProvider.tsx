@@ -1,69 +1,61 @@
-// src/components/ThemeProvider.tsx
+// src/components/theme/ThemeProvider.tsx
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import type { ColorSet } from "@/lib/theme";
-
-type Theme = keyof ColorSet;
+import { ThemeOption } from "@/lib/theme";
 
 interface ThemeContextType {
-    theme: Theme;
-    toggleTheme: (newTheme: Theme) => void;
+    theme: ThemeOption;
+    toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setTheme] = useState<Theme>("DARK");
+    const [theme, setTheme] = useState<ThemeOption>("dark");
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        // Get the theme from localStorage if available
-        const localStorageTheme = localStorage.getItem("theme") as Theme | null;
-        const systemSettingDark = window.matchMedia(
+        // Get theme from localStorage if available
+        const storedTheme = localStorage.getItem("theme") as ThemeOption | null;
+        const systemPrefersDark = window.matchMedia(
             "(prefers-color-scheme: dark)"
         ).matches;
 
         const initialTheme =
-            localStorageTheme ?? (systemSettingDark ? "DARK" : "LIGHT");
+            storedTheme || (systemPrefersDark ? "dark" : "light");
         setTheme(initialTheme);
         setMounted(true);
 
-        // Add listener for system theme changes
+        // Listen for system theme changes
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
         const handleChange = (e: MediaQueryListEvent) => {
             if (!localStorage.getItem("theme")) {
-                const newTheme = e.matches ? "DARK" : "LIGHT";
-                setTheme(newTheme);
+                setTheme(e.matches ? "dark" : "light");
             }
         };
 
         mediaQuery.addEventListener("change", handleChange);
-
-        return () => {
-            mediaQuery.removeEventListener("change", handleChange);
-        };
+        return () => mediaQuery.removeEventListener("change", handleChange);
     }, []);
 
     useEffect(() => {
         if (!mounted) return;
 
-        // Toggle the dark/light classes for Tailwind
-        if (theme === "DARK") {
-            document.documentElement.classList.add("DARK");
-            document.documentElement.classList.remove("LIGHT");
-        } else {
-            document.documentElement.classList.remove("DARK");
-            document.documentElement.classList.add("LIGHT");
-        }
+        const isDark = theme === "dark";
+
+        // Toggle the dark/light class on the html element
+        document.documentElement.classList.toggle("dark", isDark);
+        document.documentElement.classList.toggle("light", !isDark);
     }, [theme, mounted]);
 
-    const toggleTheme = (newTheme: Theme) => {
+    const toggleTheme = () => {
+        const newTheme = theme === "dark" ? "light" : "dark";
         setTheme(newTheme);
         localStorage.setItem("theme", newTheme);
     };
 
-    // Avoid rendering with default theme to prevent flashing
+    // Avoid rendering with default theme to prevent flash
     if (!mounted) {
         return <div className="hidden" />;
     }

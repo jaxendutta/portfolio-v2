@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
-import { COLORS } from "@/lib/theme";
+import { THEME_COLORS } from "@/lib/theme";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
 const variants = (centerBgColor: string) => ({
@@ -46,6 +46,8 @@ export interface RotatingButtonProps
     className?: string;
     rotationDuration?: number;
     fontSize?: number;
+    color?: string;
+    hoverColor?: string;
     centerBgColor?: string;
     hoverCenterBgColor?: string;
 }
@@ -61,10 +63,14 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     className = "",
     rotationDuration = 10,
     fontSize = 14,
+    color,
+    hoverColor,
     centerBgColor = "transparent",
     hoverCenterBgColor = centerBgColor,
 }) => {
     const { theme } = useTheme();
+    color = color || THEME_COLORS.text[theme];
+    hoverColor = hoverColor || THEME_COLORS.accent[theme];
 
     texts = texts.map((text) => text.toUpperCase());
     const containerRef = useRef<HTMLDivElement>(null);
@@ -122,7 +128,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 <text
                     key={index}
                     fontSize={fontSize}
-                    fill={isHovered ? COLORS.ACCENT[theme] : COLORS.TEXT[theme]}
+                    fill={isHovered ? hoverColor : color}
                     className="transition-all duration-300 ease-in-out"
                 >
                     <textPath
@@ -188,8 +194,8 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                     top: radius - innerRadius,
                     left: radius - innerRadius,
                     color: isHovered
-                        ? COLORS.ACCENT[theme]
-                        : COLORS.TEXT[theme],
+                        ? THEME_COLORS.accent[theme]
+                        : THEME_COLORS.text[theme],
                     transition: "color 0.3s ease",
                 }}
             >
