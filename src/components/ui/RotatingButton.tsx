@@ -87,7 +87,6 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 <text
                     key={index}
                     fontSize={fontSize}
-                    className="fill-current transition-all duration-300 ease-in-out"
                 >
                     <textPath
                         href={`#${pathId}`}
@@ -157,13 +156,12 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
 
             {/* Center circle with icon */}
             <motion.div
-                className="absolute flex items-center justify-center rounded-full text-current group-hover:text-accent"
+                className="absolute flex items-center justify-center rounded-full"
                 style={{
                     width: innerRadius * 2,
                     height: innerRadius * 2,
                     top: radius - innerRadius,
                     left: radius - innerRadius,
-                    transition: "color 0.3s ease",
                 }}
             >
                 {renderIcon()}
@@ -178,6 +176,10 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 "relative inline-flex items-center justify-center rounded-full cursor-pointer",
                 className
             )}
+            whileHover={{
+                color: "var(--color-accent)",
+                fill: "var(--color-accent)",
+            }}
         >
             {href ? (
                 <Link

@@ -66,7 +66,7 @@ export default function SectionHeader({
                         <RotatingButton
                             className={twMerge(
                                 className,
-                                `absolute top-1/2 -translate-y-1/2 p-0 font-medium transition-all duration-300 ease-in-out md:p-2`
+                                `absolute top-1/2 -translate-y-1/2 p-0 font-medium transition-all duration-100 ease-in-out md:p-2`
                             )}
                             {...restButtonProps}
                             variant={"glow"}
