@@ -1,19 +1,16 @@
+// src/components/ui/Moon.tsx
 "use client";
 
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 import Noise from "@/components/ui/Noise";
-import { THEME_COLORS } from "@/lib/theme";
-import { useTheme } from "@/components/theme/ThemeProvider";
 
 interface MoonContainerProps {
     className?: string;
 }
 
 export default function MoonContainer({ className }: MoonContainerProps) {
-    const { theme } = useTheme();
-
     return (
         <div className={twMerge("absolute top-0 w-full h-screen", className)}>
             {/* Noise overlay */}
@@ -21,10 +18,7 @@ export default function MoonContainer({ className }: MoonContainerProps) {
 
             {/* Center with circle element */}
             <motion.div
-                className={`w-[200px] h-[200px] absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/5 rounded-full`}
-                style={{
-                    background: THEME_COLORS.background[theme],
-                }}
+                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/5 h-[200px] w-[200px] rounded-full bg-theme"
                 animate={{ y: [-10, 0, -10] }}
                 transition={{
                     duration: 3,

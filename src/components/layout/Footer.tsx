@@ -1,23 +1,11 @@
-"use client";
-
+// src/components/layout/Footer.tsx
 import React from "react";
-import { twMerge } from "tailwind-merge";
-import { useTheme } from "@/components/theme/ThemeProvider";
 
-const Footer = ({ className = "" }) => {
-    const text = "Jaxen Anirban Dutta //";
-    const { theme } = useTheme();
+const Footer = () => {
     return (
-        <div
-            className={twMerge(
-                "flex justify-center items-center overflow-hidden",
-                "h-4 m-4 mt-20 font-sans uppercase",
-                theme === "DARK" ? "opacity-60" : "",
-                className
-            )}
-        >
-            {text}
-        </div>
+        <footer className="w-full py-8 text-center text-sm uppercase">
+            Jaxen Anirban Dutta //
+        </footer>
     );
 };
 

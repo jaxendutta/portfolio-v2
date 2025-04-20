@@ -9,8 +9,6 @@ import Marquee from "@/components/ui/Marquee";
 import RotatingButton, {
     RotatingButtonProps,
 } from "@/components/ui/RotatingButton";
-import { useTheme } from "@/components/theme/ThemeProvider";
-import { THEME_COLORS } from "@/lib/theme";
 
 export interface SectionHeaderProps {
     title: string;
@@ -24,8 +22,6 @@ export default function SectionHeader({
     delimiter = "⚕♨✦❍",
     buttonProps: actionButton,
 }: SectionHeaderProps) {
-    const { theme } = useTheme();
-
     // Format the content with proper spacing
     const iconContent = (
         <div className="flex items-center">
@@ -38,14 +34,14 @@ export default function SectionHeader({
     );
 
     const textContent = (
-        <span className={`flex px-4 gap-8 whitespace-nowrap`}>
+        <span className={`flex gap-8 whitespace-nowrap px-4`}>
             <span>{title}</span>
             <span>{delimiter}</span>
         </span>
     );
 
     return (
-        <div className="relative mt-20 mb-10">
+        <div className="relative mb-10 mt-20">
             <div className={`text-6xl md:text-8xl lg:text-10xl ${headingFont}`}>
                 {/* Top marquee with walking icons */}
                 <Marquee direction="right" className="opacity-20">
@@ -68,10 +64,9 @@ export default function SectionHeader({
                     const { className, ...restButtonProps } = actionButton;
                     return (
                         <RotatingButton
-                            centerBgColor={THEME_COLORS.background[theme]}
                             className={twMerge(
                                 className,
-                                `transition-all duration-300 ease-in-out font-medium absolute top-1/2 md:p-2 -translate-y-1/2`
+                                `absolute top-1/2 -translate-y-1/2 p-0 font-medium transition-all duration-300 ease-in-out md:p-2`
                             )}
                             {...restButtonProps}
                             variant={"glow"}

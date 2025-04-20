@@ -1,3 +1,4 @@
+// src/components/sections/work/WorkItem.tsx
 "use client";
 
 import React from "react";
@@ -8,8 +9,6 @@ import parse from "html-react-parser";
 import { RxPlus } from "react-icons/rx";
 import { workData } from "@/data/workData";
 import { codeFont } from "@/styles/fonts";
-import { THEME_COLORS } from "@/lib/theme";
-import { useTheme } from "@/components/theme/ThemeProvider";
 import StyledLink from "@/components/ui/StyledLink";
 
 export const WorkItem = ({
@@ -23,28 +22,27 @@ export const WorkItem = ({
     isActive: boolean;
     onToggle: () => void;
 }) => {
-    const { theme } = useTheme();
     return (
         <div className={`w-full border-b border-current ${codeFont}`}>
             {/* Header section - clickable */}
             <div
                 className={twMerge(
-                    `flex justify-between items-center h-24 px-2 md:px-4 py-2`,
+                    `flex h-24 items-center justify-between px-2 py-2 md:px-4`,
                     !isActive ? "cursor-pointer" : ""
                 )}
                 onClick={() => !isActive && onToggle()}
             >
                 <div className="flex items-center">
-                    <div className="text-3xl md:text-4xl lg:text-5xl mr-5 flex items-center">
+                    <div className="mr-5 flex items-center text-3xl md:text-4xl lg:text-5xl">
                         {(index + 1).toString().padStart(2, "0")}.
                     </div>
                     <div className="flex-grow flex flex-col justify-center pr-8">
-                        <div className="md:font-medium text-lg md:text-2xl">
+                        <div className="text-lg md:text-2xl md:font-medium">
                             {data.title}
                         </div>
                         <StyledLink
                             href={data.url}
-                            className={`flex flex-wrap gap-1 items-center text-inherit text-sm md:text-xl no-underline z-30`}
+                            className="z-30 flex flex-wrap items-center gap-1 text-inherit text-sm no-underline md:text-xl"
                             onClick={(e) => e.stopPropagation()}
                             text={data.company}
                         />
@@ -53,7 +51,7 @@ export const WorkItem = ({
 
                 {/* Toggle button */}
                 <motion.button
-                    className="relative flex items-center justify-center cursor-pointer rounded-full flex-shrink-0"
+                    className="relative flex flex-shrink-0 cursor-pointer items-center justify-center rounded-full"
                     onClick={(e) => {
                         e.stopPropagation();
                         onToggle();
@@ -70,7 +68,7 @@ export const WorkItem = ({
                         ease: "easeInOut",
                     }}
                 >
-                    <RxPlus className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0" />
+                    <RxPlus className="h-6 w-6 flex-shrink-0 md:h-8 md:w-8" />
                 </motion.button>
             </div>
 
@@ -87,28 +85,19 @@ export const WorkItem = ({
                         }}
                         className="overflow-hidden"
                     >
-                        <div className="flex flex-row relative px-2 md:px-4 pb-8">
+                        <div className="relative flex flex-row px-2 pb-8 md:px-4">
                             {/* Main content */}
                             <div className="w-3/4 pr-8">
                                 {/* Skills tags */}
-                                <div className="flex flex-wrap justify-start gap-2.5 pointer-events-auto mb-6">
+                                <div className="mb-6 flex flex-wrap justify-start gap-2.5 pointer-events-auto">
                                     {data.skills.map((skill) => (
                                         <motion.span
                                             key={skill}
-                                            className={twMerge(
-                                                `align-middle p-[5px_7px] border border-current rounded-full`,
-                                                `font-sans text-xs md:text-base`
-                                            )}
-                                            initial={{
-                                                color: "currentColor",
-                                                backgroundColor: "transparent",
-                                            }}
+                                            className="align-middle p-[5px_7px] border border-current rounded-full font-sans text-xs md:text-base"
                                             whileHover={{
                                                 backgroundColor:
-                                                    THEME_COLORS.text[theme],
-                                                color: THEME_COLORS.background[
-                                                    theme
-                                                ],
+                                                    "var(--color-text)",
+                                                color: "var(--color-background)",
                                             }}
                                             transition={{ duration: 0.1 }}
                                         >
@@ -119,7 +108,7 @@ export const WorkItem = ({
 
                                 {/* Team info if available */}
                                 {data.team && (
-                                    <div className="pt-4 pb-2 text-xl w-full border-b border-current mb-4">
+                                    <div className="mb-4 w-full border-b border-current pt-4 pb-2 text-xl">
                                         {data.team.url ? (
                                             <StyledLink
                                                 href={data.team.url}
@@ -142,8 +131,8 @@ export const WorkItem = ({
                             </div>
 
                             {/* Date timeline */}
-                            <div className="absolute right-4 md:right-6 lg:right-8 top-0 bottom-0 pb-8 flex flex-col items-center justify-between">
-                                <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm">
+                            <div className="absolute right-4 top-0 bottom-0 flex flex-col items-center justify-between pb-8 md:right-6 lg:right-8">
+                                <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm  whitespace-nowrap">
                                     {new Date(data.duration.start)
                                         .toLocaleString("en", {
                                             year: "numeric",
@@ -153,7 +142,7 @@ export const WorkItem = ({
                                 </span>
 
                                 <motion.div
-                                    className="flex-grow w-0.5 bg-current my-2.5 origin-top"
+                                    className="my-2.5 h-full w-0.5 flex-grow origin-top bg-current"
                                     initial={{ scaleY: 0 }}
                                     animate={{ scaleY: 1 }}
                                     exit={{ scaleY: 0 }}
@@ -164,7 +153,7 @@ export const WorkItem = ({
                                     }}
                                 />
 
-                                <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm">
+                                <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm whitespace-nowrap">
                                     {new Date(data.duration.end)
                                         .toLocaleString("en", {
                                             year: "numeric",
@@ -188,20 +177,13 @@ export const WorkItemWithHover = (props: {
     isActive: boolean;
     onToggle: () => void;
 }) => {
-    const { theme } = useTheme();
-
     return (
         <motion.div
             whileHover={
                 !props.isActive
                     ? {
-                          backgroundColor:
-                              THEME_COLORS.highlight.bg[
-                                  theme as keyof typeof THEME_COLORS.highlight.bg
-                              ],
-                          color: THEME_COLORS.highlight.text[
-                              theme as keyof typeof THEME_COLORS.highlight.text
-                          ],
+                          backgroundColor: "var(--color-highlight-bg)",
+                          color: "var(--color-highlight-text)",
                       }
                     : {}
             }

@@ -3,8 +3,6 @@ import { twMerge } from "tailwind-merge";
 import Link, { LinkProps } from "next/link";
 import { IconType } from "react-icons";
 import { motion } from "framer-motion";
-import { useTheme } from "@/components/theme/ThemeProvider";
-import { THEME_COLORS } from "@/lib/theme";
 import { TbArrowLeftFromArc } from "react-icons/tb";
 
 interface StyledLinkProps extends LinkProps {
@@ -21,12 +19,11 @@ const StyledLink = ({
     iconPosition = "right",
     ...props
 }: StyledLinkProps) => {
-    const { theme } = useTheme();
     return (
         <motion.div
             className={twMerge(
-                className,
-                `flex items-start no-underline hover:text-[${THEME_COLORS.accent[theme]}]`
+                "flex items-start no-underline hover:text-accent",
+                className
             )}
         >
             <Link
@@ -35,7 +32,6 @@ const StyledLink = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 className={twMerge(
-                    className,
                     "flex items-center gap-1",
                     iconPosition === "right" ? "flex-row-reverse" : "flex-row"
                 )}

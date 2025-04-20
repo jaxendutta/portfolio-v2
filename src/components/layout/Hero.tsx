@@ -1,15 +1,12 @@
 // src/components/sections/HeroSection.tsx
 "use client";
 
-import { twMerge } from "tailwind-merge";
 import { displayFont } from "@/styles/fonts";
-import { useTheme } from "@/components/theme/ThemeProvider";
 import RotatingButton from "@/components/ui/RotatingButton";
 import Moon from "@/components/ui/Moon";
 import { GiMaterialsScience } from "react-icons/gi";
 
 export default function Hero() {
-    const { theme } = useTheme();
     return (
         <section
             id="hero-container"
@@ -21,13 +18,7 @@ export default function Hero() {
             {/* Main intro content */}
             <div className="absolute text-center top-[15vh] w-screen h-screen text-3xl md:text-5xl flex flex-col justify-center items-center gap-[5vh]">
                 <div
-                    className={twMerge(
-                        displayFont,
-                        "text-8xl md:text-[6.5rem] italic pr-[0.1em] clip-text",
-                        theme === "dark"
-                            ? "bg-[url('https://i.gifer.com/ByRk.gif')] bg-cover bg-top"
-                            : "bg-[url('https://media.giphy.com/media/YAxpwobytgjWgmIbP9/giphy.gif')] bg-cover bg-top"
-                    )}
+                    className={`text-8xl md:text-[6.5rem] italic pr-[0.1em] clip-text ${displayFont}`}
                 >
                     <em>{`¿ JAXEN DUTTA ?`}</em>
                 </div>

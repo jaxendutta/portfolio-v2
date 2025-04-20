@@ -1,55 +1,24 @@
 // src/components/ui/RotatingButton.tsx
 "use client";
 
-import React, { ReactNode, useRef, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
-import { THEME_COLORS } from "@/lib/theme";
-import { useTheme } from "@/components/theme/ThemeProvider";
-
-const variants = (centerBgColor: string) => ({
-    default: {},
-    frost: {
-        backgroundColor: `${centerBgColor}, 0.1)`,
-        backdropFilter: "blur(10px)",
-        boxShadow: `0 4px 6px ${centerBgColor}, 0.5)`,
-        ":hover": {
-            boxShadow: "0 4px 6px rgba(var(--theme-color), 0.3)",
-        },
-    },
-    raised: {
-        boxShadow: `0 4px 6px ${centerBgColor}, 0.2)`,
-        transition: "box-shadow 0.3s ease",
-        ":hover": {
-            boxShadow: `0 4px 6px ${centerBgColor}, 0.3)`,
-        },
-    },
-    glow: {
-        boxShadow: `0 0 15px 15px ${centerBgColor}`,
-        ":hover": {
-            boxShadow: `0 0 45px 45px ${centerBgColor}`,
-        },
-    },
-});
 
 export interface RotatingButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     texts: string[];
     delimiters?: string[];
     size?: number;
-    variant?: keyof ReturnType<typeof variants>;
+    variant?: "default" | "frost" | "raised" | "glow";
     href?: string;
     onClick?: () => void;
     centerIcon?: ReactNode | IconType;
     className?: string;
     rotationDuration?: number;
     fontSize?: number;
-    color?: string;
-    hoverColor?: string;
-    centerBgColor?: string;
-    hoverCenterBgColor?: string;
 }
 
 const RotatingButton: React.FC<RotatingButtonProps> = ({
@@ -63,18 +32,8 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     className = "",
     rotationDuration = 10,
     fontSize = 14,
-    color,
-    hoverColor,
-    centerBgColor = "transparent",
-    hoverCenterBgColor = centerBgColor,
 }) => {
-    const { theme } = useTheme();
-    color = color || THEME_COLORS.text[theme];
-    hoverColor = hoverColor || THEME_COLORS.accent[theme];
-
     texts = texts.map((text) => text.toUpperCase());
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [isHovered, setIsHovered] = useState(false);
     const [pathId] = useState(
         `circle-path-${Math.random().toString(36).slice(2, 11)}`
     );
@@ -90,7 +49,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         radius * 0.8
     } 0 1,1 -${radius * 1.6},0`;
 
-    // Create text segment with appropriate spacing - using the original calculation
+    // Create text segment with appropriate spacing
     const createTextSegments = () => {
         // Create interleaved segments array
         const segments: string[] = [];
@@ -128,8 +87,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 <text
                     key={index}
                     fontSize={fontSize}
-                    fill={isHovered ? hoverColor : color}
-                    className="transition-all duration-300 ease-in-out"
+                    className="fill-current transition-all duration-300 ease-in-out"
                 >
                     <textPath
                         href={`#${pathId}`}
@@ -154,23 +112,35 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         return centerIcon;
     };
 
+    // Apply variant-specific styles
+    const getVariantClass = () => {
+        switch (variant) {
+            case "frost":
+                return "bg-opacity-10 backdrop-blur-md shadow-md";
+            case "raised":
+                return "shadow-md hover:shadow-lg";
+            case "glow":
+                return "bg-theme shadow-[0_0_15px_15px_var(--color-background)] hover:shadow-[0_0_45px_45px_var(--color-background)]";
+            default:
+                return "";
+        }
+    };
+
     // The main button content
     const buttonContent = (
         <motion.div
-            ref={containerRef}
             className={twMerge(
-                "relative inline-flex items-center justify-center rounded-full cursor-pointer"
+                "group relative inline-flex cursor-pointer items-center justify-center rounded-full",
+                getVariantClass()
             )}
             style={{
                 width: size,
                 height: size,
             }}
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
         >
             {/* Rotating SVG with text */}
             <motion.svg
-                className="absolute inset-0 w-full h-full"
+                className="absolute inset-0 h-full w-full fill-current group-hover:fill-accent"
                 viewBox={`0 0 ${size} ${size}`}
                 animate={{ rotate: 360 }}
                 transition={{
@@ -187,15 +157,12 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
 
             {/* Center circle with icon */}
             <motion.div
-                className="absolute flex items-center justify-center rounded-full"
+                className="absolute flex items-center justify-center rounded-full text-current group-hover:text-accent"
                 style={{
                     width: innerRadius * 2,
                     height: innerRadius * 2,
                     top: radius - innerRadius,
                     left: radius - innerRadius,
-                    color: isHovered
-                        ? THEME_COLORS.accent[theme]
-                        : THEME_COLORS.text[theme],
                     transition: "color 0.3s ease",
                 }}
             >
@@ -211,16 +178,12 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 "relative inline-flex items-center justify-center rounded-full cursor-pointer",
                 className
             )}
-            style={{
-                backgroundColor: isHovered ? hoverCenterBgColor : centerBgColor,
-                ...variants(centerBgColor)[variant],
-            }}
         >
             {href ? (
                 <Link
                     href={href}
                     onClick={onClick}
-                    className="focus:outline-none flex items-center justify-center"
+                    className="flex items-center justify-center focus:outline-none"
                     aria-label={texts[0] || "Rotating button"}
                 >
                     {buttonContent}
@@ -229,14 +192,14 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 <button
                     type="button"
                     onClick={onClick}
-                    className="focus:outline-none flex items-center justify-center"
+                    className="flex items-center justify-center focus:outline-none"
                     aria-label={texts[0] || "Rotating button"}
                 >
                     {buttonContent}
                 </button>
             ) : (
                 <div
-                    className="focus:outline-none flex items-center justify-center"
+                    className="flex items-center justify-center focus:outline-none"
                     aria-label={texts[0] || "Rotating element"}
                 >
                     {buttonContent}

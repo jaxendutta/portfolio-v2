@@ -2,8 +2,6 @@
 import { useState, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
-import { THEME_COLORS } from "@/lib/theme";
-import { useTheme } from "@/components/theme/ThemeProvider";
 
 interface CaseGlitchProps {
     text: string;
@@ -11,7 +9,6 @@ interface CaseGlitchProps {
 }
 
 export function CaseGlitch({ text, className }: CaseGlitchProps) {
-    const { theme } = useTheme();
     const [glitchState, setGlitchState] = useState(0);
 
     // Properly typed variants
@@ -89,12 +86,9 @@ export function CaseGlitch({ text, className }: CaseGlitchProps) {
     return (
         <motion.div
             className={twMerge(
-                "flex justify-center items-center gap-4 my-20",
+                "my-20 flex items-center justify-center gap-4 text-accent",
                 className
             )}
-            style={{
-                color: THEME_COLORS.accent[theme],
-            }}
             animate={glitchVariants[glitchState]}
             transition={{
                 duration: 0.05,

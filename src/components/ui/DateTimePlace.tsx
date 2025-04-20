@@ -1,18 +1,17 @@
-import { twMerge } from "tailwind-merge";
+// src/components/ui/DateTimePlace.tsx
 import { motion } from "framer-motion";
 import { PiGlobeSimpleThin } from "react-icons/pi";
 import { useState, useEffect } from "react";
-import { useTheme } from "@/components/theme/ThemeProvider";
 
 export function DateTimePlace() {
-    const { theme } = useTheme();
     const [currentTime, setCurrentTime] = useState("");
 
     // Update time every second
     useEffect(() => {
         const updateTime = () => {
-            const estTime = new Date().toLocaleString("nl-NL", {
+            const estTime = new Date().toLocaleString("en-CA", {
                 timeZone: "America/Toronto",
+                hour12: false,
             });
             setCurrentTime(estTime);
         };
@@ -24,11 +23,7 @@ export function DateTimePlace() {
 
     return (
         <div
-            className={twMerge(
-                `flex flex-row items-center justify-center gap-2`,
-                `fixed bottom-2.5 left-2.5 theme-text`,
-                theme === "light" ? "font-semibold opacity-70" : "opacity-40"
-            )}
+            className={`fixed bottom-2.5 left-2.5 flex flex-row items-center justify-center gap-2`}
         >
             <motion.div
                 animate={{ rotate: 360 }}

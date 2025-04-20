@@ -1,3 +1,4 @@
+// src/components/sections/contact/SocialItem.tsx
 "use client";
 
 import { useState } from "react";
@@ -6,8 +7,6 @@ import { motion } from "framer-motion";
 import { BsArrowUpRight, BsCopy } from "react-icons/bs";
 import { IoCheckboxOutline } from "react-icons/io5";
 import { codeFont } from "@/styles/fonts";
-import { THEME_COLORS } from "@/lib/theme";
-import { useTheme } from "@/components/theme/ThemeProvider";
 import { Social } from "@/data/contactData";
 
 export const SocialItem = ({
@@ -17,25 +16,22 @@ export const SocialItem = ({
     item: Social;
     index: number;
 }) => {
-    const { theme } = useTheme();
     const [copied, setCopied] = useState(false);
+
     return (
         <motion.div
             className={`flex flex-row items-center w-full border-b ${codeFont}`}
-            initial={{
-                background: "transparent",
-                color: "currentColor",
-            }}
             whileHover={{
-                background: THEME_COLORS.highlight.bg[theme],
-                color: THEME_COLORS.highlight.text[theme],
+                backgroundColor: "var(--color-highlight-bg)",
+                color: "var(--color-highlight-text)",
+                opacity: 0.8,
             }}
         >
             <Link
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`p-4 w-full flex flex-row justify-between group`}
+                className="p-4 w-full flex flex-row justify-between group"
                 style={{
                     color: "inherit",
                     textDecoration: "none",
@@ -45,14 +41,14 @@ export const SocialItem = ({
                     <span>{`${(index + 1).toString().padStart(2, "0")}.`}</span>
                     <span>{item.platform}</span>
                 </div>
-                <div className="flex items-center gap-4 text-2xl">
+                <div className="flex items-center gap-4 text-2xl opacity-60 dark:opacity-60">
                     <span className="hidden md:flex">{item.handle}</span>
                     <BsArrowUpRight />
                 </div>
             </Link>
             <motion.button
                 type="button"
-                className="cursor-pointer py-4 pr-4 text-2xl"
+                className="cursor-pointer py-4 pr-4 text-2xl opacity-60 dark:opacity-60"
                 onClick={async (e) => {
                     e.preventDefault();
                     navigator.clipboard.writeText(item.url);
@@ -77,7 +73,7 @@ export const SocialItem = ({
 
 export const SocialItems = ({ socials }: { socials: Social[] }) => {
     return (
-        <div className="w-full flex flex-col items-center justify-center self-center hover:color-heighlight-text">
+        <div className="w-full flex flex-col items-center justify-center self-center">
             {socials.map((social, index) => (
                 <SocialItem key={index} item={social} index={index} />
             ))}

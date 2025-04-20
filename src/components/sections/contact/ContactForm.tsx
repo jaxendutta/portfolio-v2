@@ -1,3 +1,4 @@
+// src/components/sections/contact/ContactForm.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -7,29 +8,22 @@ import { motion } from "framer-motion";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { contactFormFields } from "@/data/contactData";
 import { GiFloorHatch, GiHandTruck } from "react-icons/gi";
-import { THEME_COLORS } from "@/lib/theme";
-import { useTheme } from "@/components/theme/ThemeProvider";
 
 export const Input: React.FC<
     React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & {
         type?: string;
     }
 > = ({ name, type, required, placeholder, value, onChange, ...rest }) => {
-    const { theme } = useTheme();
     return (
         <motion.div
-            className={twMerge("flex w-full p-4 border-t border-theme-text")}
-            initial={{
-                background: "transparent",
-                color: "currentColor",
-            }}
+            className={twMerge("flex w-full border-t border-current p-4")}
             whileHover={{
-                background: THEME_COLORS.highlight.bg[theme],
-                color: THEME_COLORS.highlight.text[theme],
+                backgroundColor: "var(--color-highlight-bg)",
+                color: "var(--color-highlight-text)",
             }}
             whileFocus={{
-                background: THEME_COLORS.highlight.bg[theme],
-                color: THEME_COLORS.highlight.text[theme],
+                backgroundColor: "var(--color-highlight-bg)",
+                color: "var(--color-highlight-text)",
             }}
         >
             {React.createElement(type === "textarea" ? "textarea" : "input", {
@@ -38,7 +32,7 @@ export const Input: React.FC<
                 required,
                 placeholder,
                 value,
-                className: "w-full focus:outline-none",
+                className: "w-full focus:outline-none bg-transparent",
                 onChange,
                 ...(type === "textarea" ? { rows: 10 } : {}),
                 ...rest,
@@ -74,14 +68,14 @@ export const ContactForm: React.FC = () => {
 
     return (
         <Form
-            className="flex flex-col justify-center self-center w-full"
+            className="flex w-full flex-col justify-center self-center"
             action={async (formData) => {
                 const data = Object.fromEntries(formData.entries());
                 console.log(data);
             }}
         >
-            <div className="flex w-full border-b flex-wrap">
-                <div className="flex flex-1 flex-col min-w-[600px]">
+            <div className="flex w-full flex-wrap border-b">
+                <div className="flex min-w-[600px] flex-1 flex-col">
                     {contactFormFields.map((field, index) => {
                         const { name, type, required } = field;
                         return (
@@ -99,7 +93,7 @@ export const ContactForm: React.FC = () => {
                         );
                     })}
                 </div>
-                <div className="flex flex-1 min-w-[300px]">
+                <div className="flex min-w-[300px] flex-1">
                     <Input
                         key={contactFormFields.length}
                         name={"message"}
@@ -114,7 +108,7 @@ export const ContactForm: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex justify-between gap-4 px-8 md:px-16 py-8">
+            <div className="flex justify-between gap-4 px-8 py-8 md:px-16">
                 <RotatingButton
                     size={100}
                     rotationDuration={10}
