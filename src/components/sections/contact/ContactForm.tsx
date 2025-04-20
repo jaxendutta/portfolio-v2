@@ -74,7 +74,7 @@ export const ContactForm: React.FC = () => {
             }}
         >
             <div className="flex w-full flex-wrap border-b">
-                <div className="flex min-w-[600px] flex-1 flex-col">
+                <div className="flex min-w-[400px] flex-1 flex-col">
                     {contactFormFields.map((field, index) => {
                         const { name, type, required } = field;
                         return (

@@ -1,9 +1,11 @@
 // src/components/ui/DateTimePlace.tsx
+"use client";
+
 import { motion } from "framer-motion";
 import { PiGlobeSimpleThin } from "react-icons/pi";
 import { useState, useEffect } from "react";
 
-export function DateTimePlace() {
+export default function DateTimePlace() {
     const [currentTime, setCurrentTime] = useState("");
 
     // Update time every second
@@ -22,9 +24,7 @@ export function DateTimePlace() {
     }, []);
 
     return (
-        <div
-            className={`fixed bottom-2.5 left-2.5 flex flex-row items-center justify-center gap-2`}
-        >
+        <div className={`flex flex-row items-center justify-center gap-2`}>
             <motion.div
                 animate={{ rotate: 360 }}
                 transition={{
@@ -42,5 +42,3 @@ export function DateTimePlace() {
         </div>
     );
 }
-
-export default DateTimePlace;

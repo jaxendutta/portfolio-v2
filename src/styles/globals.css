@@ -2,77 +2,81 @@
 @import "./theme.css";
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* For Firefox */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
 }
 
 body {
-  margin: 0;
-  overflow-x: hidden;
-  width: 100vw;
-  min-height: 100vh;
-  color-scheme: dark light;
-  background-color: var(--color-background);
-  color: var(--color-text);
-  transition: background-color 0.3s, color 0.3s;
+    margin: 0;
+    overflow-x: hidden;
+    width: 100vw;
+    min-height: 100vh;
+    color-scheme: dark light;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    transition:
+        background-color 0.3s,
+        color 0.3s;
 }
 
 a {
-  text-decoration: underline;
-  color: inherit;
+    text-decoration: underline;
+    color: inherit;
 }
 
 a:hover {
-  color: var(--color-accent);
+    color: var(--color-accent);
 }
 
 /* Simple utility classes */
 .bg-theme {
-  background-color: var(--color-background);
+    background-color: var(--color-background);
 }
 
 .text-theme {
-  color: var(--color-text);
+    color: var(--color-text);
 }
 
 .text-accent {
-  color: var(--color-accent);
+    color: var(--color-accent);
 }
 
 .bg-highlight {
-  background-color: var(--color-highlight-bg);
+    background-color: var(--color-highlight-bg);
 }
 
 .text-highlight {
-  color: var(--color-highlight-text);
+    color: var(--color-highlight-text);
 }
 
 /* Noise effect */
 .noise {
-  margin-top: -15%;
-  width: 100vw;
-  height: 100vh;
-  background: radial-gradient(
-      circle at 50% 10%,
-      rgba(0, 0, 0, 1),
-      rgba(0, 0, 0, 0)
-    ),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 700 700' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  filter: var(--noise-filter);
-  mix-blend-mode: screen;
+    margin-top: -15%;
+    width: 100vw;
+    height: 100vh;
+    background:
+        radial-gradient(circle at 50% 10%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 700 700' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    filter: var(--noise-filter);
+    mix-blend-mode: screen;
 }
 
 .light .noise {
-  mix-blend-mode: difference;
+    mix-blend-mode: difference;
 }
 
 /* For clip-text effect */
 .clip-text {
-  background-image: var(--font-background);
-  background-size: cover;
-  background-position: top left;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+    background-image: var(--font-background);
+    background-size: cover;
+    background-position: top left;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 /* Marquee styling */

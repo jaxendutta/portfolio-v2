@@ -6,6 +6,7 @@ import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { codeFont } from "@/styles/fonts";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 // Define nav link type with proper typing
 type NavLinkType = {
@@ -72,9 +73,15 @@ export default function Navbar() {
     const linkLength = navLinks.length / 2;
     const leftLinks = navLinks.slice(0, linkLength);
     const rightLinks = navLinks.slice(linkLength);
+    const { theme } = useTheme();
 
     return (
-        <nav className="fixed left-0 right-0 top-0 z-50 p-4 text-theme invert mix-blend-difference">
+        <nav
+            className={twMerge(
+                "fixed left-0 right-0 top-0 z-50 p-4 text-theme mix-blend-difference",
+                theme === "light" ? "invert" : ""
+            )}
+        >
             <div className="flex items-center justify-between">
                 <div className="flex items-center justify-between gap-6">
                     {leftLinks.map((link) => (

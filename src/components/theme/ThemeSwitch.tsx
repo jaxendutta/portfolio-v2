@@ -2,7 +2,6 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { twMerge } from "tailwind-merge";
 import { useTheme } from "@/components/theme/ThemeProvider";
 import { GiUbisoftSun } from "react-icons/gi";
 import { SiIcomoon } from "react-icons/si";
@@ -14,10 +13,7 @@ export default function ThemeSwitch() {
         <motion.button
             onClick={() => toggleTheme()}
             aria-label={`Switch to ${theme} mode`}
-            className={twMerge(
-                "flex items-center justify-center fixed bottom-3 right-3 text-4xl cursor-pointer z-10 mixed-blend-difference",
-                theme === "dark" ? "opacity-75" : ""
-            )}
+            className={`text-4xl cursor-pointer mixed-blend-difference`}
         >
             <motion.div
                 animate={{ rotate: 360 }}
