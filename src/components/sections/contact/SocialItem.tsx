@@ -24,7 +24,6 @@ export const SocialItem = ({
             whileHover={{
                 backgroundColor: "var(--color-highlight-bg)",
                 color: "var(--color-highlight-text)",
-                opacity: 0.8,
             }}
         >
             <Link

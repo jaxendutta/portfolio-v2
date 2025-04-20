@@ -3,7 +3,6 @@
 
 import React, { useState } from "react";
 import Form from "next/form";
-import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { contactFormFields } from "@/data/contactData";
@@ -16,7 +15,7 @@ export const Input: React.FC<
 > = ({ name, type, required, placeholder, value, onChange, ...rest }) => {
     return (
         <motion.div
-            className={twMerge("flex w-full border-t border-current p-4")}
+            className={"flex w-full border-t border-current p-4"}
             whileHover={{
                 backgroundColor: "var(--color-highlight-bg)",
                 color: "var(--color-highlight-text)",
