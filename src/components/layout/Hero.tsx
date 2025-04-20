@@ -24,7 +24,7 @@ export default function Hero() {
                     className={twMerge(
                         displayFont,
                         "text-8xl md:text-[6.5rem] italic pr-[0.1em] clip-text",
-                        theme === "DARK"
+                        theme === "dark"
                             ? "bg-[url('https://i.gifer.com/ByRk.gif')] bg-cover bg-top"
                             : "bg-[url('https://media.giphy.com/media/YAxpwobytgjWgmIbP9/giphy.gif')] bg-cover bg-top"
                     )}
