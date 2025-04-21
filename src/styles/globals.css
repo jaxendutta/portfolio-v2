@@ -107,6 +107,7 @@ a:hover {
     input:hover::placeholder,
     textarea:hover::placeholder {
         color: var(--color-highlight-text);
+        background-color: var(--color-highlight-bg);
     }
 
     button:not(:disabled),
