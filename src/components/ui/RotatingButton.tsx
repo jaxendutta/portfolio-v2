@@ -18,6 +18,7 @@ export interface RotatingButtonProps
     className?: string;
     rotationDuration?: number;
     fontSize?: number;
+    disabled?: boolean;
 }
 
 const RotatingButton: React.FC<RotatingButtonProps> = ({
@@ -31,6 +32,8 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     className = "",
     rotationDuration = 10,
     fontSize = 14,
+    type = "button",
+    disabled = false,
 }) => {
     texts = texts.map((text) => text.toUpperCase());
     const [pathId] = useState(
@@ -182,10 +185,11 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 </Link>
             ) : onClick ? (
                 <button
-                    type="button"
+                    type={type}
                     onClick={onClick}
                     className="flex items-center justify-center focus:outline-none"
                     aria-label={texts[0] || "Rotating button"}
+                    disabled={disabled}
                 >
                     {buttonContent}
                 </button>
