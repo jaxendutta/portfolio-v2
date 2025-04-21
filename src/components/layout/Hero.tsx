@@ -3,7 +3,7 @@
 
 import RotatingButton from "@/components/ui/RotatingButton";
 import NightSky from "@/components/ui/NightSky";
-import { displayFont } from "@/styles/fonts";
+import { displayFont } from "@/lib/fonts";
 import { GiMaterialsScience } from "react-icons/gi";
 
 export default function Hero() {

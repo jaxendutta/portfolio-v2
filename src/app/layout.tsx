@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { majorMono, firaCode } from "@/styles/fonts";
+import { majorMono, firaCode } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 export const metadata: Metadata = {

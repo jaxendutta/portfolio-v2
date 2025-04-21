@@ -5,6 +5,7 @@ import SocialItems from "@/components/sections/contact/SocialItem";
 import ContactForm from "@/components/sections/contact/ContactForm";
 import { socials } from "@/data/contactData";
 import CaseGlitch from "@/components/ui/CaseGlitch";
+import { displayFont } from "@/lib/fonts";
 
 export default function ContactSection() {
     return (
@@ -14,7 +15,10 @@ export default function ContactSection() {
         >
             <SocialItems socials={socials} />
 
-            <CaseGlitch text="or buzz me right here." />
+            <CaseGlitch
+                text="or buzz me right here."
+                className={`${displayFont}`}
+            />
 
             <ContactForm />
         </Section>

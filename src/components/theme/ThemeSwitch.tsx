@@ -10,27 +10,32 @@ export default function ThemeSwitch() {
     const { theme, toggleTheme } = useTheme();
 
     return (
-        <button
+        <motion.button
+            type="button"
             onClick={() => toggleTheme()}
             aria-label={`Switch to ${theme} mode`}
-            className={`text-4xl cursor-pointer mixed-blend-difference`}
+            className={`text-4xl mixed-blend-difference`}
+            animate={{ rotate: 360 }}
+            transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear",
+            }}
+            whileHover={{
+                rotate: 0,
+                transition: {
+                    duration: 0.5,
+                    ease: "easeInOut",
+                },
+            }}
         >
-            <motion.div
-                animate={{ rotate: 360 }}
-                transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    ease: "linear",
-                }}
-            >
-                <AnimatePresence mode="wait" initial={false}>
-                    {theme === "dark" ? (
-                        <GiUbisoftSun />
-                    ) : (
-                        <SiIcomoon className="p-0.5" />
-                    )}
-                </AnimatePresence>
-            </motion.div>
-        </button>
+            <AnimatePresence mode="wait" initial={false}>
+                {theme === "dark" ? (
+                    <GiUbisoftSun />
+                ) : (
+                    <SiIcomoon className="p-0.5" />
+                )}
+            </AnimatePresence>
+        </motion.button>
     );
 }

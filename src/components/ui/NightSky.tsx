@@ -26,15 +26,14 @@ function Noise() {
 
     return (
         <motion.div
-            className={`w-full h-screen`}
+            className={`w-full h-[90vh]`}
             style={{
-                marginTop: "-15%",
-                backgroundImage: `
-          radial-gradient(circle at 50% 10%, ${theme === "dark" ? "rgba(0, 0, 0, 1)" : "rgb(0, 20, 90)"}, rgba(0, 0, 0, 0)),
-          url("data:image/svg+xml,%3Csvg viewBox='0 0 700 700' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
-        `,
+                marginTop: "-10%",
+                backgroundImage: `radial-gradient(circle at 50% 10%, 
+                                ${theme === "dark" ? "rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)" : "rgb(0, 20, 90), rgba(255, 255, 0, 0)"}),
+                                url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' numOctaves='0' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
                 filter: getFilterValue(),
-                mixBlendMode: theme === "dark" ? "difference" : "multiply",
+                mixBlendMode: theme === "dark" ? "color-dodge" : "multiply",
                 backgroundSize: "cover",
             }}
         />

@@ -1,7 +1,7 @@
 // src/components/ui/SectionHeader.tsx
 "use client";
 
-import { headingFont } from "@/styles/fonts";
+import { headingFont } from "@/lib/fonts";
 import { FaPersonWalking } from "react-icons/fa6";
 import Marquee from "@/components/ui/Marquee";
 import RotatingButton, {
