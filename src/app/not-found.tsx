@@ -3,33 +3,33 @@
 
 import Footer from "@/components/layout/Footer";
 import RotatingButton from "@/components/ui/RotatingButton";
-import ThemeSwitch from "@/components/theme/ThemeSwitch";
-import { motion } from "framer-motion";
+import BottomBar from "@/components/layout/BottomBar";
 import { GiParanoia } from "react-icons/gi";
-import DateTimePlace from "@/components/ui/DateTimePlace";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function NotFound() {
     return (
-        <motion.div className="min-h-screen flex flex-col items-center justify-center p-4 gap-12 text-center">
-            <div>
-                <div className="text-4xl md:text-6xl">404 - Not Found</div>
-            </div>
+        <div className="max-w-screen min-h-screen overflow-clip">
+            <BottomBar />
+            <SectionHeader title="404" />
 
-            <div className="text-lg md:text-xl max-w-md">
-                <span>Let&apos;s get you back home.</span>
-            </div>
+            <main className="flex flex-col items-center justify-center gap-8">
+                <div className="text-4xl md:text-6xl">Page Not Found</div>
 
-            <RotatingButton
-                href="/"
-                texts={["Back to", "Home", "Shelter", "Safety"]}
-                size={120}
-                centerIcon={<GiParanoia className="text-5xl" />}
-            />
+                <div className="text-lg md:text-xl max-w-md">
+                    Let&apos;s get you back home.
+                </div>
 
-            <DateTimePlace />
-            <ThemeSwitch />
+                <RotatingButton
+                    href="/"
+                    texts={["Back to", "Home", "Shelter", "Safety"]}
+                    size={120}
+                    centerIcon={GiParanoia}
+                />
+                <Footer />
+            </main>
 
-            <Footer />
-        </motion.div>
+            <SectionHeader title="404" />
+        </div>
     );
 }

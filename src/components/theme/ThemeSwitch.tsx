@@ -10,7 +10,7 @@ export default function ThemeSwitch() {
     const { theme, toggleTheme } = useTheme();
 
     return (
-        <motion.button
+        <button
             onClick={() => toggleTheme()}
             aria-label={`Switch to ${theme} mode`}
             className={`text-4xl cursor-pointer mixed-blend-difference`}
@@ -31,6 +31,6 @@ export default function ThemeSwitch() {
                     )}
                 </AnimatePresence>
             </motion.div>
-        </motion.button>
+        </button>
     );
 }
