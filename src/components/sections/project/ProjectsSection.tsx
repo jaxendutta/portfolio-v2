@@ -2,21 +2,10 @@
 "use client";
 
 import Section from "@/components/ui/Section";
-import { GiStrongbox } from "react-icons/gi";
 
 export default function ProjectsSection() {
     return (
-        <Section
-            headerProps={{
-                title: "PROJECTS",
-                buttonProps: {
-                    onClick: () => (window.location.href = "/projects"),
-                    texts: ["Click Here", "Access the Vault"],
-                    centerIcon: GiStrongbox,
-                    className: "right-5/8"
-                },
-            }}
-        >
+        <Section headerProps={{ title: "PROJECTS" }}>
             <div className="h-64" />
             {/*<div className="my-20 flex flex-col items-center">
                 {projectIds.map((id, index) => (

@@ -1,15 +1,10 @@
+// src/components/ui/NightSky.tsx
 "use client";
 
-import React from "react";
-import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
-interface NoiseProps {
-    className?: string;
-}
-
-export default function Noise({ className = "" }: NoiseProps) {
+function Noise() {
     const { theme } = useTheme();
 
     const isClient = typeof window !== "undefined";
@@ -31,7 +26,7 @@ export default function Noise({ className = "" }: NoiseProps) {
 
     return (
         <motion.div
-            className={twMerge("w-full h-screen", className)}
+            className={`w-full h-screen`}
             style={{
                 marginTop: "-15%",
                 backgroundImage: `
@@ -43,5 +38,32 @@ export default function Noise({ className = "" }: NoiseProps) {
                 backgroundSize: "cover",
             }}
         />
+    );
+}
+
+function Moon() {
+    return (
+        <motion.div
+            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/5 h-[200px] w-[200px] rounded-full bg-theme"
+            animate={{ y: [-10, 0, -10] }}
+            transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+            }}
+        />
+    );
+}
+
+interface NightSkyProps {
+    className?: string;
+}
+
+export default function NightSky({ className = "" }: NightSkyProps) {
+    return (
+        <div className={`absolute top-0 w-full h-screen ${className}`}>
+            <Noise />
+            <Moon />
+        </div>
     );
 }

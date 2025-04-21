@@ -1,8 +1,8 @@
 // src/components/ui/StyledLink.tsx
-import { twMerge } from "tailwind-merge";
+"use client";
+
 import Link, { LinkProps } from "next/link";
 import { IconType } from "react-icons";
-import { motion } from "framer-motion";
 import { TbArrowLeftFromArc } from "react-icons/tb";
 
 interface StyledLinkProps extends LinkProps {
@@ -20,21 +20,15 @@ const StyledLink = ({
     ...props
 }: StyledLinkProps) => {
     return (
-        <motion.div
-            className={twMerge(
-                "flex items-start no-underline hover:text-accent",
-                className
-            )}
+        <div
+            className={`flex items-start no-underline hover:text-accent ${className}`}
         >
             <Link
                 replace
                 scroll
                 target="_blank"
                 rel="noopener noreferrer"
-                className={twMerge(
-                    "flex items-center gap-1",
-                    iconPosition === "right" ? "flex-row-reverse" : "flex-row"
-                )}
+                className={`flex items-center gap-1 ${iconPosition === "right" ? "flex-row-reverse" : "flex-row"}`}
                 style={{
                     textDecoration: "none",
                 }}
@@ -43,7 +37,7 @@ const StyledLink = ({
                 {Icon && <Icon />}
                 {text}
             </Link>
-        </motion.div>
+        </div>
     );
 };
 

@@ -47,7 +47,7 @@ export default function WorkSection() {
                     centerIcon: allExpanded
                         ? GiOpenTreasureChest
                         : GiLockedChest,
-                    className: "right-1/6",
+                    className: "left-1/6",
                 },
             }}
         >

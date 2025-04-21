@@ -90,10 +90,8 @@ export default function Marquee({
             <motion.div
                 ref={contentRef}
                 className={twMerge(
-                    "flex shrink-0 justify-around",
+                    "flex shrink-0 justify-around gap-[var(--gap)]",
                     vertical ? "flex-col" : "flex-row",
-                    "gap-[var(--gap)]",
-                    // Apply animation styles
                     !vertical && "animate-marquee",
                     vertical && "animate-marquee-vertical",
                     pauseOnHover && "group-hover:[animation-play-state:paused]"
@@ -116,10 +114,8 @@ export default function Marquee({
                     <motion.div
                         key={i}
                         className={twMerge(
-                            "flex shrink-0 justify-around",
+                            "flex shrink-0 justify-around gap-[var(--gap)]",
                             vertical ? "flex-col" : "flex-row",
-                            "gap-[var(--gap)]",
-                            // Apply animation styles
                             !vertical && "animate-marquee",
                             vertical && "animate-marquee-vertical",
                             pauseOnHover &&

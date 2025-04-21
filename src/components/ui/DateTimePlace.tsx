@@ -33,9 +33,9 @@ export default function DateTimePlace() {
                     ease: "linear",
                 }}
             >
-                <PiGlobeSimpleThin className="text-4xl" />
+                <PiGlobeSimpleThin className="text-3xl" />
             </motion.div>
-            <div className="flex flex-col text-sm text-left">
+            <div className="flex flex-col text-xs text-left">
                 <span>WATERLOO, ON</span>
                 <span>{currentTime}</span>
             </div>

@@ -14,29 +14,33 @@ export const Input: React.FC<
     }
 > = ({ name, type, required, placeholder, value, onChange, ...rest }) => {
     return (
-        <motion.div
-            className={"flex w-full border-t border-current p-4"}
-            whileHover={{
-                backgroundColor: "var(--color-highlight-bg)",
-                color: "var(--color-highlight-text)",
-            }}
-            whileFocus={{
-                backgroundColor: "var(--color-highlight-bg)",
-                color: "var(--color-highlight-text)",
-            }}
-        >
-            {React.createElement(type === "textarea" ? "textarea" : "input", {
-                id: name,
-                name,
-                required,
-                placeholder,
-                value,
-                className: "w-full focus:outline-none bg-transparent",
-                onChange,
-                ...(type === "textarea" ? { rows: 10 } : {}),
-                ...rest,
-            })}
-        </motion.div>
+        <div className="flex w-full">
+            {React.createElement(
+                (type === "textarea"
+                    ? motion.textarea
+                    : motion.input) as React.ElementType,
+                {
+                    id: name,
+                    name,
+                    required,
+                    placeholder: `${placeholder}${required ? "*" : ""}`,
+                    value,
+                    className:
+                        "flex w-full border-t border-current p-4 focus:outline-none bg-transparent",
+                    whileHover: {
+                        backgroundColor: "var(--color-highlight-bg)",
+                        color: "var(--color-highlight-text)",
+                    },
+                    whileFocus: {
+                        backgroundColor: "var(--color-highlight-bg)",
+                        color: "var(--color-highlight-text)",
+                    },
+                    onChange,
+                    ...(type === "textarea" ? { rows: 10 } : {}),
+                    ...rest,
+                }
+            )}
+        </div>
     );
 };
 
@@ -111,7 +115,7 @@ export const ContactForm: React.FC = () => {
                 <RotatingButton
                     size={100}
                     rotationDuration={10}
-                    centerIcon={<GiFloorHatch />}
+                    centerIcon={GiFloorHatch}
                     texts={["CLEAR", "RESET", "RESTART"]}
                     type="reset"
                     onClick={handleReset}
@@ -119,7 +123,7 @@ export const ContactForm: React.FC = () => {
                 <RotatingButton
                     size={100}
                     rotationDuration={10}
-                    centerIcon={<GiHandTruck />}
+                    centerIcon={GiHandTruck}
                     texts={["SEND", "SUBMIT", "POST"]}
                     type="submit"
                 />

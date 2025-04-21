@@ -2,10 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import { twMerge } from "tailwind-merge";
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { codeFont } from "@/styles/fonts";
+import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
 // Define nav link type with proper typing
@@ -36,12 +34,7 @@ function NavLink({ name, href, className = "" }: NavLinkProps) {
     return (
         <Link
             href={href}
-            className={twMerge(
-                `flex items-center gap-1 relative no-underline`,
-                `font-medium text-md md:text-lg lg:text-xl`,
-                codeFont,
-                className
-            )}
+            className={`flex items-center gap-1 relative no-underline font-medium text-md md:text-lg lg:text-xl ${className}`}
             style={{
                 color: "inherit",
                 textDecoration: "none",
@@ -77,10 +70,7 @@ export default function Navbar() {
 
     return (
         <nav
-            className={twMerge(
-                "fixed left-0 right-0 top-0 z-50 p-4 text-theme mix-blend-difference",
-                theme === "light" ? "invert" : ""
-            )}
+            className={`fixed left-0 right-0 top-0 z-50 p-4 text-theme mix-blend-difference ${theme === "light" && "invert"}`}
         >
             <div className="flex items-center justify-between">
                 <div className="flex items-center justify-between gap-6">

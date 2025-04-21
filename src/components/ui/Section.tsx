@@ -1,8 +1,6 @@
 // src/components/ui/Section.tsx
 "use client";
 
-import React from "react";
-import { twMerge } from "tailwind-merge";
 import SectionHeader, {
     SectionHeaderProps,
 } from "@/components/ui/SectionHeader";
@@ -22,10 +20,7 @@ export default function Section({
     return (
         <section
             id={headerProps.title.toLowerCase()}
-            className={twMerge(
-                "relative w-full text-[4rem] md:text-[6rem] lg:text-[10em]",
-                className
-            )}
+            className={`relative w-full ${className}`}
         >
             <SectionHeader {...headerProps} />
             <div className="p-[5vw]">{children}</div>

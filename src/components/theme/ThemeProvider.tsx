@@ -11,6 +11,17 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+// This wrapper component forces a re-render when the key changes
+function ThemeWrapper({
+    children,
+    theme,
+}: {
+    children: React.ReactNode;
+    theme: ThemeOption;
+}) {
+    return <div key={theme}>{children}</div>;
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [theme, setTheme] = useState<ThemeOption>("dark");
     const [mounted, setMounted] = useState(false);
@@ -62,7 +73,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            {children}
+            {/* The key forces a complete re-render when theme changes */}
+            <ThemeWrapper theme={theme}>{children}</ThemeWrapper>
         </ThemeContext.Provider>
     );
 }

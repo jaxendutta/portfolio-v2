@@ -1,11 +1,10 @@
 // src/components/ui/RotatingButton.tsx
 "use client";
 
-import React, { ReactNode, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
-import { twMerge } from "tailwind-merge";
 
 export interface RotatingButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -15,7 +14,7 @@ export interface RotatingButtonProps
     variant?: "default" | "frost" | "raised" | "glow";
     href?: string;
     onClick?: () => void;
-    centerIcon?: ReactNode | IconType;
+    centerIcon?: IconType;
     className?: string;
     rotationDuration?: number;
     fontSize?: number;
@@ -27,7 +26,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     size = 120,
     variant = "default",
     href,
-    onClick,
+    onClick = () => {},
     centerIcon,
     className = "",
     rotationDuration = 10,
@@ -84,10 +83,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
             const offsetPercentage = (offset / circumference) * 100;
 
             return (
-                <text
-                    key={index}
-                    fontSize={fontSize}
-                >
+                <text key={index} fontSize={fontSize}>
                     <textPath
                         href={`#${pathId}`}
                         startOffset={`${offsetPercentage}%`}
@@ -105,7 +101,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
 
         if (typeof centerIcon === "function") {
             const IconComponent = centerIcon as IconType;
-            return <IconComponent size={innerRadius * 0.8} />;
+            return <IconComponent size={innerRadius} />;
         }
 
         return centerIcon;
@@ -128,10 +124,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     // The main button content
     const buttonContent = (
         <motion.div
-            className={twMerge(
-                "group relative inline-flex cursor-pointer items-center justify-center rounded-full",
-                getVariantClass()
-            )}
+            className={`group relative inline-flex items-center justify-center rounded-full ${getVariantClass()}`}
             style={{
                 width: size,
                 height: size,
@@ -172,10 +165,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     // Render the appropriate element based on props
     return (
         <motion.div
-            className={twMerge(
-                "relative inline-flex items-center justify-center rounded-full cursor-pointer",
-                className
-            )}
+            className={`relative inline-flex items-center justify-center rounded-full ${className}`}
             whileHover={{
                 color: "var(--color-accent)",
                 fill: "var(--color-accent)",

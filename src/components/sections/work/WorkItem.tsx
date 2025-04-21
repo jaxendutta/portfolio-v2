@@ -2,13 +2,11 @@
 "use client";
 
 import React from "react";
-import { twMerge } from "tailwind-merge";
 import { motion, AnimatePresence } from "framer-motion";
 import { WorkExperience } from "@/types/work";
 import parse from "html-react-parser";
 import { RxPlus } from "react-icons/rx";
 import { workData } from "@/data/workData";
-import { codeFont } from "@/styles/fonts";
 import StyledLink from "@/components/ui/StyledLink";
 
 export const WorkItem = ({
@@ -23,13 +21,10 @@ export const WorkItem = ({
     onToggle: () => void;
 }) => {
     return (
-        <div className={`w-full border-b border-current ${codeFont}`}>
+        <div className={`w-full border-b border-current`}>
             {/* Header section - clickable */}
             <div
-                className={twMerge(
-                    `flex h-24 items-center justify-between px-2 py-2 md:px-4`,
-                    !isActive ? "cursor-pointer" : ""
-                )}
+                className={`flex h-24 items-center justify-between px-2 py-2 md:px-4 ${!isActive && "cursor-pointer"}`}
                 onClick={() => !isActive && onToggle()}
             >
                 <div className="flex items-center">

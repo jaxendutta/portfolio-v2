@@ -1,3 +1,6 @@
+// src/components/ui/Divider.tsx
+"use client";
+
 import React, { useRef } from "react";
 import {
     motion,
@@ -6,7 +9,6 @@ import {
     useSpring,
     MotionValue,
 } from "framer-motion";
-import { twMerge } from "tailwind-merge";
 
 interface DividerProps {
     text: string;
@@ -89,10 +91,7 @@ const DividerRow: React.FC<{
             className={`relative py-1 ${index % 2 !== 0 ? "-mt-2" : ""}`}
         >
             <motion.p
-                className={twMerge(
-                    "whitespace-nowrap text-xl text-center m-0 border-t border-b border-current py-1 px-0 text-gray-400/80",
-                    fontClass
-                )}
+                className={`whitespace-nowrap text-xl text-center m-0 border-t border-b border-current py-1 px-0 text-gray-400/80 ${fontClass}`}
                 style={{
                     rotate: smoothTilt,
                 }}
@@ -121,7 +120,7 @@ const Divider: React.FC<DividerProps> = ({
     return (
         <div
             ref={containerRef}
-            className={twMerge("w-full overflow-hidden", className)}
+            className={`w-full overflow-hidden ${className}`}
         >
             {rowIndices.map((index) => (
                 <DividerRow

@@ -1,6 +1,7 @@
 // src/components/ui/CaseGlitch.tsx
+"use client";
+
 import { useState, useEffect } from "react";
-import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 
 interface CaseGlitchProps {
@@ -85,10 +86,7 @@ export function CaseGlitch({ text, className }: CaseGlitchProps) {
 
     return (
         <motion.div
-            className={twMerge(
-                "my-20 flex items-center justify-center gap-4 text-accent",
-                className
-            )}
+            className={`my-20 flex items-center justify-center gap-4 text-accent ${className}`}
             animate={glitchVariants[glitchState]}
             transition={{
                 duration: 0.05,

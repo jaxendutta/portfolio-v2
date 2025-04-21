@@ -6,7 +6,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { BsArrowUpRight, BsCopy } from "react-icons/bs";
 import { IoCheckboxOutline } from "react-icons/io5";
-import { codeFont } from "@/styles/fonts";
 import { Social } from "@/data/contactData";
 
 export const SocialItem = ({
@@ -20,7 +19,7 @@ export const SocialItem = ({
 
     return (
         <motion.div
-            className={`flex flex-row items-center w-full border-b ${codeFont}`}
+            className={`flex flex-row items-center w-full border-b`}
             whileHover={{
                 backgroundColor: "var(--color-highlight-bg)",
                 color: "var(--color-highlight-text)",
