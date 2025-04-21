@@ -89,6 +89,13 @@ a:hover {
 }
 
 @layer base {
+    /* Remove outline on focus for our custom inputs */
+    input:focus,
+    textarea:focus {
+        @apply outline-none;
+    }
+
+    /* Style placeholders */
     input::placeholder,
     textarea::placeholder {
         color: var(--color-text);
@@ -101,9 +108,7 @@ a:hover {
     textarea:hover::placeholder {
         color: var(--color-highlight-text);
     }
-}
 
-@layer base {
     button:not(:disabled),
     [role="button"]:not(:disabled) {
         cursor: pointer;

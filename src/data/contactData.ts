@@ -33,6 +33,7 @@ export type ContactFormField = {
     name: string;
     type: string;
     required: boolean;
+    help?: string;
 };
 
 export const contactFormFields: ContactFormField[] = [
@@ -50,5 +51,6 @@ export const contactFormFields: ContactFormField[] = [
         name: "linkedin",
         type: "link",
         required: false,
+        help: "Format: https://linkedin.com/in/username"
     },
 ];

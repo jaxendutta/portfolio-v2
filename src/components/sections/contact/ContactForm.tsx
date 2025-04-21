@@ -1,59 +1,23 @@
-// src/components/sections/contact/ContactForm.tsx
+// components/sections/contact/ContactForm.tsx
 "use client";
 
-import { useState, createElement, useRef } from "react";
+import { useState, useRef } from "react";
 import { toast, Toaster } from "sonner";
-import { motion } from "framer-motion";
 import RotatingButton from "@/components/ui/RotatingButton";
-import { contactFormFields } from "@/data/contactData";
+import { FloatingLabelInput } from "@/components/ui/FloatingLabelInput";
 import { GiFloorHatch, GiHandTruck } from "react-icons/gi";
 import { sendEmail } from "@/app/actions";
-
-export const Input: React.FC<
-    React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & {
-        type?: string;
-    }
-> = ({ name, type, required, placeholder, value, onChange, ...rest }) => {
-    return (
-        <div className="flex w-full">
-            {createElement(
-                (type === "textarea"
-                    ? motion.textarea
-                    : motion.input) as React.ElementType,
-                {
-                    id: name,
-                    name,
-                    required,
-                    placeholder: `${placeholder}${required ? "*" : ""}`,
-                    value,
-                    className:
-                        "flex w-full border-t border-current p-4 focus:outline-none bg-transparent",
-                    whileHover: {
-                        backgroundColor: "var(--color-highlight-bg)",
-                        color: "var(--color-highlight-text)",
-                    },
-                    whileFocus: {
-                        backgroundColor: "var(--color-highlight-bg)",
-                        color: "var(--color-highlight-text)",
-                    },
-                    onChange,
-                    ...(type === "textarea" ? { rows: 10 } : {}),
-                    ...rest,
-                }
-            )}
-        </div>
-    );
-};
 
 export const ContactForm: React.FC = () => {
     const formRef = useRef<HTMLFormElement>(null);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        linkedin: "",
+        linkedin: "", // Just the username part
         message: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -69,7 +33,7 @@ export const ContactForm: React.FC = () => {
             linkedin: "",
             message: "",
         });
-        // remove focus from inputs
+        // Remove focus from inputs
         const inputs = document.querySelectorAll("input, textarea");
         inputs.forEach((input) => {
             (input as HTMLInputElement | HTMLTextAreaElement).blur();
@@ -91,6 +55,15 @@ export const ContactForm: React.FC = () => {
 
         try {
             const formDataObj = new FormData(formRef.current!);
+
+            // Replace the LinkedIn value with the full URL
+            if (formData.linkedin) {
+                formDataObj.set(
+                    "linkedin",
+                    `https://linkedin.com/in/${formData.linkedin}`
+                );
+            }
+
             console.log(
                 "Submitting form with data:",
                 Object.fromEntries(formDataObj.entries())
@@ -101,6 +74,7 @@ export const ContactForm: React.FC = () => {
 
             if (result.success) {
                 toast.success(result.message || "Message sent successfully!");
+                setSubmitted(true);
                 handleReset();
             } else {
                 if (result.errors) {
@@ -131,43 +105,45 @@ export const ContactForm: React.FC = () => {
                 onSubmit={handleSubmit}
                 className="flex w-full flex-col justify-center self-center"
             >
-                <div className="flex w-full flex-wrap border-b">
-                    <div className="flex min-w-[400px] flex-1 flex-col">
-                        {contactFormFields.map((field, index) => {
-                            const { name, type, required } = field;
-                            return (
-                                <Input
-                                    key={index}
-                                    name={name as string}
-                                    type={type}
-                                    required={required}
-                                    placeholder={`${(index + 1)
-                                        .toString()
-                                        .padStart(
-                                            2,
-                                            "0"
-                                        )}. ${(name as string).toUpperCase()}`}
-                                    value={
-                                        formData[name as keyof typeof formData]
-                                    }
-                                    onChange={handleChange}
-                                />
-                            );
-                        })}
-                    </div>
-                    <div className="flex min-w-[400px] flex-1">
-                        <Input
-                            key={contactFormFields.length}
-                            name="message"
-                            type="textarea"
-                            required={true}
-                            placeholder={`${(contactFormFields.length + 1)
-                                .toString()
-                                .padStart(2, "0")}. MESSAGE`}
-                            value={formData.message}
-                            onChange={handleChange}
-                        />
-                    </div>
+                <div className="w-full border-b">
+                    <FloatingLabelInput
+                        index={0}
+                        name="name"
+                        label="NAME"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                    />
+
+                    <FloatingLabelInput
+                        index={1}
+                        name="email"
+                        label="EMAIL"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+
+                    <FloatingLabelInput
+                        index={2}
+                        name="linkedin"
+                        label="LINKEDIN"
+                        prefix="LINKEDIN.COM/IN/"
+                        value={formData.linkedin}
+                        onChange={handleChange}
+                    />
+                    <FloatingLabelInput
+                        index={3}
+                        name="message"
+                        label="MESSAGE"
+                        type="textarea"
+                        required
+                        value={formData.message}
+                        onChange={handleChange}
+                        maxLength={5000}
+                        showCount={true}
+                    />
                 </div>
 
                 <div className="flex justify-between gap-4 px-8 py-8 md:px-16">
@@ -176,7 +152,7 @@ export const ContactForm: React.FC = () => {
                         rotationDuration={10}
                         centerIcon={GiFloorHatch}
                         texts={["CLEAR", "RESET", "RESTART"]}
-                        type="button" // Change to button type
+                        type="button"
                         onClick={handleReset}
                     />
                     <RotatingButton
@@ -193,6 +169,30 @@ export const ContactForm: React.FC = () => {
                     />
                 </div>
             </form>
+
+            {submitted && (
+                <div className="mt-8 rounded-lg border border-green-200 bg-green-50 p-6 text-center">
+                    <h3 className="mb-2 text-xl font-semibold text-green-700">
+                        Thank You!
+                    </h3>
+                    <p className="text-green-600">
+                        Your message has been sent successfully. I will get back
+                        to you soon.
+                    </p>
+                    <button
+                        type="button"
+                        onClick={() => setSubmitted(false)}
+                        className="mt-4 rounded-md bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-700"
+                    >
+                        Send Another Message
+                    </button>
+                </div>
+            )}
+
+            <div className="mt-4 px-4 text-center text-xs opacity-60">
+                Your information will be used only to respond to your inquiry
+                and will never be shared with third parties.
+            </div>
         </>
     );
 };

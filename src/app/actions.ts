@@ -1,10 +1,13 @@
-// src/app/actions.ts
+// app/actions.ts
 "use server";
 
 import { Resend } from "resend";
 import { z } from "zod";
 import { render } from "@react-email/render";
 import ContactEmail from "@/components/emails/ContactEmail";
+
+// Updated LinkedIn validation - only validates the username format
+const linkedInUsernameRegex = /^[a-zA-Z0-9\-_]{3,100}$/;
 
 // Enhanced form validation schema
 const formSchema = z.object({
@@ -13,26 +16,29 @@ const formSchema = z.object({
     linkedin: z
         .string()
         .optional()
-        .refine(
-            (val) =>
-                !val ||
-                val.startsWith("https://linkedin.com/in/") ||
-                val.startsWith("https://www.linkedin.com/in/"),
-            {
-                message:
-                    "LinkedIn URL must be in format: https://linkedin.com/in/username",
+        .transform((value) => {
+            // If empty, return empty string
+            if (!value) return "";
+
+            // Remove the LinkedIn URL prefix if it's already included
+            if (value.startsWith("https://linkedin.com/in/")) {
+                return value.replace("https://linkedin.com/in/", "");
             }
-        )
-        .refine(
-            (val) =>
-                !val ||
-                val.match(
-                    /^https:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]{3,100}\/?$/
-                ),
-            {
-                message: "LinkedIn URL appears to be invalid",
+            if (value.startsWith("https://www.linkedin.com/in/")) {
+                return value.replace("https://www.linkedin.com/in/", "");
             }
-        ),
+
+            // Return just the username
+            return value;
+        })
+        .refine((value) => !value || linkedInUsernameRegex.test(value), {
+            message:
+                "LinkedIn username should only contain letters, numbers, hyphens or underscores, and be 3-100 characters long",
+        })
+        .transform((value) => {
+            // Return the full URL for non-empty values
+            return value ? `https://linkedin.com/in/${value}` : "";
+        }),
     message: z
         .string()
         .min(5, "Message is too short")
@@ -85,7 +91,7 @@ export async function sendEmail(formData: FormData) {
             ContactEmail({
                 name: result.data.name,
                 email: result.data.email,
-                linkedin: result.data.linkedin,
+                linkedin: result.data.linkedin, // This is now the full URL
                 message: result.data.message,
                 date: new Date().toLocaleString("en-US", {
                     weekday: "long",
