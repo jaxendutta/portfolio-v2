@@ -102,7 +102,7 @@ export const FloatingLabelInput = ({
                     duration: 0.2,
                     ease: "easeInOut",
                 }}
-                className={`absolute px-4 z-10 origin-left pointer-events-none text-3xl ${isActive ? "text-[var(--color-highlight-text)]/80" : "text-current/50"}`}
+                className={`absolute px-4 z-10 origin-left pointer-events-none text-3xl ${isFocused ? "text-[var(--color-highlight-text)]/80" : "text-current/70"}`}
                 htmlFor={name}
             >
                 {labelText}
@@ -114,7 +114,7 @@ export const FloatingLabelInput = ({
                 {prefix && isActive && (
                     <div
                         ref={prefixRef}
-                        className="absolute left-4 z-10 pointer-events-none text-[var(--color-highlight-text)]/80"
+                        className={`absolute left-4 z-10 pointer-events-none ${isFocused ? "text-[var(--color-highlight-text)]/80" : "text-current/70"}`}
                     >
                         {prefix}
                     </div>
