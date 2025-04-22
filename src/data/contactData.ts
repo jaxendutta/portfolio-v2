@@ -36,21 +36,37 @@ export type ContactFormField = {
     help?: string;
 };
 
-export const contactFormFields: ContactFormField[] = [
+export type FormField = {
+    name: string;
+    type: string;
+    required: boolean;
+    prefix?: string;
+    maxLength?: number;
+    showCount?: boolean;
+};
+
+export const formFields: FormField[] = [
     {
-        name: "name",
+        name: "Name",
         type: "text",
         required: true,
     },
     {
-        name: "email",
+        name: "Email",
         type: "email",
         required: true,
     },
     {
-        name: "linkedin",
-        type: "link",
+        name: "LinkedIn",
+        type: "text",
         required: false,
-        help: "Format: https://linkedin.com/in/username"
+        prefix: "LINKEDIN.COM/IN/",
+    },
+    {
+        name: "Message",
+        type: "textarea",
+        required: true,
+        maxLength: 5000,
+        showCount: true,
     },
 ];

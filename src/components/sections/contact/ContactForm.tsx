@@ -7,6 +7,8 @@ import RotatingButton from "@/components/ui/RotatingButton";
 import { FloatingLabelInput } from "@/components/ui/FloatingLabelInput";
 import { GiFloorHatch, GiHandTruck } from "react-icons/gi";
 import { sendEmail } from "@/app/actions";
+import { BsX } from "react-icons/bs";
+import { formFields } from "@/data/contactData";
 
 export const ContactForm: React.FC = () => {
     const formRef = useRef<HTMLFormElement>(null);
@@ -99,51 +101,42 @@ export const ContactForm: React.FC = () => {
 
     return (
         <>
-            <Toaster position="top-center" richColors />
+            <Toaster
+                position="top-center"
+                richColors
+                toastOptions={{
+                    style: {
+                        borderRadius: "0px", // No rounded corners
+                        border: "1px solid #ccc", // Subtle border
+                        backgroundColor: "#f8f9fa", // Light background to match a neutral vibe
+                        color: "#333", // Dark text for readability
+                        boxShadow: "none", // Remove shadow for a flat design
+                    },
+                }}
+            />
             <form
                 ref={formRef}
                 onSubmit={handleSubmit}
                 className="flex w-full flex-col justify-center self-center"
             >
                 <div className="w-full border-b">
-                    <FloatingLabelInput
-                        index={0}
-                        name="name"
-                        label="NAME"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                    />
-
-                    <FloatingLabelInput
-                        index={1}
-                        name="email"
-                        label="EMAIL"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-
-                    <FloatingLabelInput
-                        index={2}
-                        name="linkedin"
-                        label="LINKEDIN"
-                        prefix="LINKEDIN.COM/IN/"
-                        value={formData.linkedin}
-                        onChange={handleChange}
-                    />
-                    <FloatingLabelInput
-                        index={3}
-                        name="message"
-                        label="MESSAGE"
-                        type="textarea"
-                        required
-                        value={formData.message}
-                        onChange={handleChange}
-                        maxLength={5000}
-                        showCount={true}
-                    />
+                    {formFields.map((field, index) => (
+                        <FloatingLabelInput
+                            key={index}
+                            index={index}
+                            name={field.name}
+                            label={field.name}
+                            type={field.type}
+                            required={field.required}
+                            value={
+                                formData[field.name as keyof typeof formData]
+                            }
+                            onChange={handleChange}
+                            prefix={field.prefix}
+                            maxLength={field.maxLength}
+                            showCount={field.showCount}
+                        />
+                    ))}
                 </div>
 
                 <div className="flex justify-between gap-4 px-8 py-8 md:px-16">
@@ -171,26 +164,24 @@ export const ContactForm: React.FC = () => {
             </form>
 
             {submitted && (
-                <div className="mt-8 rounded-lg border border-green-200 bg-green-50 p-6 text-center">
-                    <h3 className="mb-2 text-xl font-semibold text-green-700">
-                        Thank You!
-                    </h3>
-                    <p className="text-green-600">
+                <div className="my-8 flex items-center justify-between border border-green-300 bg-green-50 p-4 shadow-md">
+                    <p className="text-sm text-green-700">
                         Your message has been sent successfully. I will get back
-                        to you soon.
+                        to you asap!
                     </p>
                     <button
                         type="button"
                         onClick={() => setSubmitted(false)}
-                        className="mt-4 rounded-md bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-700"
+                        className="text-green-600 focus:outline-none"
+                        title="Close notification"
                     >
-                        Send Another Message
+                        <BsX className="h-5 w-5" />
                     </button>
                 </div>
             )}
 
             <div className="mt-4 px-4 text-center text-xs opacity-60">
-                Your information will be used only to respond to your inquiry
+                Your information will be used only to respond to your message
                 and will never be shared with third parties.
             </div>
         </>
