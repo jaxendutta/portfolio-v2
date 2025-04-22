@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { majorMono, firaCode } from "@/lib/fonts";
+import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function RootLayout({
                 <link rel="icon" href="/favicon.png" type="image/png" />
             </head>
             <body className="min-h-screen">
+                <Analytics />
                 <ThemeProvider>{children}</ThemeProvider>
             </body>
         </html>
