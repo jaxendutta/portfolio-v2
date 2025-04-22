@@ -7,7 +7,6 @@ export default function ProjectsSection() {
     return (
         <Section headerProps={{ title: "PROJECTS" }}>
             <div className="h-64" />
-            Coming soon...
             {/*<div className="my-20 flex flex-col items-center">
                 {projectIds.map((id, index) => (
                     <div key={id} className="w-full">
