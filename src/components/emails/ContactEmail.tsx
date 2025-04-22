@@ -35,7 +35,7 @@ export const ContactEmail = ({
             <Body style={main}>
                 <Container style={container}>
                     <Heading style={heading}>
-                        New Contact Form Submission
+                        Portfolio v2: New Contact Form Submission
                     </Heading>
 
                     <Section style={infoSection}>
@@ -83,8 +83,11 @@ export const ContactEmail = ({
                     <Hr style={hr} />
 
                     <Text style={footer}>
-                        This message was sent from the contact form on your
-                        portfolio website.
+                        This message was sent from the contact form on{" "}
+                        <Link href={"https://v2.anirban.ca"} style={link}>
+                            Portfolio v2
+                        </Link>
+                        .
                     </Text>
                 </Container>
             </Body>

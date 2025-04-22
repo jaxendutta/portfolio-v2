@@ -75,7 +75,8 @@ export const FloatingLabelInput = ({
             "w-full bg-transparent px-4 py-6 focus:outline-none transition-colors",
             className,
             "hover:bg-[var(--color-highlight-bg)] hover:text-[var(--color-highlight-text)]",
-            "focus:bg-[var(--color-highlight-bg)] focus:text-[var(--color-highlight-text)]"
+            "focus:bg-[var(--color-highlight-bg)] focus:text-[var(--color-highlight-text)]",
+            "placeholder-highlight-text"
         );
 
         if (type === "textarea") {
@@ -101,7 +102,7 @@ export const FloatingLabelInput = ({
                     duration: 0.2,
                     ease: "easeInOut",
                 }}
-                className={`absolute px-4 z-10 origin-left pointer-events-none text-3xl ${isActive ? "text-current/70" : "text-current/50"}`}
+                className={`absolute px-4 z-10 origin-left pointer-events-none text-3xl ${isActive ? "text-[var(--color-highlight-text)]/80" : "text-current/50"}`}
                 htmlFor={name}
             >
                 {labelText}
@@ -113,7 +114,7 @@ export const FloatingLabelInput = ({
                 {prefix && isActive && (
                     <div
                         ref={prefixRef}
-                        className="absolute left-4 z-10 pointer-events-none text-current/70 opacity-80"
+                        className="absolute left-4 z-10 pointer-events-none text-[var(--color-highlight-text)]/80"
                     >
                         {prefix}
                     </div>
