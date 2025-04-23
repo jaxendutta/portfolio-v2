@@ -37,7 +37,7 @@ export default function ProjectCard({
 
     return (
         <motion.div
-            className="w-[90vw] mx-auto my-16"
+            className="max-w-[90vw] mx-auto my-8"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}

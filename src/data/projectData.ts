@@ -1,8 +1,7 @@
 // src/data/projectData.ts
 import { ProjectsData } from "@/types/project";
 import { FaSpaceAwesome } from "react-icons/fa6";
-import { GiArtificialIntelligence, GiBee, GiCardJoker } from "react-icons/gi";
-import { MdOutlineElectricCar } from "react-icons/md";
+import { GiBoltEye, GiArtificialIntelligence, GiBee, GiCardJoker } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
 
@@ -10,7 +9,7 @@ export const projectsData: ProjectsData = {
     "evse-opt": {
         name: "EVSE",
         subtitle: "Network Optimization",
-        icon: MdOutlineElectricCar,
+        icon: GiBoltEye,
         date: new Date("2024-12-18"),
         overview: [
             "Engineered a Gurobi MILP model processing 7750+ locations to enhance KWC-CMA's EV charging station coverage by +80% while minimizing costs through strategic Level 2 to Level 3 upgrades.",

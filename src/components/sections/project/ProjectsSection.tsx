@@ -23,16 +23,15 @@ export default function ProjectsSection() {
         >
             <div className="my-20 flex flex-col items-center">
                 {projectIds.slice(0, topCount).map((id, index) => (
-                    <div key={id} className="w-full">
+                    <div
+                        key={id}
+                        className={`w-full my-8 ${index % 2 === 0 ? "p-4 border border-current" : ""}`}
+                    >
                         <ProjectCard
                             id={id}
                             project={projectsData[id]}
                             reversed={index % 2 !== 0}
                         />
-
-                        {index < projectIds.slice(0, 4).length - 1 && (
-                            <div className="w-full border-t border-current mx-auto my-8"></div>
-                        )}
                     </div>
                 ))}
             </div>

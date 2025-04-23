@@ -41,7 +41,9 @@ export default function SectionHeader({
     return (
         <div className={`relative mt-20 ${actionButton ? "mb-10" : "mb-40"}`}>
             {/* Container for the marquee and button */}
-            <div className="relative text-6xl md:text-8xl lg:text-10xl flex items-center justify-center">
+            <div
+                className={`relative text-6xl md:text-8xl lg:text-10xl flex items-center justify-center`}
+            >
                 <div className={`absolute inset-0 ${headingFont}`}>
                     {/* Top marquee with walking icons */}
                     <Marquee direction="right" className="opacity-20">
