@@ -11,6 +11,7 @@ export const projectsData: ProjectsData = {
         name: "EVSE",
         subtitle: "Network Optimization",
         icon: MdOutlineElectricCar,
+        date: new Date("2024-12-18"),
         overview: [
             "Engineered a Gurobi MILP model processing 7750+ locations to enhance KWC-CMA's EV charging station coverage by +80% while minimizing costs through strategic Level 2 to Level 3 upgrades.",
         ],
@@ -39,6 +40,7 @@ export const projectsData: ProjectsData = {
     fabler: {
         name: "Fabler",
         icon: GiArtificialIntelligence,
+        date: new Date("2024-08-18"),
         overview: [
             '<div class="cardish">Tired of Generic Visual Novels?</div> Imagine crafting your own story, a world where every narrative unfolds based on your desires. Fabler empowers you to be the author. ✍️',
             '<div class="cardish">But how does it work?</div> Fabler leverages the magic of AI! Simply provide a prompt - a spark of inspiration - and our intelligent system weaves a captivating visual novel tailored to your vision. ✨',
@@ -99,6 +101,7 @@ export const projectsData: ProjectsData = {
     hivemind: {
         name: "Hivemind",
         icon: GiBee,
+        date: new Date("2023-08-18"),
         overview: [
             '<div class="cardish">Collaborative Learning, Reimagined.</div> Hivemind connects students worldwide, fostering a vibrant ecosystem of shared knowledge and collaborative study groups. Break free from isolation and tap into the power of collective intelligence! 🌐🧠',
             '<div class="cardish">How does it work?</div> Our innovative platform uses smart matching algorithms to connect you with like-minded learners, creating the perfect study environment tailored to your needs and learning style. From instant study sessions to long-term project collaborations, Hivemind adapts to your academic journey. 📚🤝',
@@ -155,6 +158,7 @@ export const projectsData: ProjectsData = {
     "space-invaders": {
         name: "Space Invaders",
         icon: FaSpaceAwesome,
+        date: new Date("2023-08-18"),
         overview: [
             '<div class="cardish">Retro Gaming Reimagined</div> Dive into nostalgia with a modern twist! This Space Invaders remake brings the classic arcade experience to your desktop, powered by cutting-edge Kotlin and JavaFX technologies. 🚀👾',
             '<div class="cardish">Challenge the Alien Invasion</div> Test your reflexes and strategy as you defend Earth from waves of descending aliens. With each level, the challenge intensifies, keeping you on the edge of your seat! 🎮🛸',
@@ -206,6 +210,7 @@ export const projectsData: ProjectsData = {
     "file-explorer": {
         name: "File Explorer",
         icon: AiOutlineFolderView,
+        date: new Date("2023-08-18"),
         overview: [
             '<div class="cardish">Streamlined File Management</div> Experience a modern, intuitive file management solution built with Kotlin and JavaFX. Navigate your digital world with ease and efficiency. 📁🔍',
             '<div class="cardish">Feature-Rich Interface</div> From creating folders to previewing files, our File Explorer puts powerful tools at your fingertips. Enjoy a seamless, user-friendly experience for all your file organization needs. 🖥️📊',
@@ -252,6 +257,7 @@ export const projectsData: ProjectsData = {
     lightbox: {
         name: "Lightbox",
         icon: PiCodesandboxLogoLight,
+        date: new Date("2023-08-18"),
         overview: [
             '<div class="cardish">Illuminate Your Images</div> Discover Lightbox, a powerful image manipulation tool crafted with Kotlin and JavaFX. Transform your visual content with ease and precision. 🖼️✨',
             '<div class="cardish">Intuitive Image Management</div> From basic edits to advanced manipulations, Lightbox puts a suite of tools at your fingertips. Experience smooth, responsive image handling in a user-friendly interface. 🖱️🎨',
@@ -298,6 +304,7 @@ export const projectsData: ProjectsData = {
     straights: {
         name: "Straights",
         icon: GiCardJoker,
+        date: new Date("2022-08-18"),
         overview: [
             '<div class="cardish">From Terminal to Web: A Card Game Transformation</div> Experience Straights, a classic card game reimagined for the modern web. Originally a C++ terminal game, now playable in your browser thanks to the power of WebAssembly. 🃏💻',
             '<div class="cardish">Strategic 4-Player Action</div> Dive into this engaging 4-player card game where strategy is key. Aim for the lowest score as you navigate through each round, making calculated moves to outplay your opponents. 🏆♠️♥️♣️♦️',

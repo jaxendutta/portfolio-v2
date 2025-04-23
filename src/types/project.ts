@@ -22,6 +22,7 @@ export interface ProjectData {
     name: string;
     subtitle?: string;
     icon: IconType
+    date: Date;
     overview: string[];
     links: ProjectLink[];
     typography?: FontInfo[];

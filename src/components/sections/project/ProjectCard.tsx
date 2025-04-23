@@ -53,7 +53,7 @@ export default function ProjectCard({
                     <div className="flex flex-row gap-4 items-center justify-center">
                         <Link
                             href={projectLink}
-                            className={`text-4xl md:text-5xl ${displayFont} italic hover:text-accent transition-colors`}
+                            className={`text-4xl md:text-5xl lg:text-6xl ${displayFont} italic hover:text-accent transition-colors`}
                             style={{
                                 textDecoration: "none",
                                 fontStyle: "italic",
