@@ -1,14 +1,28 @@
-// components/sections/ProjectsSection.tsx
 "use client";
 
+import { projectsData } from "@/data/projectData";
 import Section from "@/components/ui/Section";
+import ProjectCard from "@/components/sections/project/ProjectCard";
+import { GiPaintBrush } from "react-icons/gi";
 
 export default function ProjectsSection() {
+    const projectIds = Object.keys(projectsData);
+    const topCount = Math.min(4, projectIds.length);
+
     return (
-        <Section headerProps={{ title: "PROJECTS" }}>
-            <div className="h-64" />
-            {/*<div className="my-20 flex flex-col items-center">
-                {projectIds.map((id, index) => (
+        <Section
+            headerProps={{
+                title: "PROJECTS",
+                buttonProps: {
+                    href: "/projects",
+                    texts: ["All", "Projects", "View More"],
+                    centerIcon: GiPaintBrush,
+                    className: "right-1/6",
+                },
+            }}
+        >
+            <div className="my-20 flex flex-col items-center">
+                {projectIds.slice(0, topCount).map((id, index) => (
                     <div key={id} className="w-full">
                         <ProjectCard
                             id={id}
@@ -16,16 +30,12 @@ export default function ProjectsSection() {
                             reversed={index % 2 !== 0}
                         />
 
-                        {index < projectIds.length - 1 && (
-                            <div className="w-full overflow-hidden flex flex-col gap-0">
-                                <Divider index={index * 3} />
-                                <Divider index={index * 3 + 1} />
-                                <Divider index={index * 3 + 2} />
-                            </div>
+                        {index < projectIds.slice(0, 4).length - 1 && (
+                            <div className="w-full border-t border-current mx-auto my-8"></div>
                         )}
                     </div>
                 ))}
-            </div>*/}
+            </div>
         </Section>
     );
 }
