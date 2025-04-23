@@ -38,6 +38,7 @@ export const FloatingLabelInput = ({
     const indexStr = (index + 1).toString().padStart(2, "0");
     const prefixRef = useRef<HTMLDivElement>(null);
     const [prefixWidth, setPrefixWidth] = useState(0);
+    const isTextarea = type === "textarea";
 
     // Create label text that will be displayed
     const labelText = `${indexStr}. ${label.toUpperCase()}${required ? "*" : ""}`;
@@ -71,15 +72,16 @@ export const FloatingLabelInput = ({
             ...props,
         };
 
+        // Add more padding for the mobile view
         const commonClasses = twMerge(
-            "w-full bg-transparent px-4 py-6 focus:outline-none transition-colors",
+            "w-full bg-transparent text-base md:text-xl lg:text-2xl px-4 py-3.5 md:py-4 lg:py-6 focus:outline-none transition-colors",
             className,
             "hover:bg-[var(--color-highlight-bg)] hover:text-[var(--color-highlight-text)]",
             "focus:bg-[var(--color-highlight-bg)] focus:text-[var(--color-highlight-text)]",
             "placeholder-highlight-text"
         );
 
-        if (type === "textarea") {
+        if (isTextarea) {
             return (
                 <textarea {...commonProps} className={commonClasses} rows={6} />
             );
@@ -90,11 +92,11 @@ export const FloatingLabelInput = ({
 
     return (
         <div className="relative w-full">
-            {/* Animating Label */}
+            {/* Animating Label with responsive text size */}
             <motion.label
                 animate={{
-                    y: isActive ? -4 : 24,
-                    scale: isActive ? 0.4 : 1,
+                    y: isActive ? -4 : 0,
+                    scale: isActive ? 0.6 : 1,
                     opacity: 1,
                 }}
                 transition={{
@@ -102,7 +104,17 @@ export const FloatingLabelInput = ({
                     duration: 0.2,
                     ease: "easeInOut",
                 }}
-                className={`absolute px-4 z-10 origin-left pointer-events-none text-3xl ${isFocused ? "text-[var(--color-highlight-text)]/80" : "text-current/70"}`}
+                className={`absolute px-4 z-10 origin-left pointer-events-none text-lg md:text-2xl lg:text-3xl ${
+                    isFocused
+                        ? "text-[var(--color-highlight-text)]/80"
+                        : "text-current/70"
+                } ${
+                    isActive
+                        ? "top-0"
+                        : isTextarea
+                          ? "top-3 md:top-4 lg:top-5"
+                          : "top-1/2 -translate-y-1/2 flex items-center"
+                }`}
                 htmlFor={name}
             >
                 {labelText}
@@ -114,7 +126,11 @@ export const FloatingLabelInput = ({
                 {prefix && isActive && (
                     <div
                         ref={prefixRef}
-                        className={`absolute left-4 z-10 pointer-events-none ${isFocused ? "text-[var(--color-highlight-text)]/80" : "text-current/70"}`}
+                        className={`absolute left-4 z-10 pointer-events-none text-base md:text-xl lg:text-2xl ${
+                            isFocused
+                                ? "text-[var(--color-highlight-text)]/80"
+                                : "text-current/70"
+                        }`}
                     >
                         {prefix}
                     </div>
@@ -126,7 +142,7 @@ export const FloatingLabelInput = ({
 
             {/* Word Count Display */}
             {showCount && maxLength && (
-                <div className="mt-1 pr-4 text-right text-xs opacity-60">
+                <div className="mt-1 pr-4 text-right text-xs md:text-sm opacity-60">
                     <span
                         className={
                             value.length > maxLength * 0.9 ? "text-red-500" : ""
