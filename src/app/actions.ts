@@ -132,7 +132,7 @@ ${result.data.message}
         console.log("Email sent successfully:", data);
         return {
             success: true,
-            message: "Your message has been sent! I'll get back to you soon.",
+            message: "Your message has been sent successfully.",
         };
     } catch (error) {
         console.error("Unexpected error:", error);

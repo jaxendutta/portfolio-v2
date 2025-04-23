@@ -47,23 +47,23 @@ export type FormField = {
 
 export const formFields: FormField[] = [
     {
-        name: "Name",
+        name: "name",
         type: "text",
         required: true,
     },
     {
-        name: "Email",
+        name: "email",
         type: "email",
         required: true,
     },
     {
-        name: "LinkedIn",
+        name: "linkedin",
         type: "text",
         required: false,
         prefix: "LINKEDIN.COM/IN/",
     },
     {
-        name: "Message",
+        name: "message",
         type: "textarea",
         required: true,
         maxLength: 5000,

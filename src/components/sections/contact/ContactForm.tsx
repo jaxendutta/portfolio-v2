@@ -104,13 +104,14 @@ export const ContactForm: React.FC = () => {
             <Toaster
                 position="top-center"
                 richColors
+                expand={true}
                 toastOptions={{
                     style: {
-                        borderRadius: "0px", // No rounded corners
-                        border: "1px solid #ccc", // Subtle border
-                        backgroundColor: "#f8f9fa", // Light background to match a neutral vibe
-                        color: "#333", // Dark text for readability
-                        boxShadow: "none", // Remove shadow for a flat design
+                        borderRadius: "0px",
+                        border: "1px solid #ccc",
+                        backgroundColor: "var(--color-text)",
+                        color: "var(--color-background)",
+                        boxShadow: "none",
                     },
                 }}
             />
@@ -125,7 +126,10 @@ export const ContactForm: React.FC = () => {
                             key={index}
                             index={index}
                             name={field.name}
-                            label={field.name}
+                            label={
+                                field.name.charAt(0).toUpperCase() +
+                                field.name.slice(1)
+                            }
                             type={field.type}
                             required={field.required}
                             value={
@@ -180,7 +184,7 @@ export const ContactForm: React.FC = () => {
                 </div>
             )}
 
-            <div className="mt-4 px-4 text-center text-xs opacity-60">
+            <div className="mt-4 px-4 text-center text-xs opacity-60 text-theme">
                 Your information will be used only to respond to your message
                 and will never be shared with third parties.
             </div>
