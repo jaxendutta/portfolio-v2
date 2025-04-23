@@ -1,8 +1,9 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { majorMono, firaCode } from "@/lib/fonts";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import BottomBar from "@/components/layout/BottomBar";
 
 export const metadata: Metadata = {
     title: "Jaxen",
@@ -32,7 +33,10 @@ export default function RootLayout({
             </head>
             <body className="min-h-screen">
                 <Analytics />
-                <ThemeProvider>{children}</ThemeProvider>
+                <ThemeProvider>
+                    <BottomBar />
+                    {children}
+                </ThemeProvider>
             </body>
         </html>
     );

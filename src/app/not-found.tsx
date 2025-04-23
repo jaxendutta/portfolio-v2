@@ -3,14 +3,12 @@
 
 import Footer from "@/components/layout/Footer";
 import RotatingButton from "@/components/ui/RotatingButton";
-import BottomBar from "@/components/layout/BottomBar";
 import { GiParanoia } from "react-icons/gi";
 import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function NotFound() {
     return (
         <div className="max-w-screen min-h-screen overflow-clip">
-            <BottomBar />
             <SectionHeader title="404" />
 
             <main className="flex flex-col items-center justify-center gap-8">
