@@ -21,7 +21,7 @@ export default function ProjectCard({
 }: ProjectCardProps) {
     // Use mobile screenshot vs desktop logic based on the ID
     // This is a simple heuristic - we can also check for known mobile projects
-    const isMobileProject = ["fabler", "hivemind"].includes(id);
+    const isMobileProject = ["evse-opt", "fabler", "hivemind"].includes(id);
     const projectLink = `/projects/${id}`;
 
     const exploreButton = (
@@ -31,7 +31,7 @@ export default function ProjectCard({
             href={projectLink}
             texts={["Explore", "Learn", "More"]}
             size={75}
-            fontSize={12}
+            fontSize={11}
         />
     );
 
