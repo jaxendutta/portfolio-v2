@@ -8,6 +8,7 @@ import parse from "html-react-parser";
 import { RxPlus } from "react-icons/rx";
 import { workData } from "@/data/workData";
 import StyledLink from "@/components/ui/StyledLink";
+import Tag from "@/components/ui/Tag";
 
 export const WorkItem = ({
     data,
@@ -86,18 +87,7 @@ export const WorkItem = ({
                                 {/* Skills tags */}
                                 <div className="mb-6 flex flex-wrap justify-start gap-2.5 pointer-events-auto">
                                     {data.skills.map((skill) => (
-                                        <motion.span
-                                            key={skill}
-                                            className="align-middle p-[5px_7px] border border-current rounded-full font-sans text-xs md:text-base"
-                                            whileHover={{
-                                                backgroundColor:
-                                                    "var(--color-text)",
-                                                color: "var(--color-background)",
-                                            }}
-                                            transition={{ duration: 0.1 }}
-                                        >
-                                            {skill}
-                                        </motion.span>
+                                        <Tag key={skill} text={skill} />
                                     ))}
                                 </div>
 

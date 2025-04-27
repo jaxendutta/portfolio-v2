@@ -28,7 +28,7 @@ const StyledLink = ({
                 scroll
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center gap-1 ${iconPosition === "right" ? "flex-row-reverse" : "flex-row"}`}
+                className={`flex items-center gap-2 ${iconPosition === "right" ? "flex-row-reverse" : "flex-row"}`}
                 style={{
                     textDecoration: "none",
                 }}

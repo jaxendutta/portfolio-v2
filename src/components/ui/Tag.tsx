@@ -1,7 +1,12 @@
 // src/components/ui/Tag.tsx
 import { motion } from "framer-motion";
 
-const Tag = ({ text }: { text: string }) => {
+interface TagProps {
+    text: string;
+    glowOnHover?: boolean;
+}
+
+const Tag = ({ text, glowOnHover = false }: TagProps) => {
     return (
         <motion.span
             key={text}
@@ -9,9 +14,9 @@ const Tag = ({ text }: { text: string }) => {
             whileHover={{
                 backgroundColor: "var(--color-text)",
                 color: "var(--color-background)",
-                boxShadow: "0 0 8px var(--color-text)",
+                boxShadow: glowOnHover ? "0 0 6px var(--color-text)" : "",
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
         >
             {text}
         </motion.span>
