@@ -35,7 +35,9 @@ export default function RootLayout({
                 <Analytics />
                 <ThemeProvider>
                     <BottomBar />
-                    {children}
+                    <div className="p-2 md:p-4 lg:p-8 xl:p-12 2xl:p-16">
+                        {children}
+                    </div>
                 </ThemeProvider>
             </body>
         </html>

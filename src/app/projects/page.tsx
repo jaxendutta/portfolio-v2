@@ -7,7 +7,6 @@ import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
 import { projectsData } from "@/data/projectData";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { GiMagnifyingGlass, GiTechnoHeart, GiCalendar } from "react-icons/gi";
-import { RiFilterLine, RiCloseLine } from "react-icons/ri";
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongUp } from "react-icons/hi2";
 import ProjectCard from "@/components/sections/project/ProjectCard";
 import Footer from "@/components/layout/Footer";
@@ -15,6 +14,7 @@ import FilterContainer, {
     FilterTag,
     FilterSection,
 } from "@/components/ui/FilterContainer";
+import { TbFilterX, TbFilterDown, TbFilterUp } from "react-icons/tb";
 
 export default function ProjectsPage() {
     const projects = projectsData;
@@ -131,7 +131,7 @@ export default function ProjectsPage() {
         <div className="min-h-screen px-4">
             {/* Header with navigation buttons */}
             <motion.header
-                className="sticky top-0 z-50 flex justify-between items-center px-6 py-4 bg-[var(--color-background)] bg-opacity-80 backdrop-blur-sm"
+                className="sticky top-0 z-50 flex justify-between items-center py-4"
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
@@ -170,94 +170,84 @@ export default function ProjectsPage() {
                 >
                     PROJECTS
                 </motion.div>
-                <p className="text-sm md:text-base text-center opacity-80 max-w-2xl mx-auto mb-8">
-                    Showcasing my work across web development, UX/UI design, and
-                    software engineering.
-                </p>
 
                 {/* Results count and filter controls */}
-                <div className="container mx-auto px-6">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-current pb-4">
-                        {/* Results count with detailed filter information */}
-                        <div className="text-center md:text-left text-sm md:text-base flex-grow">
-                            <span className="font-bold">
-                                {filteredProjects.length}
-                            </span>{" "}
-                            projects found
-                            {selectedTechStack.length > 0 && (
-                                <>
-                                    {" "}
-                                    filtered by{" "}
-                                    <span className="text-accent">
-                                        {selectedTechStack.length}{" "}
-                                        {selectedTechStack.length === 1
-                                            ? "technology"
-                                            : "technologies"}
-                                    </span>
-                                </>
-                            )}
-                            {selectedYears.length > 0 && (
-                                <>
-                                    {" "}
-                                    from{" "}
-                                    <span className="text-accent">
-                                        {selectedYears.length === 1
-                                            ? "year"
-                                            : "years"}{" "}
-                                        {selectedYears.join(", ")}
-                                    </span>
-                                </>
-                            )}
-                            {searchQuery && (
-                                <>
-                                    {" "}
-                                    matching{" "}
-                                    <span className="text-accent italic">
-                                        &quot;{searchQuery}&quot;
-                                    </span>
-                                </>
-                            )}
-                        </div>
-
-                        {/* Filter controls */}
-                        <div className="flex items-center gap-4">
-                            {hasActiveFilters && (
-                                <motion.button
-                                    onClick={clearFilters}
-                                    className="px-3 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] text-sm transition-colors flex items-center gap-2"
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 10 }}
-                                >
-                                    <RiCloseLine className="text-lg" />
-                                    <span>Clear filters</span>
-                                </motion.button>
-                            )}
-
-                            <button
-                                type="button"
-                                onClick={() => setShowFilters(!showFilters)}
-                                className="px-3 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors flex items-center gap-2 text-sm"
-                                aria-label={
-                                    showFilters
-                                        ? "Hide filters"
-                                        : "Show filters"
-                                }
-                            >
-                                {showFilters ? (
-                                    <RiCloseLine className="text-lg" />
-                                ) : (
-                                    <RiFilterLine className="text-lg" />
-                                )}
-                                <span>
-                                    {showFilters
-                                        ? "Hide filters"
-                                        : "Show filters"}
+                <div className="flex justify-between items-center gap-4 border-b border-current pb-4">
+                    {/* Results count with detailed filter information */}
+                    <div className="text-center md:text-left text-sm md:text-base flex-grow">
+                        <span className="font-bold">
+                            {filteredProjects.length}
+                        </span>{" "}
+                        projects found
+                        {selectedTechStack.length > 0 && (
+                            <>
+                                {" "}
+                                filtered by{" "}
+                                <span className="text-accent">
+                                    {selectedTechStack.length}{" "}
+                                    {selectedTechStack.length === 1
+                                        ? "technology"
+                                        : "technologies"}
                                 </span>
-                            </button>
-                        </div>
+                            </>
+                        )}
+                        {selectedYears.length > 0 && (
+                            <>
+                                {" "}
+                                from{" "}
+                                <span className="text-accent">
+                                    {selectedYears.length === 1
+                                        ? "year"
+                                        : "years"}{" "}
+                                    {selectedYears.join(", ")}
+                                </span>
+                            </>
+                        )}
+                        {searchQuery && (
+                            <>
+                                {" "}
+                                matching{" "}
+                                <span className="text-accent italic">
+                                    &quot;{searchQuery}&quot;
+                                </span>
+                            </>
+                        )}
+                    </div>
+
+                    {/* Filter controls */}
+                    <div className="flex items-center gap-4">
+                        {hasActiveFilters && (
+                            <motion.button
+                                onClick={clearFilters}
+                                className="px-3 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] text-sm transition-colors flex items-center gap-2"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 10 }}
+                            >
+                                <TbFilterX className="text-lg" />
+                                <span>Clear filters</span>
+                            </motion.button>
+                        )}
+
+                        <button
+                            type="button"
+                            onClick={() => setShowFilters(!showFilters)}
+                            className="px-3 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors flex items-center gap-2 text-sm"
+                            aria-label={
+                                showFilters ? "Hide filters" : "Show filters"
+                            }
+                        >
+                            {showFilters ? (
+                                <TbFilterUp className="text-lg" />
+                            ) : (
+                                <TbFilterDown className="text-lg" />
+                            )}
+                            <span>
+                                {showFilters ? "Hide filters" : "Show filters"}
+                            </span>
+                        </button>
                     </div>
                 </div>
             </motion.div>

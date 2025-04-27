@@ -1,7 +1,12 @@
 // src/data/projectData.ts
 import { ProjectsData } from "@/types/project";
 import { FaSpaceAwesome } from "react-icons/fa6";
-import { GiBoltEye, GiArtificialIntelligence, GiBee, GiCardJoker } from "react-icons/gi";
+import {
+    GiBoltEye,
+    GiArtificialIntelligence,
+    GiBee,
+    GiCardJoker,
+} from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
 
@@ -93,7 +98,7 @@ export const projectsData: ProjectsData = {
             Backend: ["Python", "Ren'Py"],
             "AI/ML": ["OpenAI", "Stable Diffusion"],
             Design: ["Figma", "Sketch", "Material Design", "Miro"],
-            "Project Management": ["Trello", "GitHub Projects"],
+            "Project Management": ["Trello"],
         },
         footer: "In a large-scale Android visual novel app project, I led development using Jetpack Compose (Kotlin) for the frontend and a Python backend. I spearheaded design and prototyping through Figma and user interviews, ensuring a user-friendly experience. The app features a responsive UI with custom components adhering to Material Design and leverages the OpenAI API to generate storylines and character profiles directly within the visual novels. Additionally, Stable Diffusion AI creates unique images for each story, while Ren'Py converts these elements into interactive narratives. This project demonstrates my expertise in integrating advanced AI systems for innovative mobile storytelling.",
     },
@@ -144,12 +149,8 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            Design: ["Figma", "Sketch", "Miro"],
-            "UX Research": [
-                "User Interviews",
-                "User Testing",
-                "Persona Creation",
-            ],
+            Prototyping: ["Figma", "Sketch", "Miro"],
+            "UX Research": ["User Interviews", "User Testing"],
             "Project Management": ["Trello"],
         },
         footer: "As the lead of Hivemind, a collaborative study app project, I directed the design and iOS prototype development efforts. Working with a diverse team, I facilitated Figma prototyping and conducted user interviews, refining the user experience. The app promotes seamless online connections for students worldwide, fostering collaborative study groups. Through iterative design and development, I ensured the app's functionality and visual elements aligned with user needs, resulting in an innovative platform for academic collaboration.",
@@ -296,7 +297,6 @@ export const projectsData: ProjectsData = {
         techStack: {
             Frontend: ["Kotlin", "JavaFX"],
             "Build Tools": ["Gradle"],
-            "Image Processing": ["JavaFX Image API"],
         },
         footer: "Lightbox showcases a feature-rich Tool Bar equipped with various buttons for comprehensive image manipulation. Users can effortlessly add, delete, rotate, and zoom images, among other operations. The heart of the application, the Preview Pane, offers intuitive image selection, dragging, and stacking capabilities, providing a seamless workflow for managing multiple images. Stay informed with the Status Bar, which displays real-time information on the image count and currently selected image, enhancing user awareness and control throughout the editing process.",
     },
@@ -337,10 +337,7 @@ export const projectsData: ProjectsData = {
         techStack: {
             Backend: ["C++", "WebAssembly", "Emscripten"],
             Frontend: ["HTML", "CSS", "JavaScript"],
-            "Game Logic": [
-                "Object-Oriented Programming",
-                "Game State Management",
-            ],
+            "Game Development": ["Game State Management"],
         },
         footer: "Straights showcases the seamless integration of C++ and web technologies. The core game logic, originally written in C++, has been recompiled to WebAssembly using Emscripten. This WebAssembly module is then integrated into a modern web application, with HTML, CSS, and JavaScript working in harmony to render the game state and provide an interactive user interface. The result is a fast, efficient game engine with a sleek, accessible front-end, playable directly in the browser without any installations.",
     },

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ProjectData } from "@/types/project";
 import { displayFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
+import Tag from "@/components/ui/Tag";
 import RotatingButton from "@/components/ui/RotatingButton";
 
 interface ProjectCardProps {
@@ -76,22 +77,7 @@ export default function ProjectCard({
                             Object.values(project.techStack)
                                 .flat()
                                 .slice(0, 8) // Limit to first 8 technologies for UI cleanliness
-                                .map((tech, i) => (
-                                    <motion.span
-                                        key={i}
-                                        className="px-3 py-1 border border-current rounded-full text-sm whitespace-nowrap"
-                                        whileHover={{
-                                            backgroundColor:
-                                                "var(--color-text)",
-                                            color: "var(--color-background)",
-                                            boxShadow:
-                                                "0 0 8px var(--color-text)",
-                                        }}
-                                        transition={{ duration: 0.3 }}
-                                    >
-                                        {tech}
-                                    </motion.span>
-                                ))}
+                                .map((tech, i) => <Tag key={i} text={tech} />)}
 
                         {/* Show more indicator if technologies are truncated */}
                         {project.techStack &&
@@ -110,30 +96,23 @@ export default function ProjectCard({
                 </div>
 
                 {/* Project Image */}
-                <div
+
+                <Link
+                    href={projectLink}
                     className={`w-full md:w-2/5 relative ${isMobileProject ? (reversed ? "md:-rotate-5" : "md:rotate-5") : ""}`}
                 >
-                    <Link href={projectLink}>
-                        <div className="relative">
-                            <Image
-                                src={`/assets/${id}.png`}
-                                alt={project.name}
-                                width={isMobileProject ? 280 : 800}
-                                height={isMobileProject ? 600 : 450}
-                                className={`relative ${isMobileProject ? "max-w-[280px]" : "max-w-[800px]"} mx-auto w-full h-auto`}
-                                style={{
-                                    objectFit: "contain",
-                                }}
-                                priority
-                            />
-
-                            {/* Add border only for desktop/non-mobile projects */}
-                            {!isMobileProject && (
-                                <div className="absolute inset-0 border border-current rounded-md pointer-events-none"></div>
-                            )}
-                        </div>
-                    </Link>
-                </div>
+                    <Image
+                        src={`/assets/${id}.png`}
+                        alt={project.name}
+                        width={isMobileProject ? 280 : 800}
+                        height={isMobileProject ? 600 : 450}
+                        className={`relative mx-auto w-full h-auto ${isMobileProject ? "max-w-[280px]" : "max-w-[800px]"}`}
+                        style={{
+                            objectFit: "contain",
+                        }}
+                        priority
+                    />
+                </Link>
             </div>
         </motion.div>
     );
