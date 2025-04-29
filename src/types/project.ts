@@ -1,3 +1,4 @@
+// src/types/project.ts
 import { IconType } from "react-icons";
 
 // src/types/project.ts
@@ -21,7 +22,8 @@ export interface ColorSet {
 export interface ProjectData {
     name: string;
     subtitle?: string;
-    icon: IconType
+    icon: IconType;
+    type?: "design" | "development" | "ai" | "research";
     date: Date;
     overview: string[];
     links: ProjectLink[];

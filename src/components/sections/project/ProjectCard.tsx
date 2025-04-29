@@ -1,3 +1,4 @@
+// src/components/sections/project/ProjectCard.tsx
 "use client";
 
 import Image from "next/image";
@@ -21,7 +22,6 @@ export default function ProjectCard({
     reversed = false,
 }: ProjectCardProps) {
     // Use mobile screenshot vs desktop logic based on the ID
-    // This is a simple heuristic - we can also check for known mobile projects
     const isMobileProject = ["evse-opt", "fabler", "hivemind"].includes(id);
     const projectLink = `/projects/${id}`;
 
@@ -96,7 +96,6 @@ export default function ProjectCard({
                 </div>
 
                 {/* Project Image */}
-
                 <Link
                     href={projectLink}
                     className={`w-full md:w-2/5 relative ${isMobileProject ? (reversed ? "md:-rotate-5" : "md:rotate-5") : ""}`}

@@ -15,6 +15,7 @@ export const projectsData: ProjectsData = {
         name: "EVSE",
         subtitle: "Network Optimization",
         icon: GiBoltEye,
+        type: "development",
         date: new Date("2024-12-18"),
         overview: [
             "Engineered a Gurobi MILP model processing 7750+ locations to enhance KWC-CMA's EV charging station coverage by +80% while minimizing costs through strategic Level 2 to Level 3 upgrades.",
@@ -44,6 +45,7 @@ export const projectsData: ProjectsData = {
     fabler: {
         name: "Fabler",
         icon: GiArtificialIntelligence,
+        type: "design",
         date: new Date("2024-08-18"),
         overview: [
             '<div class="cardish">Tired of Generic Visual Novels?</div> Imagine crafting your own story, a world where every narrative unfolds based on your desires. Fabler empowers you to be the author. ✍️',
