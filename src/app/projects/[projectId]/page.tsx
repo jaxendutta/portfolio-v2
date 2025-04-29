@@ -69,10 +69,16 @@ export default function ProjectPage() {
         // Update header visibility based on scroll position
         const updateHeaderVisibility = () => {
             if (mainRef.current) {
-                // Show project title when scrolled past first section (80% of viewport width)
-                setTitleVisible(
-                    mainRef.current.scrollLeft > window.innerWidth * 0.8
-                );
+                const nameSection = document.getElementById("project-name-top");
+                if (nameSection) {
+                    const nameSectionRect = nameSection.getBoundingClientRect();
+                    const nameSectionRight = nameSectionRect.right;
+                    const nameSectionWidth = nameSectionRect.width;
+                    // Show project title when scrolled past the last 5% of the NameSection
+                    setTitleVisible(
+                        nameSectionRight <= nameSectionWidth * 0.05
+                    );
+                }
             }
         };
 
@@ -129,7 +135,7 @@ export default function ProjectPage() {
                 <div className="flex items-center gap-4">
                     <Link href="/#projects" aria-label="Back to Projects">
                         <RotatingButton
-                            texts={["BACK TO PROJECTS"]}
+                            texts={["BACK TO", "PROJECTS PAGE"]}
                             centerIcon={HiArrowLeft}
                             size={80}
                             fontSize={12}
@@ -137,7 +143,7 @@ export default function ProjectPage() {
                     </Link>
 
                     <RotatingButton
-                        texts={["SCROLL TO THE RIGHT"]}
+                        texts={["SCROLL RIGHT", "SCROLL RIGHT"]}
                         centerIcon={HiArrowRight}
                         size={80}
                         fontSize={12}
@@ -149,17 +155,14 @@ export default function ProjectPage() {
                 <AnimatePresence>
                     {titleVisible && (
                         <motion.div
-                            className="flex-1 flex justify-center"
+                            className={`flex-1 flex justify-center text-3xl uppercase tracking-wider ${headingFont}`}
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
+                            style={{ fontStyle: "italic" }}
                         >
-                            <h1
-                                className={`text-3xl tracking-wider uppercase ${headingFont}`}
-                            >
-                                {project.name}
-                            </h1>
+                            {project.name}
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -167,7 +170,7 @@ export default function ProjectPage() {
                 <div className="flex items-center gap-4 ml-auto">
                     <Link href="#project-name-top" aria-label="Back to Top">
                         <RotatingButton
-                            texts={["BACK TO TOP"]}
+                            texts={["BACK TO TOP", "BACK TO TOP"]}
                             centerIcon={HiArrowUp}
                             size={80}
                             fontSize={12}
@@ -181,7 +184,7 @@ export default function ProjectPage() {
                             aria-label={`Previous Project: ${projectsData[adjacentProjects.prev].name}`}
                         >
                             <RotatingButton
-                                texts={["PREVIOUS PROJECT"]}
+                                texts={["PREV PROJECT", "PREV PROJECT"]}
                                 centerIcon={HiArrowLeft}
                                 size={80}
                                 fontSize={12}
@@ -195,7 +198,7 @@ export default function ProjectPage() {
                             aria-label={`Next Project: ${projectsData[adjacentProjects.next].name}`}
                         >
                             <RotatingButton
-                                texts={["NEXT PROJECT"]}
+                                texts={["NEXT PROJECT", "NEXT PROJECT"]}
                                 centerIcon={HiArrowRight}
                                 size={80}
                                 fontSize={12}

@@ -3,8 +3,8 @@
 
 import { displayFont } from "@/lib/fonts";
 import { motion } from "framer-motion";
-import { SkillTag } from "@/components/ui/Tag";
 import { ProjectPageSection } from "@/components/sections/project/ProjectPageSection";
+import { SkillTag } from "@/components/ui/Tag";
 
 interface TechStackSectionProps {
     id?: string;
@@ -16,6 +16,7 @@ export default function TechStackSection({
     techStack,
 }: TechStackSectionProps) {
     const categories = Object.entries(techStack);
+
     return (
         <ProjectPageSection
             id={id}
@@ -30,7 +31,7 @@ export default function TechStackSection({
                                 className="relative my-8 px-4 py-8 break-inside-avoid-column border border-current"
                                 style={{
                                     backgroundImage: `radial-gradient(circle at 25px 25px, var(--color-text) 0.3%, transparent 0.6%)`,
-                                    backgroundSize: "50px 50px ",
+                                    backgroundSize: "50px 50px",
                                     backgroundBlendMode: "soft-light",
                                 }}
                             >
@@ -42,8 +43,8 @@ export default function TechStackSection({
                                 </div>
 
                                 {/* Decorative circuit nodes */}
-                                <div className="absolute top-1/4 right-2 w-1.5 h-1.5 rounded-full bg-current opacity-40"></div>
-                                <div className="absolute bottom-2 left-1/4 w-1.5 h-1.5 rounded-full bg-current opacity-40"></div>
+                                <div className="absolute top-9 right-2 w-1.5 h-1.5 rounded-full bg-current opacity-40"></div>
+                                <div className="absolute bottom-1.5 right-8 w-1.5 h-1.5 rounded-full bg-current opacity-40"></div>
 
                                 {/* Tech chips */}
                                 <div className="flex flex-wrap gap-2.5 mt-2">
@@ -56,8 +57,53 @@ export default function TechStackSection({
                                 </div>
 
                                 {/* Circuit traces */}
-                                <div className="absolute bottom-2 right-2 w-8 h-px bg-current opacity-30"></div>
+                                <div className="absolute bottom-2 right-0 w-8 h-px bg-current opacity-30"></div>
+                                <motion.div
+                                    className="absolute bottom-2 h-px bg-current"
+                                    style={{
+                                        width: "6px",
+                                        right: "10px", // Start position close to right-2
+                                        boxShadow: "0 0 3px 1px currentColor",
+                                    }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{
+                                        opacity: [0, 0.8, 0],
+                                        right: ["2px", "10px"],
+                                    }}
+                                    transition={{
+                                        duration: 2,
+                                        delay: categoryIndex * 0.3,
+                                        repeat: Infinity,
+                                        repeatDelay: 3,
+                                        ease: "linear",
+                                        times: [0, 0.5, 1],
+                                    }}
+                                />
+
                                 <div className="absolute bottom-0 right-6 w-px h-2 bg-current opacity-30"></div>
+                                <motion.div
+                                    className="absolute right-6 w-px bg-current"
+                                    style={{
+                                        height: "4px",
+                                        bottom: "0px", // Start at bottom
+                                        boxShadow: "0 0 3px 1px currentColor",
+                                    }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{
+                                        opacity: [0, 0.8, 0],
+                                        bottom: ["0px", "8px", "0px"],
+                                    }}
+                                    transition={{
+                                        duration: 1.5,
+                                        delay: 1 + categoryIndex * 0.3,
+                                        repeat: Infinity,
+                                        repeatDelay: 4,
+                                        ease: "linear",
+                                        times: [0, 0.5, 1],
+                                    }}
+                                />
+
+                                <div className="absolute top-0 right-2.5 w-px h-9 bg-current opacity-30"></div>
                             </motion.div>
                         )
                     )}
