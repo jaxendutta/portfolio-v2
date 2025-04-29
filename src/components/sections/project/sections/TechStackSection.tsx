@@ -4,46 +4,7 @@
 import { displayFont } from "@/lib/fonts";
 import { motion } from "framer-motion";
 import { SkillTag } from "@/components/ui/Tag";
-import { ProjectPageSection } from "../ProjectPageSection";
-
-interface TechStackCardProps {
-    category: string;
-    technologies: string[];
-    categoryIndex: number;
-}
-
-const TechStackCard: React.FC<TechStackCardProps> = ({
-    category,
-    technologies,
-    categoryIndex,
-}) => {
-    return (
-        <motion.div
-            key={categoryIndex}
-            className="flex flex-col"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-                duration: 0.4,
-                delay: categoryIndex * 0.1,
-            }}
-        >
-            <div className="border relative">
-                <div
-                    className={`p-0.5 text-2xl ${displayFont} bg-theme lowercase border absolute -translate-x-4 -translate-y-1/2`}
-                >
-                    {category}
-                </div>
-
-                <div className="flex flex-wrap p-4 gap-2 mt-4">
-                    {technologies.map((tech, techIndex) => (
-                        <SkillTag key={techIndex} skill={tech} />
-                    ))}
-                </div>
-            </div>
-        </motion.div>
-    );
-};
+import { ProjectPageSection } from "@/components/sections/project/ProjectPageSection";
 
 interface TechStackSectionProps {
     id?: string;
@@ -54,21 +15,54 @@ export default function TechStackSection({
     id,
     techStack,
 }: TechStackSectionProps) {
+    const categories = Object.entries(techStack);
     return (
         <ProjectPageSection
             id={id}
             title={["TECHSTACK", "T3chs✝aCk", "TeCH$t4cK"]}
         >
-            {Object.entries(techStack).map(
-                ([category, technologies], categoryIndex) => (
-                    <TechStackCard
-                        key={categoryIndex}
-                        category={category}
-                        technologies={technologies}
-                        categoryIndex={categoryIndex}
-                    />
-                )
-            )}
+            <div className="w-full h-[75vh] max-w-5xl mx-auto p-6 flex items-center justify-center">
+                <div className="columns-1 md:columns-2 gap-8">
+                    {categories.map(
+                        ([category, technologies], categoryIndex) => (
+                            <motion.div
+                                key={categoryIndex}
+                                className="relative my-8 px-4 py-8 break-inside-avoid-column border border-current"
+                                style={{
+                                    backgroundImage: `radial-gradient(circle at 25px 25px, var(--color-text) 0.3%, transparent 0.6%)`,
+                                    backgroundSize: "50px 50px ",
+                                    backgroundBlendMode: "soft-light",
+                                }}
+                            >
+                                {/* Category label */}
+                                <div
+                                    className={`absolute -top-3 left-4 px-3 ${displayFont} text-xl bg-theme lowercase`}
+                                >
+                                    {category}
+                                </div>
+
+                                {/* Decorative circuit nodes */}
+                                <div className="absolute top-1/4 right-2 w-1.5 h-1.5 rounded-full bg-current opacity-40"></div>
+                                <div className="absolute bottom-2 left-1/4 w-1.5 h-1.5 rounded-full bg-current opacity-40"></div>
+
+                                {/* Tech chips */}
+                                <div className="flex flex-wrap gap-2.5 mt-2">
+                                    {technologies.map((tech, techIndex) => (
+                                        <SkillTag
+                                            key={techIndex}
+                                            skill={tech}
+                                        />
+                                    ))}
+                                </div>
+
+                                {/* Circuit traces */}
+                                <div className="absolute bottom-2 right-2 w-8 h-px bg-current opacity-30"></div>
+                                <div className="absolute bottom-0 right-6 w-px h-2 bg-current opacity-30"></div>
+                            </motion.div>
+                        )
+                    )}
+                </div>
+            </div>
         </ProjectPageSection>
     );
 }

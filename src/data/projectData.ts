@@ -98,9 +98,8 @@ export const projectsData: ProjectsData = {
         techStack: {
             Frontend: ["Kotlin", "Jetpack Compose", "Android SDK"],
             Backend: ["Python", "Ren'Py"],
-            "AI/ML": ["OpenAI", "Stable Diffusion"],
+            AI: ["OpenAI", "Stable Diffusion"],
             Design: ["Figma", "Sketch", "Material Design", "Miro"],
-            "Project Management": ["Trello"],
         },
         footer: "In a large-scale Android visual novel app project, I led development using Jetpack Compose (Kotlin) for the frontend and a Python backend. I spearheaded design and prototyping through Figma and user interviews, ensuring a user-friendly experience. The app features a responsive UI with custom components adhering to Material Design and leverages the OpenAI API to generate storylines and character profiles directly within the visual novels. Additionally, Stable Diffusion AI creates unique images for each story, while Ren'Py converts these elements into interactive narratives. This project demonstrates my expertise in integrating advanced AI systems for innovative mobile storytelling.",
     },
@@ -153,7 +152,6 @@ export const projectsData: ProjectsData = {
         techStack: {
             Prototyping: ["Figma", "Sketch", "Miro"],
             "UX Research": ["User Interviews", "User Testing"],
-            "Project Management": ["Trello"],
         },
         footer: "As the lead of Hivemind, a collaborative study app project, I directed the design and iOS prototype development efforts. Working with a diverse team, I facilitated Figma prototyping and conducted user interviews, refining the user experience. The app promotes seamless online connections for students worldwide, fostering collaborative study groups. Through iterative design and development, I ensured the app's functionality and visual elements aligned with user needs, resulting in an innovative platform for academic collaboration.",
     },
