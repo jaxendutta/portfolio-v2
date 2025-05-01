@@ -3,82 +3,78 @@
 
 import { useParams, notFound } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { projectsData } from "@/data/projectData";
-import { headingFont } from "@/lib/fonts";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import NameSection from "@/components/sections/project/sections/NameSection";
 import OverviewSection from "@/components/sections/project/sections/OverviewSection";
 import TypographySection from "@/components/sections/project/sections/TypographySection";
 import ColorSection from "@/components/sections/project/sections/ColorSection";
 import TechStackSection from "@/components/sections/project/sections/TechStackSection";
 import FooterSection from "@/components/sections/project/sections/FooterSection";
-import RotatingButton from "@/components/ui/RotatingButton";
-import { HiArrowLeft, HiArrowRight, HiArrowUp } from "react-icons/hi";
-
-function getAdjacentProjects(currentId: string): {
-    prev: string | null;
-    next: string | null;
-} {
-    const projectIds = Object.keys(projectsData);
-    const currentIndex = projectIds.indexOf(currentId);
-
-    const prev = currentIndex > 0 ? projectIds[currentIndex - 1] : null;
-    const next =
-        currentIndex !== -1 && currentIndex < projectIds.length - 1
-            ? projectIds[currentIndex + 1]
-            : null;
-
-    return { prev, next };
-}
+import ProjectsPageHeader from "@/components/sections/project/ProjectsPageHeader";
 
 export default function ProjectPage() {
     const { projectId } = useParams();
     const id = typeof projectId === "string" ? projectId : projectId?.[0] || "";
     const mainRef = useRef<HTMLElement>(null);
     const [titleVisible, setTitleVisible] = useState(false);
-    const isMobileRef = useRef(false);
+    const [isLandscape, setIsLandscape] = useState(true);
 
     const project = projectsData[id];
-    const adjacentProjects = project ? getAdjacentProjects(id) : null;
 
-    // Set up scroll behavior
+    // Set up orientation detection and scroll behavior
     useEffect(() => {
         if (!project) {
             notFound();
             return;
         }
 
-        const checkMobile = () => {
-            isMobileRef.current = window.innerWidth <= 768;
+        // Detect orientation using media query
+        const mediaQuery = window.matchMedia("(orientation: landscape)");
+
+        const updateOrientation = (e: MediaQueryListEvent | MediaQueryList) => {
+            setIsLandscape(e.matches);
         };
 
-        checkMobile();
-        window.addEventListener("resize", checkMobile);
+        // Initialize with current orientation
+        updateOrientation(mediaQuery);
 
-        // Handle wheel events for horizontal scrolling
+        // Listen for orientation changes
+        mediaQuery.addEventListener("change", updateOrientation);
+
+        // Handle wheel events for horizontal scrolling in landscape mode
         const handleWheel = (e: WheelEvent) => {
-            if (isMobileRef.current) return; // Skip on mobile
-
-            if (mainRef.current && e.deltaY !== 0) {
+            if (isLandscape && mainRef.current && e.deltaY !== 0) {
                 e.preventDefault();
-                mainRef.current.scrollLeft += e.deltaY;
+
+                // Adjust scroll amount - start small to fix overshooting
+                const scrollAmount = e.deltaY * 0.8;
+
+                // Use immediate scrolling for responsive feel
+                mainRef.current.scrollBy({
+                    left: scrollAmount,
+                    behavior: "auto",
+                });
             }
         };
 
         // Update header visibility based on scroll position
         const updateHeaderVisibility = () => {
-            if (mainRef.current) {
-                const nameSection = document.getElementById("project-name-top");
-                if (nameSection) {
-                    const nameSectionRect = nameSection.getBoundingClientRect();
-                    const nameSectionRight = nameSectionRect.right;
-                    const nameSectionWidth = nameSectionRect.width;
-                    // Show project title when scrolled past the last 5% of the NameSection
-                    setTitleVisible(
-                        nameSectionRight <= nameSectionWidth * 0.05
-                    );
-                }
+            if (!mainRef.current) return;
+
+            const nameSection = document.getElementById("project-name-top");
+            if (!nameSection) return;
+
+            if (isLandscape) {
+                // For landscape: check horizontal position
+                const nameSectionRight =
+                    nameSection.getBoundingClientRect().right;
+                setTitleVisible(nameSectionRight <= 10);
+            } else {
+                // For portrait: check vertical position
+                const nameSectionBottom =
+                    nameSection.getBoundingClientRect().bottom;
+                setTitleVisible(nameSectionBottom <= 10);
             }
         };
 
@@ -88,198 +84,118 @@ export default function ProjectPage() {
             main.addEventListener("scroll", updateHeaderVisibility, {
                 passive: true,
             });
+
+            // Ensure we start at the beginning
+            setTimeout(() => {
+                main.scrollTo(0, 0);
+                updateHeaderVisibility();
+            }, 100);
         }
 
         return () => {
+            mediaQuery.removeEventListener("change", updateOrientation);
             if (main) {
                 main.removeEventListener("wheel", handleWheel);
                 main.removeEventListener("scroll", updateHeaderVisibility);
             }
-            window.removeEventListener("resize", checkMobile);
         };
-    }, [project]);
+    }, [project, isLandscape]);
 
-    // Scroll right function
-    const scrollRight = () => {
+    // Navigation functions
+    const scrollNext = () => {
         const main = mainRef.current;
-        if (main) {
-            main.scrollBy({
-                left: window.innerWidth,
+        if (!main) return;
+
+        if (isLandscape) {
+            // Get current scroll position
+            const currentScroll = main.scrollLeft;
+            const sectionWidth = window.innerWidth;
+
+            // Calculate the next section position (using integer division)
+            const currentSection = Math.floor(currentScroll / sectionWidth);
+            const nextSection = (currentSection + 1) * sectionWidth;
+
+            // Scroll to the next section
+            main.scrollTo({
+                left: nextSection,
                 behavior: "smooth",
             });
-        }
-    };
+        } else {
+            // Similar logic for vertical scrolling
+            const currentScroll = main.scrollTop;
+            const sectionHeight = window.innerHeight;
 
-    // Back to top/left function
-    const backToTop = () => {
-        const main = mainRef.current;
-        if (main) {
+            const currentSection = Math.floor(currentScroll / sectionHeight);
+            const nextSection = (currentSection + 1) * sectionHeight;
+
             main.scrollTo({
-                top: 0,
-                left: 0,
+                top: nextSection,
                 behavior: "smooth",
             });
         }
     };
 
     return (
-        <motion.div
-            className="h-screen w-screen overflow-hidden relative"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-        >
-            {/* Header with floating buttons and conditional title */}
-            <header className="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center">
-                <div className="flex items-center gap-4">
-                    <Link href="/#projects" aria-label="Back to Projects">
-                        <RotatingButton
-                            texts={["BACK TO", "PROJECTS PAGE"]}
-                            centerIcon={HiArrowLeft}
-                            size={80}
-                            fontSize={12}
-                        />
-                    </Link>
+        <div className="h-screen w-screen overflow-hidden relative">
+            {/* Header section */}
+            <ProjectsPageHeader
+                titleVisible={titleVisible}
+                isLandscape={isLandscape}
+                scrollNext={scrollNext}
+            />
 
-                    <RotatingButton
-                        texts={["SCROLL RIGHT", "SCROLL RIGHT"]}
-                        centerIcon={HiArrowRight}
-                        size={80}
-                        fontSize={12}
-                        onClick={scrollRight}
-                    />
-                )}
-
-                {/* Project title - only appears when scrolled */}
-                <AnimatePresence>
-                    {titleVisible && (
-                        <motion.div
-                            className={`flex-1 flex justify-center text-3xl uppercase tracking-wider ${headingFont}`}
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3 }}
-                            style={{ fontStyle: "italic" }}
-                        >
-                            {project.name}
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                <div className="flex items-center gap-4 ml-auto">
-                    <Link href="#project-name-top" aria-label="Back to Top">
-                        <RotatingButton
-                            texts={["BACK TO TOP", "BACK TO TOP"]}
-                            centerIcon={HiArrowUp}
-                            size={80}
-                            fontSize={12}
-                            onClick={backToTop}
-                        />
-                    </Link>
-
-                    {adjacentProjects?.prev && (
-                        <Link
-                            href={`/projects/${adjacentProjects.prev}`}
-                            aria-label={`Previous Project: ${projectsData[adjacentProjects.prev].name}`}
-                        >
-                            <RotatingButton
-                                texts={["PREV PROJECT", "PREV PROJECT"]}
-                                centerIcon={HiArrowLeft}
-                                size={80}
-                                fontSize={12}
-                            />
-                        </Link>
-                    )}
-
-                    {adjacentProjects?.next && (
-                        <Link
-                            href={`/projects/${adjacentProjects.next}`}
-                            aria-label={`Next Project: ${projectsData[adjacentProjects.next].name}`}
-                        >
-                            <RotatingButton
-                                texts={["NEXT PROJECT", "NEXT PROJECT"]}
-                                centerIcon={HiArrowRight}
-                                size={80}
-                                fontSize={12}
-                            />
-                        </Link>
-                    )}
-                </div>
-            </header>
-
-            {/* Main horizontal scrolling container */}
-            <main
+            {/* Main container that adapts to orientation */}
+            <motion.main
                 ref={mainRef}
-                className="flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory h-screen scrollbar-hide scroll-smooth"
-                aria-label="Project content - scroll horizontally to navigate"
+                className={`
+                    h-screen w-screen
+                    ${
+                        isLandscape
+                            ? "flex flex-row overflow-x-auto overflow-y-hidden snap-x"
+                            : "flex flex-col overflow-y-auto overflow-x-hidden snap-y"
+                    } 
+                    snap-mandatory scroll-smooth
+                `}
+                style={{
+                    scrollbarWidth: "none", // Firefox
+                    msOverflowStyle: "none", // IE and Edge
+                }}
             >
                 {/* Project Name Section */}
-                <NameSection id="project-name-top" name={project.name} />
+                <section
+                    id="project-name-top"
+                    className="project-section flex items-center justify-center"
+                >
+                    <NameSection name={project.name} />
+                </section>
 
                 {/* Overview Section */}
-                <OverviewSection
-                    overview={project.overview}
-                    links={project.links}
-                />
+                <section className="project-section">
+                    <OverviewSection
+                        overview={project.overview}
+                        links={project.links}
+                    />
+                </section>
 
                 {/* Typography Section - Conditionally render */}
                 {project.typography && project.typography.length > 0 && (
-                    <TypographySection
-                        id="typography"
-                        typography={project.typography}
-                    />
+                    <TypographySection typography={project.typography} />
                 )}
 
                 {/* Colors Section - Conditionally render */}
                 {project.colors && project.colors.length > 0 && (
-                    <ColorSection id="colour-palette" colors={project.colors} />
+                    <ColorSection colors={project.colors} />
                 )}
 
                 {/* Tech Stack Section - Conditionally render */}
                 {project.techStack &&
                     Object.keys(project.techStack).length > 0 && (
-                        <TechStackSection
-                            id="tech-stack"
-                            techStack={project.techStack}
-                        />
+                        <TechStackSection techStack={project.techStack} />
                     )}
 
                 {/* Footer Section - Conditionally render */}
-                {project.footer && (
-                    <FooterSection id="footer" footer={project.footer} />
-                )}
-            </main>
-
-            {/* Global styles */}
-            <style jsx global>{`
-                html,
-                body {
-                    overflow: hidden;
-                    height: 100%;
-                    margin: 0;
-                    padding: 0;
-                }
-
-                /* Hide scrollbar for Chrome, Safari and Opera */
-                .scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                }
-
-                /* Hide scrollbar for IE, Edge and Firefox */
-                .scrollbar-hide {
-                    -ms-overflow-style: none; /* IE and Edge */
-                    scrollbar-width: none; /* Firefox */
-                }
-
-                /* Full section size */
-                .section {
-                    flex: 0 0 100vw;
-                    height: 100vh;
-                    scroll-snap-align: start;
-                    scroll-snap-stop: always;
-                }
-            `}</style>
-        </motion.div>
+                {project.footer && <FooterSection footer={project.footer} />}
+            </motion.main>
+        </div>
     );
 }

@@ -1,3 +1,4 @@
+// tailwind.config.ts
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -51,6 +52,11 @@ const config: Config = {
                     from: { transform: "translateY(0)" },
                     to: { transform: "translateY(calc(-100% - var(--gap)))" },
                 },
+            },
+            // Add screen variants for orientation
+            screens: {
+                landscape: { raw: "(orientation: landscape)" },
+                portrait: { raw: "(orientation: portrait)" },
             },
         },
     },

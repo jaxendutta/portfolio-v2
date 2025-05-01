@@ -128,10 +128,10 @@ export default function ProjectsPage() {
         selectedYears.length > 0;
 
     return (
-        <div className="min-h-screen px-4">
+        <div className="min-h-screen p-2 md:p-4 lg:p-8 xl:p-12 2xl:p-16">
             {/* Header with navigation buttons */}
             <motion.header
-                className="sticky top-0 z-50 flex justify-between items-center py-4"
+                className="sticky top-8 z-50 flex justify-between items-center"
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}

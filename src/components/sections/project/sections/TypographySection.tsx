@@ -12,7 +12,7 @@ const FontCard = ({ font }: { font: FontInfo }) => {
         "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz";
 
     return (
-        <div className="w-[100vw] max-w-[1200px] flex flex-col p-16">
+        <div className="w-full max-w-[1200px] flex flex-col">
             {/* Font Header */}
             <motion.div
                 className="mb-4"

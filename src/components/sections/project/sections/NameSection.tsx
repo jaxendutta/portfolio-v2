@@ -3,33 +3,50 @@
 
 import { motion } from "framer-motion";
 import { displayFont } from "@/lib/fonts";
+import { useState, useEffect } from "react";
 
 interface NameSectionProps {
-    id?: string;
     name: string;
 }
 
-export default function NameSection({ id, name }: NameSectionProps) {
+export default function NameSection({ name }: NameSectionProps) {
+    const [isPortrait, setIsPortrait] = useState(false);
+
+    useEffect(() => {
+        const checkOrientation = () => {
+            setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+        };
+
+        checkOrientation();
+        window.addEventListener("resize", checkOrientation);
+
+        return () => {
+            window.removeEventListener("resize", checkOrientation);
+        };
+    }, []);
+
     return (
-        <div id={id} className="section flex items-center justify-center">
-            <motion.h1
-                className={`text-[100vh] font-bold leading-none ${displayFont}`}
-                style={{
-                    fontStyle: "italic",
-                    backgroundImage: "var(--font-background)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                    paddingRight: "0.1em",
-                }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
-            >
-                {name.toUpperCase()}
-            </motion.h1>
-        </div>
+        <motion.div
+            id="project-name-top"
+            className={`px-10 ${displayFont} snap-start flex items-center justify-center"`}
+            style={{
+                fontStyle: "italic",
+                backgroundImage: "var(--font-background)",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+                fontSize: isPortrait
+                    ? "clamp(5rem, 60vh, 25rem)"
+                    : "clamp(15rem, 100vh, 50rem)",
+                writingMode: isPortrait ? "vertical-lr" : "horizontal-tb"
+            }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+        >
+            {name.toUpperCase()}
+        </motion.div>
     );
 }
