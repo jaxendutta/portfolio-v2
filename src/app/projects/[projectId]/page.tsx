@@ -149,7 +149,7 @@ export default function ProjectPage() {
                         fontSize={12}
                         onClick={scrollRight}
                     />
-                </div>
+                )}
 
                 {/* Project title - only appears when scrolled */}
                 <AnimatePresence>
