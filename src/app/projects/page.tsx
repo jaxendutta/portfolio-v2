@@ -219,21 +219,30 @@ export default function ProjectsPage() {
                     <div className="flex items-center gap-2 md:gap-4">
                         {hasActiveFilters && (
                             <motion.button
+                                title="Clear filters"
                                 onClick={clearFilters}
-                                className="px-2 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors flex items-center gap-2"
-                                whileHover={{ scale: 1.05 }}
+                                className="px-2 py-1.5 border border-current text-red-500 hover:bg-red-500 hover:text-white transition-colors flex items-center gap-2"
+                                whileHover={{
+                                    backgroundColor: "red",
+                                    color: "white",
+                                }}
                                 whileTap={{ scale: 0.95 }}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 10 }}
                             >
-                                <TbFilterX className="flex-shrink-0"/>
-                                <span className="hidden md:flex">Clear filters</span>
+                                <TbFilterX className="flex-shrink-0" />
+                                <span className="hidden md:flex">
+                                    Clear filters
+                                </span>
                             </motion.button>
                         )}
 
                         <button
                             type="button"
+                            title={
+                                showFilters ? "Hide filters" : "Show filters"
+                            }
                             onClick={() => setShowFilters(!showFilters)}
                             className="px-2 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors flex items-center gap-2"
                             aria-label={
@@ -241,9 +250,9 @@ export default function ProjectsPage() {
                             }
                         >
                             {showFilters ? (
-                                <TbFilterUp className="flex-shrink-0"/>
+                                <TbFilterUp className="flex-shrink-0" />
                             ) : (
-                                <TbFilterDown className="flex-shrink-0"/>
+                                <TbFilterDown className="flex-shrink-0" />
                             )}
                             <span className="hidden md:flex">
                                 {showFilters ? "Hide filters" : "Show filters"}
