@@ -98,14 +98,14 @@ export default function ProjectCard({
                 {/* Project Image */}
                 <Link
                     href={projectLink}
-                    className={`w-full md:w-2/5 relative ${isMobileProject ? (reversed ? "md:-rotate-5" : "md:rotate-5") : ""}`}
+                    className={`w-full md:w-2/5 relative ${isMobileProject ? (reversed ? "-rotate-5" : "rotate-5") : ""}`}
                 >
                     <Image
                         src={`/assets/${id}.png`}
                         alt={project.name}
                         width={isMobileProject ? 280 : 800}
                         height={isMobileProject ? 600 : 450}
-                        className={`relative mx-auto w-full h-auto ${isMobileProject ? "max-w-[280px]" : "max-w-[800px]"}`}
+                        className={`relative mx-auto w-full h-auto ${isMobileProject ? "max-w-[200px] md:max-w-[280px]" : "max-w-[800px] rounded-lg border border-[var(--color-text)]"}`}
                         style={{
                             objectFit: "contain",
                         }}

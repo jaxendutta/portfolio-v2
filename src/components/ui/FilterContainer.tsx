@@ -93,7 +93,7 @@ export function FilterTag({ label, isActive, onClick }: FilterTagProps) {
     return (
         <motion.button
             onClick={onClick}
-            className={`px-3 py-1 border rounded-full text-sm transition-colors ${
+            className={`px-3 py-1 border rounded-full text-xs md:text-sm transition-colors ${
                 isActive
                     ? "bg-[var(--color-text)] text-[var(--color-background)]"
                     : "border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)]"
@@ -116,7 +116,7 @@ interface FilterSectionProps {
 export function FilterSection({ title, icon, children }: FilterSectionProps) {
     return (
         <div className="w-full">
-            <h2 className="text-lg mb-4 flex items-center gap-2 font-semibold">
+            <h2 className="text-sm md:text-lg mb-2 md:mb-4 flex items-center gap-2 font-semibold">
                 {icon} {title}
             </h2>
             <div className="flex flex-wrap gap-2">{children}</div>

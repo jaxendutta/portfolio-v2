@@ -6,7 +6,8 @@ import { headingFont } from "@/lib/fonts";
 import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
 import { projectsData } from "@/data/projectData";
 import RotatingButton from "@/components/ui/RotatingButton";
-import { GiMagnifyingGlass, GiTechnoHeart, GiCalendar } from "react-icons/gi";
+import { CiSearch } from "react-icons/ci";
+import { GiTechnoHeart, GiCalendar } from "react-icons/gi";
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongUp } from "react-icons/hi2";
 import ProjectCard from "@/components/sections/project/ProjectCard";
 import Footer from "@/components/layout/Footer";
@@ -128,7 +129,7 @@ export default function ProjectsPage() {
         selectedYears.length > 0;
 
     return (
-        <div className="min-h-screen p-2 md:p-4 lg:p-8 xl:p-12 2xl:p-16">
+        <div className="min-h-screen p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-xs md:text-sm lg:text-base">
             {/* Header with navigation buttons */}
             <motion.header
                 className="sticky top-8 z-50 flex justify-between items-center"
@@ -159,7 +160,7 @@ export default function ProjectsPage() {
                 variants={fadeIn}
                 initial="hidden"
                 animate="visible"
-                className="mb-12 pt-8"
+                className="mb-6 md:mb-12 pt-8"
             >
                 <motion.div
                     className={`text-5xl md:text-8xl text-center ${headingFont} italic clip-text mb-8`}
@@ -172,9 +173,9 @@ export default function ProjectsPage() {
                 </motion.div>
 
                 {/* Results count and filter controls */}
-                <div className="flex justify-between items-center gap-4 border-b border-current pb-4">
+                <div className="flex justify-between items-center gap-4 border-b border-current pb-4 ">
                     {/* Results count with detailed filter information */}
-                    <div className="text-center md:text-left text-sm md:text-base flex-grow">
+                    <div className="text-center md:text-left flex-grow">
                         <span className="font-bold">
                             {filteredProjects.length}
                         </span>{" "}
@@ -215,36 +216,36 @@ export default function ProjectsPage() {
                     </div>
 
                     {/* Filter controls */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 md:gap-4">
                         {hasActiveFilters && (
                             <motion.button
                                 onClick={clearFilters}
-                                className="px-3 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] text-sm transition-colors flex items-center gap-2"
+                                className="px-2 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors flex items-center gap-2"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 10 }}
                             >
-                                <TbFilterX className="text-lg" />
-                                <span>Clear filters</span>
+                                <TbFilterX className="flex-shrink-0"/>
+                                <span className="hidden md:flex">Clear filters</span>
                             </motion.button>
                         )}
 
                         <button
                             type="button"
                             onClick={() => setShowFilters(!showFilters)}
-                            className="px-3 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors flex items-center gap-2 text-sm"
+                            className="px-2 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors flex items-center gap-2"
                             aria-label={
                                 showFilters ? "Hide filters" : "Show filters"
                             }
                         >
                             {showFilters ? (
-                                <TbFilterUp className="text-lg" />
+                                <TbFilterUp className="flex-shrink-0"/>
                             ) : (
-                                <TbFilterDown className="text-lg" />
+                                <TbFilterDown className="flex-shrink-0"/>
                             )}
-                            <span>
+                            <span className="hidden md:flex">
                                 {showFilters ? "Hide filters" : "Show filters"}
                             </span>
                         </button>
@@ -261,13 +262,13 @@ export default function ProjectsPage() {
                     {/* Search Box */}
                     <div className="w-full">
                         <div className="relative">
-                            <GiMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 text-lg" />
+                            <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2" />
                             <input
                                 type="text"
                                 placeholder="Search projects..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full py-2 pl-10 pr-4 border border-current bg-transparent focus:outline-none focus:ring-1 focus:ring-accent"
+                                className="w-full py-2 pl-8 pr-4 border border-current bg-transparent focus:outline-none focus:ring-1 focus:ring-accent"
                             />
                         </div>
                     </div>

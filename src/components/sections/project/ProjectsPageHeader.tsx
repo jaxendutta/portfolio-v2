@@ -104,7 +104,7 @@ export default function ProjectsPageHeader({
                             texts={["BACK TO", "PROJECTS PAGE"]}
                             centerIcon={HiArrowLeft}
                             {...buttonProps}
-                            href="/#projects"
+                            href="/projects"
                         />
                     </motion.div>
 
