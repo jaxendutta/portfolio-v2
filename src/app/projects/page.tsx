@@ -132,24 +132,24 @@ export default function ProjectsPage() {
         <div className="min-h-screen p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-xs md:text-sm lg:text-base">
             {/* Header with navigation buttons */}
             <motion.header
-                className="sticky top-8 z-50 flex justify-between items-center"
+                className="sticky top-4 z-50 flex justify-between items-center"
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
             >
                 <RotatingButton
                     href="/#projects"
-                    texts={["Back to Home", "Over and Out"]}
+                    texts={["Back Home", "Over & Out"]}
                     centerIcon={HiOutlineArrowLongLeft}
-                    size={90}
+                    size={80}
                     fontSize={12}
                     variant="glow"
                 />
                 <RotatingButton
                     href="#top"
-                    texts={["Back to top", "Start of page"]}
+                    texts={["Back to top", "Scroll up"]}
                     centerIcon={HiOutlineArrowLongUp}
-                    size={90}
+                    size={80}
                     fontSize={12}
                     variant="glow"
                 />
@@ -362,7 +362,7 @@ export default function ProjectsPage() {
                 )}
             </main>
 
-            <Footer />
+            <Footer className="mt-6" />
         </div>
     );
 }
