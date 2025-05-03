@@ -49,21 +49,19 @@ export const ProjectPageSection = ({
         justifyContent: "center",
         alignContent: "center",
         alignSelf: "center",
+        display: "flex",
+        gap: "4rem",
         ...(orientation === "landscape"
             ? {
                   minWidth: "100vw",
                   height: "80%",
-                  display: "flex",
-                  gap: "4rem",
                   flexDirection: "row",
                   paddingRight: "6rem",
               }
             : {
-                  height: "auto",
-                  display: "flex",
                   flexDirection: "column",
-                  gap: "4rem",
-                  padding: "6rem 1rem",
+                  padding: "8rem 2rem",
+                  textAlign: "center",
               }),
     };
 

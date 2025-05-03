@@ -21,24 +21,34 @@ const ColorCard = ({
                     const veryLight = brightness > 0.9;
 
                     return (
-                        <motion.a
+                        <motion.div
                             key={colorIndex}
-                            href={`https://www.google.com/search?q=${encodeURIComponent(color)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`flex-grow rounded-lg relative group
+                            className={`flex-grow rounded-lg relative overflow-hidden cursor-pointer
                                 ${veryDark ? "border border-white/30" : ""}
                                 ${veryLight ? "border border-black/30" : ""}
                             `}
                             style={{ backgroundColor: color }}
-                            whileHover={{ borderRadius: "50%" }}
+                            whileHover={{
+                                borderRadius: "50%",
+                                scale: 1.03,
+                            }}
+                            onClick={() =>
+                                window.open(
+                                    `https://www.google.com/search?q=${encodeURIComponent(color)}`,
+                                    "_blank"
+                                )
+                            }
                         >
-                            <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                <span className="px-3 py-1 rounded-md bg-black/50 text-white text-sm">
+                            <motion.div
+                                className="absolute inset-0 flex items-center justify-center"
+                                initial={{ opacity: 0 }}
+                                whileHover={{ opacity: 1 }}
+                            >
+                                <span className="px-3 py-1 rounded-md bg-black/70 text-white text-sm shadow-md">
                                     {color}
                                 </span>
-                            </span>
-                        </motion.a>
+                            </motion.div>
+                        </motion.div>
                     );
                 })}
             </div>

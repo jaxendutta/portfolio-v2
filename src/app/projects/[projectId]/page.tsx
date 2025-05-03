@@ -154,7 +154,7 @@ export default function ProjectPage() {
                             ? "flex flex-row overflow-x-auto overflow-y-hidden snap-x"
                             : "flex flex-col overflow-y-auto overflow-x-hidden snap-y"
                     } 
-                    snap-mandatory scroll-smooth
+                    snap-mandatory scroll-smooth gap-20
                 `}
                 style={{
                     scrollbarWidth: "none", // Firefox
@@ -162,20 +162,13 @@ export default function ProjectPage() {
                 }}
             >
                 {/* Project Name Section */}
-                <section
-                    id="project-name-top"
-                    className="project-section flex items-center justify-center"
-                >
-                    <NameSection name={project.name} />
-                </section>
+                <NameSection name={project.name} />
 
                 {/* Overview Section */}
-                <section className="project-section">
-                    <OverviewSection
-                        overview={project.overview}
-                        links={project.links}
-                    />
-                </section>
+                <OverviewSection
+                    overview={project.overview}
+                    links={project.links}
+                />
 
                 {/* Typography Section - Conditionally render */}
                 {project.typography && project.typography.length > 0 && (
