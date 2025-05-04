@@ -1,6 +1,11 @@
 // src/types/project.ts
 import { IconType } from "react-icons";
 
+export interface OverviewItem {
+    className?: string;
+    content: string;
+}
+
 // src/types/project.ts
 export interface ProjectLink {
     name: string;
@@ -25,7 +30,7 @@ export interface ProjectData {
     icon: IconType;
     type?: "design" | "development" | "ai" | "research";
     date: Date;
-    overview: string[];
+    overview: OverviewItem[];
     links: ProjectLink[];
     typography?: FontInfo[];
     colors?: ColorSet[];
