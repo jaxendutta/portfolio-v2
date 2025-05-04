@@ -10,7 +10,7 @@ import {
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
 
-const calloutStyle = "border border-2 border-dashed p-2 md:p-4 rounded-lg mt-8";
+const calloutStyle = "border border-2 border-dashed py-2 px-2 md:px-4 rounded-2xl mt-8";
 
 export const projectsData: ProjectsData = {
     "evse-opt": {

@@ -27,44 +27,57 @@ function getAdjacentProjects(currentId: string): {
 interface ProjectsPageHeaderProps {
     isLandscape: boolean;
     titleVisible: boolean;
-    scrollNext: () => void;
 }
 
 export default function ProjectsPageHeader({
     isLandscape,
     titleVisible,
-    scrollNext,
 }: ProjectsPageHeaderProps) {
     const { projectId } = useParams();
     const id = typeof projectId === "string" ? projectId : projectId?.[0] || "";
     const project = projectsData[id];
     const adjacentProjects = project ? getAdjacentProjects(id) : null;
+    const mainElement =
+        document.querySelector("main") || document.documentElement;
 
     const scrollToStart = () => {
-        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        mainElement.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    };
+
+    const scrollNext = () => {
+        if (mainElement) {
+            const scrollAmount = isLandscape
+                ? window.innerWidth
+                : window.innerHeight;
+            mainElement.scrollBy({
+                left: isLandscape ? scrollAmount : 0,
+                top: isLandscape ? 0 : scrollAmount,
+                behavior: "smooth",
+            });
+        }
     };
 
     // Shared animation transition for consistency
-    const springTransition = { 
-        type: "spring", 
-        stiffness: 300, 
-        damping: 30 
+    const springTransition = {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
     };
-    
+
     // Define animation preset types to ensure type safety
     type AnimationPreset = {
         x?: number;
         y?: number;
         scale?: number;
     };
-    
+
     const animations: Record<string, AnimationPreset> = {
         fadeLeft: { x: -20 },
         fadeRight: { x: 20 },
         fadeUp: { y: -20 },
         scale: { scale: 0.8 },
     };
-    
+
     // Helper function for creating motion props based on animation type
     const getMotionProps = (animationType: keyof typeof animations) => {
         const anim = animations[animationType];
@@ -74,27 +87,27 @@ export default function ProjectsPageHeader({
             y: anim.y !== undefined ? 0 : undefined,
             scale: anim.scale !== undefined ? 1 : undefined,
         };
-        
+
         return {
             initial: { opacity: 0, ...anim },
             animate,
             exit: { opacity: 0, ...anim },
             transition: springTransition,
-            layout: true
+            layout: true,
         };
     };
-    
+
     // Shared button properties
     const buttonProps = {
         size: 80,
         fontSize: 12,
     };
-    
+
     return (
         <header className="fixed top-0 left-0 right-0 z-50 p-4 flex items-center">
             <LayoutGroup>
-                <motion.div 
-                    className="w-full flex items-center justify-between gap-4 lg:gap-8" 
+                <motion.div
+                    className={`w-full flex items-center justify-between ${titleVisible && "gap-4 lg:gap-6"}`}
                     layout
                     transition={springTransition}
                 >
@@ -111,9 +124,12 @@ export default function ProjectsPageHeader({
                     {/* Scroll Right button */}
                     <AnimatePresence mode="popLayout">
                         {isLandscape && (
-                            <motion.div key="scroll-next" {...getMotionProps("scale")}>
+                            <motion.div
+                                key="scroll-next"
+                                {...getMotionProps("scale")}
+                            >
                                 <RotatingButton
-                                    texts={["SCROLL RIGHT", "NEXT"]}
+                                    texts={["SCROLL RIGHT", "SCROLL NEXT"]}
                                     centerIcon={HiArrowRight}
                                     {...buttonProps}
                                     onClick={scrollNext}
@@ -125,9 +141,9 @@ export default function ProjectsPageHeader({
                     {/* Project Title */}
                     <AnimatePresence mode="popLayout">
                         {titleVisible && isLandscape && (
-                            <motion.div 
-                                key="project-title" 
-                                className={`flex-1 flex justify-center text-3xl uppercase tracking-wider ${headingFont}`}
+                            <motion.div
+                                key="project-title"
+                                className={`flex-1 flex justify-center text-3xl lowercase tracking-wider ${headingFont}`}
                                 style={{ fontStyle: "italic" }}
                                 {...getMotionProps("fadeUp")}
                             >
@@ -139,7 +155,10 @@ export default function ProjectsPageHeader({
                     {/* Previous Project button */}
                     <AnimatePresence mode="popLayout">
                         {adjacentProjects?.prev && (
-                            <motion.div key="prev-project" {...getMotionProps("fadeRight")}>
+                            <motion.div
+                                key="prev-project"
+                                {...getMotionProps("fadeRight")}
+                            >
                                 <RotatingButton
                                     texts={["PREV PROJECT", "PREV PROJECT"]}
                                     centerIcon={GrChapterPrevious}
@@ -153,7 +172,10 @@ export default function ProjectsPageHeader({
                     {/* Next Project button */}
                     <AnimatePresence mode="popLayout">
                         {adjacentProjects?.next && (
-                            <motion.div key="next-project" {...getMotionProps("fadeLeft")}>
+                            <motion.div
+                                key="next-project"
+                                {...getMotionProps("fadeLeft")}
+                            >
                                 <RotatingButton
                                     texts={["NEXT PROJECT", "NEXT PROJECT"]}
                                     centerIcon={GrChapterNext}

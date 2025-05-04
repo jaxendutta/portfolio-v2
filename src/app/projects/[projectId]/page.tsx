@@ -101,47 +101,12 @@ export default function ProjectPage() {
         };
     }, [project, isLandscape]);
 
-    // Navigation functions
-    const scrollNext = () => {
-        const main = mainRef.current;
-        if (!main) return;
-
-        if (isLandscape) {
-            // Get current scroll position
-            const currentScroll = main.scrollLeft;
-            const sectionWidth = window.innerWidth;
-
-            // Calculate the next section position (using integer division)
-            const currentSection = Math.floor(currentScroll / sectionWidth);
-            const nextSection = (currentSection + 1) * sectionWidth;
-
-            // Scroll to the next section
-            main.scrollTo({
-                left: nextSection,
-                behavior: "smooth",
-            });
-        } else {
-            // Similar logic for vertical scrolling
-            const currentScroll = main.scrollTop;
-            const sectionHeight = window.innerHeight;
-
-            const currentSection = Math.floor(currentScroll / sectionHeight);
-            const nextSection = (currentSection + 1) * sectionHeight;
-
-            main.scrollTo({
-                top: nextSection,
-                behavior: "smooth",
-            });
-        }
-    };
-
     return (
         <div className="h-screen w-screen overflow-hidden relative">
             {/* Header section */}
             <ProjectsPageHeader
                 titleVisible={titleVisible}
                 isLandscape={isLandscape}
-                scrollNext={scrollNext}
             />
 
             {/* Main container that adapts to orientation */}
