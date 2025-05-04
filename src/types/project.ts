@@ -30,7 +30,7 @@ export interface ProjectData {
     icon: IconType;
     type?: "design" | "development" | "ai" | "research";
     date: Date;
-    overview: OverviewItem[];
+    overview: OverviewItem[][];
     links: ProjectLink[];
     typography?: FontInfo[];
     colors?: ColorSet[];

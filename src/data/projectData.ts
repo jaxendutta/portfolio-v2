@@ -10,7 +10,8 @@ import {
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
 
-const calloutStyle = "border border-2 border-dashed py-2 px-2 md:px-4 rounded-2xl mt-8";
+const calloutStyle =
+    "border border-2 border-dashed py-2 px-2 md:px-4 rounded-2xl mt-8";
 
 export const projectsData: ProjectsData = {
     "evse-opt": {
@@ -20,11 +21,13 @@ export const projectsData: ProjectsData = {
         type: "development",
         date: new Date("2024-12-18"),
         overview: [
-            {
-                className: "text",
-                content:
-                    "Engineered a Gurobi MILP model processing 7750+ locations to enhance KWC-CMA's EV charging station coverage by +80% while minimizing costs through strategic Level 2 to Level 3 upgrades.",
-            },
+            [
+                {
+                    className: "text",
+                    content:
+                        "Engineered a Gurobi MILP model processing 7750+ locations to enhance KWC-CMA's EV charging station coverage by +80% while minimizing costs through strategic Level 2 to Level 3 upgrades.",
+                },
+            ],
         ],
         links: [
             {
@@ -54,19 +57,23 @@ export const projectsData: ProjectsData = {
         type: "design",
         date: new Date("2024-08-18"),
         overview: [
-            {
-                className: calloutStyle,
-                content: "Tired of Generic Visual Novels?",
-            },
-            {
-                content:
-                    "Imagine crafting your own story, a world where every narrative unfolds based on your desires. Fabler empowers you to be the author. ✍️",
-            },
-            { className: calloutStyle, content: "But how does it work?" },
-            {
-                content:
-                    "Fabler leverages the magic of AI! Simply provide a prompt - a spark of inspiration - and our intelligent system weaves a captivating visual novel tailored to your vision. ✨",
-            },
+            [
+                {
+                    className: calloutStyle,
+                    content: "Tired of Generic Visual Novels?",
+                },
+                {
+                    content:
+                        "Imagine crafting your own story, a world where every narrative unfolds based on your desires. Fabler empowers you to be the author. ✍️",
+                },
+            ],
+            [
+                { className: calloutStyle, content: "But how does it work?" },
+                {
+                    content:
+                        "Fabler leverages the magic of AI! Simply provide a prompt - a spark of inspiration - and our intelligent system weaves a captivating visual novel tailored to your vision. ✨",
+                },
+            ],
         ],
         links: [
             {
@@ -125,19 +132,23 @@ export const projectsData: ProjectsData = {
         icon: GiBee,
         date: new Date("2023-08-18"),
         overview: [
-            {
-                className: calloutStyle,
-                content: "Collaborative Learning, Reimagined.",
-            },
-            {
-                content:
-                    "Hivemind connects students worldwide, fostering a vibrant ecosystem of shared knowledge and collaborative study groups. Break free from isolation and tap into the power of collective intelligence! 🌐🧠",
-            },
-            { className: calloutStyle, content: "How does it work?" },
-            {
-                content:
-                    "Our innovative platform uses smart matching algorithms to connect you with like-minded learners, creating the perfect study environment tailored to your needs and learning style. From instant study sessions to long-term project collaborations, Hivemind adapts to your academic journey. 📚🤝",
-            },
+            [
+                {
+                    className: calloutStyle,
+                    content: "Collaborative Learning, Reimagined.",
+                },
+                {
+                    content:
+                        "Hivemind connects students worldwide, fostering a vibrant ecosystem of shared knowledge and collaborative study groups. Break free from isolation and tap into the power of collective intelligence! 🌐🧠",
+                },
+            ],
+            [
+                { className: calloutStyle, content: "How does it work?" },
+                {
+                    content:
+                        "Our innovative platform uses smart matching algorithms to connect you with like-minded learners, creating the perfect study environment tailored to your needs and learning style. From instant study sessions to long-term project collaborations, Hivemind adapts to your academic journey. 📚🤝",
+                },
+            ],
         ],
         links: [
             {
@@ -188,22 +199,26 @@ export const projectsData: ProjectsData = {
         icon: FaSpaceAwesome,
         date: new Date("2023-08-18"),
         overview: [
-            {
-                className: calloutStyle,
-                content: "Retro Gaming Reimagined",
-            },
-            {
-                content:
-                    "Dive into nostalgia with a modern twist! This Space Invaders remake brings the classic arcade experience to your desktop, powered by cutting-edge Kotlin and JavaFX technologies. 🚀👾",
-            },
-            {
-                className: calloutStyle,
-                content: "Challenge the Alien Invasion",
-            },
-            {
-                content:
-                    "Test your reflexes and strategy as you defend Earth from waves of descending aliens. With each level, the challenge intensifies, keeping you on the edge of your seat! 🎮🛸",
-            },
+            [
+                {
+                    className: calloutStyle,
+                    content: "Retro Gaming Reimagined",
+                },
+                {
+                    content:
+                        "Dive into nostalgia with a modern twist! This Space Invaders remake brings the classic arcade experience to your desktop, powered by cutting-edge Kotlin and JavaFX technologies. 🚀👾",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Challenge the Alien Invasion",
+                },
+                {
+                    content:
+                        "Test your reflexes and strategy as you defend Earth from waves of descending aliens. With each level, the challenge intensifies, keeping you on the edge of your seat! 🎮🛸",
+                },
+            ],
         ],
         links: [
             {
@@ -254,20 +269,26 @@ export const projectsData: ProjectsData = {
         icon: AiOutlineFolderView,
         date: new Date("2023-08-18"),
         overview: [
-            {
-                className: calloutStyle,
-                content: "Streamlined File Management"
-            },
-            {
-                content: "Experience a modern, intuitive file management solution built with Kotlin and JavaFX. Navigate your digital world with ease and efficiency. 📁🔍"
-            },
-            {
-                className: calloutStyle,
-                content: "Feature-Rich Interface"
-            },
-            {
-                content: "From creating folders to previewing files, our File Explorer puts powerful tools at your fingertips. Enjoy a seamless, user-friendly experience for all your file organization needs. 🖥️📊"
-            },
+            [
+                {
+                    className: calloutStyle,
+                    content: "Streamlined File Management",
+                },
+                {
+                    content:
+                        "Experience a modern, intuitive file management solution built with Kotlin and JavaFX. Navigate your digital world with ease and efficiency. 📁🔍",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Feature-Rich Interface",
+                },
+                {
+                    content:
+                        "From creating folders to previewing files, our File Explorer puts powerful tools at your fingertips. Enjoy a seamless, user-friendly experience for all your file organization needs. 🖥️📊",
+                },
+            ],
         ],
         links: [
             {
@@ -313,20 +334,26 @@ export const projectsData: ProjectsData = {
         icon: PiCodesandboxLogoLight,
         date: new Date("2023-08-18"),
         overview: [
-            {
-                className: calloutStyle,
-                content: "Illuminate Your Images"
-            },
-            {
-                content: "Discover Lightbox, a powerful image manipulation tool crafted with Kotlin and JavaFX. Transform your visual content with ease and precision. 🖼️✨"
-            },
-            {
-                className: calloutStyle,
-                content: "Intuitive Image Management"
-            },
-            {
-                content: "From basic edits to advanced manipulations, Lightbox puts a suite of tools at your fingertips. Experience smooth, responsive image handling in a user-friendly interface. 🖱️🎨"
-            },
+            [
+                {
+                    className: calloutStyle,
+                    content: "Illuminate Your Images",
+                },
+                {
+                    content:
+                        "Discover Lightbox, a powerful image manipulation tool crafted with Kotlin and JavaFX. Transform your visual content with ease and precision. 🖼️✨",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Intuitive Image Management",
+                },
+                {
+                    content:
+                        "From basic edits to advanced manipulations, Lightbox puts a suite of tools at your fingertips. Experience smooth, responsive image handling in a user-friendly interface. 🖱️🎨",
+                },
+            ],
         ],
         links: [
             {
@@ -371,20 +398,26 @@ export const projectsData: ProjectsData = {
         icon: GiCardJoker,
         date: new Date("2022-08-18"),
         overview: [
-            {
-                className: calloutStyle,
-                content: "From Terminal to Web: A Card Game Transformation"
-            },
-            {
-                content: "Experience Straights, a classic card game reimagined for the modern web. Originally a C++ terminal game, now playable in your browser thanks to the power of WebAssembly. 🃏💻"
-            },
-            {
-                className: calloutStyle,
-                content: "Strategic 4-Player Action"
-            },
-            {
-                content: "Dive into this engaging 4-player card game where strategy is key. Aim for the lowest score as you navigate through each round, making calculated moves to outplay your opponents. 🏆♠️♥️♣️♦️"
-            },
+            [
+                {
+                    className: calloutStyle,
+                    content: "From Terminal to Web: A Card Game Transformation",
+                },
+                {
+                    content:
+                        "Experience Straights, a classic card game reimagined for the modern web. Originally a C++ terminal game, now playable in your browser thanks to the power of WebAssembly. 🃏💻",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Strategic 4-Player Action",
+                },
+                {
+                    content:
+                        "Dive into this engaging 4-player card game where strategy is key. Aim for the lowest score as you navigate through each round, making calculated moves to outplay your opponents. 🏆♠️♥️♣️♦️",
+                },
+            ],
         ],
         links: [
             {

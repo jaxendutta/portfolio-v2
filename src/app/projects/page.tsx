@@ -72,9 +72,11 @@ export default function ProjectsPage() {
                         .includes(searchQuery.toLowerCase())) ||
                 (project.overview &&
                     project.overview.some((paragraph) =>
-                        paragraph.content
-                            .toLowerCase()
-                            .includes(searchQuery.toLowerCase())
+                        paragraph.some((item) =>
+                            item.content
+                                .toLowerCase()
+                                .includes(searchQuery.toLowerCase())
+                        )
                     ));
 
             const matchesTechStack =

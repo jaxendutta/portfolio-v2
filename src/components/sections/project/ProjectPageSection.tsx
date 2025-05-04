@@ -71,16 +71,20 @@ export const ProjectPageSection = ({
             className={`w-full snap-start ${className}`}
             style={sectionStyles}
         >
-            <motion.div
-                className={`${displayFont} text-5xl whitespace-pre-line`}
-                style={{
-                    fontStyle: "italic",
-                    transform:
-                        orientation === "landscape" ? "rotate(-90deg)" : "none",
-                }}
-            >
-                {title.join("\n")}
-            </motion.div>
+            {title.length > 0 && (
+                <motion.div
+                    className={`${displayFont} text-5xl whitespace-pre-line`}
+                    style={{
+                        fontStyle: "italic",
+                        transform:
+                            orientation === "landscape"
+                                ? "rotate(-90deg)"
+                                : "none",
+                    }}
+                >
+                    {title.join("\n")}
+                </motion.div>
+            )}
             {children}
         </motion.section>
     );
