@@ -24,7 +24,7 @@ export default function OverviewSection({
             {overview.map((section, sectionIndex) => (
                 <div
                     key={sectionIndex}
-                    className="w-full h-screen flex flex-col items-center justify-center max-w-4xl snap-start"
+                    className="w-screen h-screen flex flex-col items-center justify-center max-w-4xl snap-start"
                 >
                     {section.map(
                         (subsection: OverviewSectionType, index: number) => (
@@ -36,7 +36,7 @@ export default function OverviewSection({
                                 transition={{ delay: index * 0.1 }}
                             >
                                 <div
-                                    className={`leading-relaxed max-w-3xl text-center ${subsection.className}`}
+                                    className={`leading-relaxed text-center ${subsection.className}`}
                                 >
                                     {subsection.content}
                                 </div>

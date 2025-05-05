@@ -100,6 +100,25 @@ export const projectsData: ProjectsData = {
                 description:
                     "The Italiana font, with its elegant serifs and subtle contrast, evokes a sense of timeless storytelling perfect for visual novels. Its graceful letterforms harken back to classic literature and fairy tales, creating a fable-like atmosphere.",
             },
+            {
+                name: "Italiana",
+                fontFamily: '"Italiana", sans-serif',
+                url: "https://fonts.googleapis.com/css2?family=Italiana&display=swap",
+                description:
+                    "The Italiana font, with its elegant serifs and subtle contrast, evokes a sense of timeless storytelling perfect for visual novels. Its graceful letterforms harken back to classic literature and fairy tales, creating a fable-like atmosphere.",
+            },{
+                name: "Italiana",
+                fontFamily: '"Italiana", sans-serif',
+                url: "https://fonts.googleapis.com/css2?family=Italiana&display=swap",
+                description:
+                    "The Italiana font, with its elegant serifs and subtle contrast, evokes a sense of timeless storytelling perfect for visual novels. Its graceful letterforms harken back to classic literature and fairy tales, creating a fable-like atmosphere.",
+            },{
+                name: "Italiana",
+                fontFamily: '"Italiana", sans-serif',
+                url: "https://fonts.googleapis.com/css2?family=Italiana&display=swap",
+                description:
+                    "The Italiana font, with its elegant serifs and subtle contrast, evokes a sense of timeless storytelling perfect for visual novels. Its graceful letterforms harken back to classic literature and fairy tales, creating a fable-like atmosphere.",
+            },
         ],
         colors: [
             {

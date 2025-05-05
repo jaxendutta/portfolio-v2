@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { displayFont } from "@/lib/fonts";
 import { ReactNode, useState, useEffect } from "react";
 
+export type Orientation = "landscape" | "portrait";
+
 interface ProjectPageSectionProps {
     id?: string;
     title: string[];
@@ -17,9 +19,7 @@ export const ProjectPageSection = ({
     children,
     className = "",
 }: ProjectPageSectionProps) => {
-    const [orientation, setOrientation] = useState<"landscape" | "portrait">(
-        "landscape"
-    );
+    const [orientation, setOrientation] = useState<Orientation>("landscape");
 
     useEffect(() => {
         const handleOrientationChange = () => {
@@ -42,33 +42,27 @@ export const ProjectPageSection = ({
     }, []);
 
     const sectionStyles: React.CSSProperties = {
-        scrollSnapAlign: "start",
-        scrollSnapStop: "always",
-        transition: "all 0.3s ease-in-out",
         alignItems: "center",
-        justifyContent: "center",
-        alignContent: "center",
-        alignSelf: "center",
+        minHeight: "100vh",
+        minWidth: "100vw",
         display: "flex",
         gap: "4rem",
+        justifyContent: "flex-start",
         ...(orientation === "landscape"
             ? {
-                  minWidth: "100vw",
-                  height: "80%",
                   flexDirection: "row",
-                  paddingRight: "6rem",
+                  padding: "2rem 6rem",
               }
             : {
                   flexDirection: "column",
-                  padding: "8rem 2rem",
-                  textAlign: "center",
+                  padding: "4rem 2rem",
               }),
     };
 
     return (
         <motion.section
             id={id}
-            className={`w-full snap-start ${className}`}
+            className={`snap-start ${className}`}
             style={sectionStyles}
         >
             {title.length > 0 && (
