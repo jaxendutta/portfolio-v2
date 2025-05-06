@@ -24,13 +24,13 @@ export default function OverviewSection({
             {overview.map((section, sectionIndex) => (
                 <div
                     key={sectionIndex}
-                    className="w-screen h-screen flex flex-col items-center justify-center max-w-4xl snap-start"
+                    className="w-screen h-screen flex flex-col items-center justify-center snap-start"
                 >
                     {section.map(
                         (subsection: OverviewSectionType, index: number) => (
                             <motion.div
                                 key={index}
-                                className={`mb-8 flex flex-col items-center ${codeFont}`}
+                                className={`mb-8 max-w-[70%] flex flex-col items-center ${codeFont}`}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}

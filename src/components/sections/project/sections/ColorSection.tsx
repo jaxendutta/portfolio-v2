@@ -13,7 +13,7 @@ const ColorCard = ({
     calculateBrightness: (color: string) => number;
 }) => {
     return (
-        <div className="w-full max-w-[1200px] flex flex-col">
+        <div className="w-full min-w-[min(60vw,_700px)] max-w-[1200px] flex flex-col">
             <div className="flex gap-4 h-[200px] mb-6">
                 {colorSet.palette.map((color, colorIndex) => {
                     const brightness = calculateBrightness(color);

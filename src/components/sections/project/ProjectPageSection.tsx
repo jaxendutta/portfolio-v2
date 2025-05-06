@@ -43,15 +43,13 @@ export const ProjectPageSection = ({
 
     const sectionStyles: React.CSSProperties = {
         alignItems: "center",
-        minHeight: "100vh",
-        minWidth: "100vw",
         display: "flex",
         gap: "4rem",
         justifyContent: "flex-start",
         ...(orientation === "landscape"
             ? {
                   flexDirection: "row",
-                  padding: "2rem 6rem",
+                    padding: "0rem 4rem",
               }
             : {
                   flexDirection: "column",

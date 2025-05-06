@@ -141,8 +141,9 @@ export default function ProjectPage() {
                     msOverflowStyle: "none",
                     scrollBehavior: "smooth",
                     scrollPaddingTop: "100px",
+                    paddingTop: "100px",
                     ...(isLandscape
-                        ? { height: "calc(100vh - 100px)" }
+                        ? { height: "100vh" }
                         : { minHeight: "calc(100vh - 100px)" }),
                 }}
             >

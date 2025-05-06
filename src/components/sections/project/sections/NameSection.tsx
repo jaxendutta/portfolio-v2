@@ -27,7 +27,7 @@ export default function NameSection({ name }: NameSectionProps) {
 
     return (
         <motion.div
-            className={`p-6 ${displayFont} snap-start flex items-center justify-center`}
+            className={`p-6 md:p-8 lg:p-10 ${displayFont} snap-start flex items-center justify-center`}
             id="project-name-top"
             style={{
                 fontStyle: "italic",
@@ -38,8 +38,8 @@ export default function NameSection({ name }: NameSectionProps) {
                 backgroundClip: "text",
                 color: "transparent",
                 fontSize: isPortrait
-                    ? "clamp(5rem, 60vh, 25rem)"
-                    : "clamp(15rem, 100vh, 50rem)",
+                    ? "clamp(5rem, 60vh, 20rem)"
+                    : "clamp(15rem, 100vh, 55rem)",
                 writingMode: isPortrait ? "vertical-lr" : "horizontal-tb",
             }}
             initial={{ opacity: 0, scale: 0.95 }}
