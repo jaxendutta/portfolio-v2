@@ -27,7 +27,7 @@ export default function NameSection({ name }: NameSectionProps) {
 
     return (
         <motion.div
-            className={`px-1 ${displayFont} snap-start min-h-screen flex items-center justify-center`}
+            className={`p-6 ${displayFont} snap-start flex items-center justify-center`}
             id="project-name-top"
             style={{
                 fontStyle: "italic",

@@ -130,7 +130,7 @@ export default function ProjectPage() {
             <motion.main
                 ref={mainRef}
                 className={`
-                    min-h-screen w-screen scroll-smooth snap-mandatory
+                    h-screen w-screen scroll-smooth snap-mandatory
                     ${
                         isLandscape
                             ? "flex flex-row overflow-x-auto overflow-y-hidden snap-x"
