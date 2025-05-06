@@ -4,6 +4,7 @@
 import { ColorSet } from "@/types/project";
 import { motion } from "framer-motion";
 import { ProjectPageSection } from "../ProjectPageSection";
+import { useState, useEffect } from "react";
 
 const ColorCard = ({
     colorSet,
@@ -12,8 +13,20 @@ const ColorCard = ({
     colorSet: ColorSet;
     calculateBrightness: (color: string) => number;
 }) => {
+    const [isLandscape, setIsLandscape] = useState(true);
+
+    useEffect(() => {
+        const checkOrientation = () => {
+            setIsLandscape(window.innerWidth > window.innerHeight);
+        };
+
+        checkOrientation();
+        window.addEventListener("resize", checkOrientation);
+        return () => window.removeEventListener("resize", checkOrientation);
+    }, []);
+
     return (
-        <div className="w-full min-w-[min(60vw,_700px)] max-w-[1200px] flex flex-col">
+        <div className="w-full min-w-[min(60vw,_700px)] max-w-[1200px] flex flex-col text-xs md:text-sm">
             <div className="flex gap-4 h-[200px] mb-6">
                 {colorSet.palette.map((color, colorIndex) => {
                     const brightness = calculateBrightness(color);
@@ -41,10 +54,17 @@ const ColorCard = ({
                         >
                             <motion.div
                                 className="absolute inset-0 flex items-center justify-center"
-                                initial={{ opacity: 0 }}
+                                initial={{ opacity: 0.25 }}
                                 whileHover={{ opacity: 1 }}
+                                style={{
+                                    writingMode: !isLandscape
+                                        ? "vertical-lr"
+                                        : "horizontal-tb",
+                                }}
                             >
-                                <span className="px-3 py-1 rounded-md bg-black/70 text-white text-sm shadow-md">
+                                <span
+                                    className={`px-3 py-1 rounded-full bg-black/70 text-white shadow-md`}
+                                >
                                     {color}
                                 </span>
                             </motion.div>
@@ -53,7 +73,7 @@ const ColorCard = ({
                 })}
             </div>
 
-            <div className="p-6 rounded-lg border border-dashed">
+            <div className="p-3 md:p-6 rounded-lg border border-dashed">
                 {colorSet.description}
             </div>
         </div>

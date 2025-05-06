@@ -53,7 +53,7 @@ export const ProjectPageSection = ({
               }
             : {
                   flexDirection: "column",
-                  padding: "4rem 2rem",
+                  padding: "4rem 2rem 8rem 2rem",
               }),
     };
 

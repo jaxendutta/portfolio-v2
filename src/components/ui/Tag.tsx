@@ -11,7 +11,7 @@ interface TagProps {
 const Tag = ({ text, glowOnHover = false, href, action }: TagProps) => {
     const commonProps = {
         className:
-            "px-3 py-1 border border-current rounded-full text-sm whitespace-nowrap cursor-pointer",
+            "px-3 py-1 border border-current rounded-full text-xs md:text-sm whitespace-nowrap cursor-pointer",
         style: {
             textDecoration: "none",
         },
