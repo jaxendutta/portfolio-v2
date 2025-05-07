@@ -1,9 +1,8 @@
 // src/app/projects/[projectId]/page.tsx
 "use client";
 
-import { useParams, notFound } from "next/navigation";
-import { useEffect, useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { projectsData } from "@/data/projectData";
 import NameSection from "@/components/sections/project/sections/NameSection";
@@ -49,76 +48,73 @@ const FooterSection = dynamic(
 export default function ProjectPage() {
     const { projectId } = useParams();
     const id = typeof projectId === "string" ? projectId : projectId?.[0] || "";
-    const mainRef = useRef<HTMLElement>(null);
+    const project = projectsData[id];
+    
     const [titleVisible, setTitleVisible] = useState(false);
     const [isLandscape, setIsLandscape] = useState(true);
 
-    const project = projectsData[id];
+    // Custom hook for window dimensions
+    const useWindowSize = () => {
+        const [size, setSize] = useState({ 
+            width: globalThis.window?.innerWidth || 0, 
+            height: globalThis.window?.innerHeight || 0 
+        });
 
-    // Memoized wheel handler
-    const handleWheel = useCallback(
-        (e: WheelEvent) => {
-            if (isLandscape && mainRef.current) {
-                const { deltaX, deltaY } = e;
-                const isHorizontalScroll = Math.abs(deltaX) > Math.abs(deltaY);
+        useEffect(() => {
+            if (typeof window === 'undefined') return;
+            
+            const handleResize = () => {
+                setSize({
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                });
+            };
 
-                if (!isHorizontalScroll) {
-                    e.preventDefault();
-                    mainRef.current.scrollBy({
-                        left: deltaY * 2,
-                        behavior: "smooth",
-                    });
-                }
-            }
-        },
-        [isLandscape]
-    );
+            handleResize();
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+        }, []);
 
-    // Scroll and resize handlers
-    const updateHeaderVisibility = useCallback(() => {
-        if (!mainRef.current) return;
-        const nameSection = document.getElementById("project-name-top");
-        if (!nameSection) return;
+        return size;
+    };
 
-        const rect = nameSection.getBoundingClientRect();
-        setTitleVisible(isLandscape ? rect.right <= 10 : rect.bottom <= 10);
-    }, [isLandscape]);
+    // Use the hook to get window dimensions
+    const { width, height } = useWindowSize();
 
+    // Update isLandscape based on dimensions
     useEffect(() => {
-        if (!project) {
-            notFound();
-            return;
-        }
+        setIsLandscape(width > height);
+    }, [width, height]);
 
-        const mediaQuery = window.matchMedia("(orientation: landscape)");
-        const updateOrientation = (e: MediaQueryListEvent | MediaQueryList) => {
-            setIsLandscape(e.matches);
-        };
-
-        updateOrientation(mediaQuery);
-        mediaQuery.addEventListener("change", updateOrientation);
-
-        const main = mainRef.current;
-        if (main) {
-            main.addEventListener("wheel", handleWheel, { passive: false });
-            main.addEventListener("scroll", updateHeaderVisibility, {
-                passive: true,
-            });
-
-            setTimeout(() => {
-                main.scrollTo(0, 0);
-                updateHeaderVisibility();
-            }, 100);
-        }
-
-        return () => {
-            mediaQuery.removeEventListener("change", updateOrientation);
-            if (main) {
-                main.removeEventListener("wheel", handleWheel);
-                main.removeEventListener("scroll", updateHeaderVisibility);
+    // Efficient header visibility management
+    useEffect(() => {
+        const updateHeaderVisibility = () => {
+            const section = document.getElementById("project-name");
+            if (section) {
+                const rect = section.getBoundingClientRect();
+                setTitleVisible(isLandscape && rect.right <= 10);
             }
         };
-    }, [project, handleWheel, updateHeaderVisibility]);
+        
+        // Initial check
+        updateHeaderVisibility();
+        
+        // Use requestAnimationFrame for better performance
+        let rafId: number;
+        const handleScroll = () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(updateHeaderVisibility);
+        };
+        
+        const container = document.querySelector('main');
+        if (container) {
+            container.addEventListener('scroll', handleScroll);
+            return () => {
+                cancelAnimationFrame(rafId);
+                container.removeEventListener('scroll', handleScroll);
+            };
+        }
+    }, [isLandscape]);
 
     return (
         <div className="h-screen w-screen overflow-hidden relative">
@@ -127,25 +123,14 @@ export default function ProjectPage() {
                 isLandscape={isLandscape}
             />
 
-            <motion.main
-                ref={mainRef}
+            <main
                 className={`
-                    h-screen w-screen scroll-smooth snap-mandatory
+                    h-screen w-screen scroll-smooth snap-mandatory no-scrollbar flex gap-20 scroll-pt-[100px] pt-[100px]
                     ${
                         isLandscape
-                            ? "flex flex-row overflow-x-auto overflow-y-hidden snap-x"
-                            : "flex flex-col overflow-y-auto overflow-x-hidden snap-y"
+                            ? "flex-row overflow-x-auto overflow-y-hidden snap-x"
+                            : "flex-col overflow-y-auto overflow-x-hidden snap-y"
                     }`}
-                style={{
-                    scrollbarWidth: "none",
-                    msOverflowStyle: "none",
-                    scrollBehavior: "smooth",
-                    scrollPaddingTop: "100px",
-                    paddingTop: "100px",
-                    ...(isLandscape
-                        ? { height: "100vh" }
-                        : { minHeight: "calc(100vh - 100px)" }),
-                }}
             >
                 <NameSection name={project.name} />
 
@@ -170,7 +155,7 @@ export default function ProjectPage() {
                     )}
 
                 {project.footer && <FooterSection footer={project.footer} />}
-            </motion.main>
+            </main>
         </div>
     );
 }

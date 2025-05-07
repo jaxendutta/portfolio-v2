@@ -49,11 +49,11 @@ export const ProjectPageSection = ({
         ...(orientation === "landscape"
             ? {
                   flexDirection: "row",
-                    padding: "0rem 4rem",
+                  padding: "4rem",
               }
             : {
                   flexDirection: "column",
-                  padding: "4rem 2rem 8rem 2rem",
+                  padding: "4rem 2rem 8rem",
               }),
     };
 

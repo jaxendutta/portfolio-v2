@@ -95,6 +95,10 @@ a:hover {
     }
 }
 
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
 /* For clip-text effect */
 .clip-text {
     background-image: var(--font-background);
