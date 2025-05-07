@@ -49,20 +49,20 @@ export default function ProjectPage() {
     const { projectId } = useParams();
     const id = typeof projectId === "string" ? projectId : projectId?.[0] || "";
     const project = projectsData[id];
-    
+
     const [titleVisible, setTitleVisible] = useState(false);
     const [isLandscape, setIsLandscape] = useState(true);
 
     // Custom hook for window dimensions
     const useWindowSize = () => {
-        const [size, setSize] = useState({ 
-            width: globalThis.window?.innerWidth || 0, 
-            height: globalThis.window?.innerHeight || 0 
+        const [size, setSize] = useState({
+            width: globalThis.window?.innerWidth || 0,
+            height: globalThis.window?.innerHeight || 0,
         });
 
         useEffect(() => {
-            if (typeof window === 'undefined') return;
-            
+            if (typeof window === "undefined") return;
+
             const handleResize = () => {
                 setSize({
                     width: window.innerWidth,
@@ -71,8 +71,8 @@ export default function ProjectPage() {
             };
 
             handleResize();
-            window.addEventListener('resize', handleResize);
-            return () => window.removeEventListener('resize', handleResize);
+            window.addEventListener("resize", handleResize);
+            return () => window.removeEventListener("resize", handleResize);
         }, []);
 
         return size;
@@ -95,23 +95,23 @@ export default function ProjectPage() {
                 setTitleVisible(isLandscape && rect.right <= 10);
             }
         };
-        
+
         // Initial check
         updateHeaderVisibility();
-        
+
         // Use requestAnimationFrame for better performance
         let rafId: number;
         const handleScroll = () => {
             if (rafId) cancelAnimationFrame(rafId);
             rafId = requestAnimationFrame(updateHeaderVisibility);
         };
-        
-        const container = document.querySelector('main');
+
+        const container = document.querySelector("main");
         if (container) {
-            container.addEventListener('scroll', handleScroll);
+            container.addEventListener("scroll", handleScroll);
             return () => {
                 cancelAnimationFrame(rafId);
-                container.removeEventListener('scroll', handleScroll);
+                container.removeEventListener("scroll", handleScroll);
             };
         }
     }, [isLandscape]);
@@ -132,7 +132,10 @@ export default function ProjectPage() {
                             : "flex-col overflow-y-auto overflow-x-hidden snap-y"
                     }`}
             >
-                <NameSection name={project.name} />
+                <NameSection
+                    name={project.name}
+                    className={isLandscape ? "mb-[10vh]" : ""}
+                />
 
                 {project.overview && (
                     <OverviewSection

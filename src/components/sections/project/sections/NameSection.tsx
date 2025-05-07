@@ -7,9 +7,10 @@ import { useState, useEffect } from "react";
 
 interface NameSectionProps {
     name: string;
+    className?: string;
 }
 
-export default function NameSection({ name }: NameSectionProps) {
+export default function NameSection({ name, className }: NameSectionProps) {
     const [isPortrait, setIsPortrait] = useState(false);
 
     useEffect(() => {
@@ -27,7 +28,7 @@ export default function NameSection({ name }: NameSectionProps) {
 
     return (
         <motion.div
-            className={`p-6 md:p-8 lg:p-10 ${displayFont} snap-start flex items-center justify-center`}
+            className={`px-6 md:px-8 ${displayFont} ${className} snap-start flex items-center justify-center`}
             id="project-name"
             style={{
                 fontStyle: "italic",
