@@ -4,6 +4,7 @@ import { projectsData } from "@/data/projectData";
 import Section from "@/components/ui/Section";
 import ProjectCard from "@/components/sections/project/ProjectCard";
 import { GiStrongbox } from "react-icons/gi";
+import RotatingButton from "@/components/ui/RotatingButton";
 
 export default function ProjectsSection() {
     const projectIds = Object.keys(projectsData);
@@ -27,7 +28,7 @@ export default function ProjectsSection() {
                     .map((id, index) => (
                         <div
                             key={id}
-                            className={`w-full px-2 py-8 ${index !== topCount - 1 && "border-b"} border-current ${index % 2 === 0 ? "border-r" : "border-l"}`}
+                            className={`w-full px-2 py-8 border-b border-current ${index % 2 === 0 ? "border-r" : "border-l"}`}
                         >
                             <ProjectCard
                                 id={id}
@@ -37,6 +38,14 @@ export default function ProjectsSection() {
                         </div>
                     ))}
             </div>
+
+            <RotatingButton
+                texts={["See the rest", "Access the vault"]}
+                href="/projects"
+                centerIcon={GiStrongbox}
+                variant="glow"
+                className="-translate-y-[100%]"
+            />
         </Section>
     );
 }

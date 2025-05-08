@@ -42,7 +42,7 @@ export default function SectionHeader({
         <div className={`relative mt-20 ${actionButton ? "mb-10" : "mb-40"}`}>
             {/* Container for the marquee and button */}
             <div
-                className={`relative text-6xl md:text-8xl lg:text-10xl flex items-center justify-center`}
+                className={`relative text-6xl md:text-8xl lg:text-10xl flex items-center justify-center content-center`}
             >
                 <div className={`absolute inset-0 ${headingFont}`}>
                     {/* Top marquee with walking icons */}
@@ -67,17 +67,13 @@ export default function SectionHeader({
                     </Marquee>
                 </div>
 
-                {actionButton &&
-                    (() => {
-                        const { className, ...restButtonProps } = actionButton;
-                        return (
-                            <RotatingButton
-                                className={`z-10 font-medium ${className}`}
-                                {...restButtonProps}
-                                variant={"glow"}
-                            />
-                        );
-                    })()}
+                {actionButton && (
+                    <RotatingButton
+                        {...actionButton}
+                        className={`z-10 font-medium ${actionButton.className || ''}`}
+                        variant="glow"
+                    />
+                )}
             </div>
         </div>
     );

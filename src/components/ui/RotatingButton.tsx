@@ -1,7 +1,7 @@
 // src/components/ui/RotatingButton.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
@@ -10,28 +10,28 @@ export interface RotatingButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     texts: string[];
     delimiters?: string[];
-    size?: number;
+    size?: number | { default: number; md?: number; lg?: number };
     variant?: "default" | "frost" | "raised" | "glow";
     href?: string;
     onClick?: () => void;
     centerIcon?: IconType;
     className?: string;
     rotationDuration?: number;
-    fontSize?: number;
+    fontSize?: number | { default: number; md?: number; lg?: number };
     disabled?: boolean;
 }
 
 const RotatingButton: React.FC<RotatingButtonProps> = ({
     texts,
     delimiters = ["✦"],
-    size = 120,
+    size = { default: 90, md: 110, lg: 140 },
     variant = "default",
     href,
     onClick = () => {},
     centerIcon,
     className = "",
     rotationDuration = 10,
-    fontSize = 14,
+    fontSize = { default: 11, md: 12, lg: 14 },
     type = "button",
     disabled = false,
 }) => {
@@ -39,12 +39,47 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     const [pathId] = useState(
         `circle-path-${Math.random().toString(36).slice(2, 11)}`
     );
+    const [currentSize, setCurrentSize] = useState<number>(
+        typeof size === "number" ? size : size.default
+    );
+    const [currentFontSize, setCurrentFontSize] = useState<number>(
+        typeof fontSize === "number" ? fontSize : fontSize.default
+    );
 
-    // Calculate the radius based on the size
-    const radius = size / 2;
+    useEffect(() => {
+        const handleResize = () => {
+            if (typeof size === "number") {
+                setCurrentSize(size);
+                return;
+            }
+            if (typeof fontSize === "number") {
+                setCurrentFontSize(fontSize);
+                return;
+            }
+
+            const { innerWidth } = window;
+            if (innerWidth >= 1024) {
+                if (size.lg) setCurrentSize(size.lg);
+                if (fontSize.lg) setCurrentFontSize(fontSize.lg);
+            } else if (innerWidth >= 768) {
+                if (size.md) setCurrentSize(size.md);
+                if (fontSize.md) setCurrentFontSize(fontSize.md);
+            } else {
+                setCurrentSize(size.default);
+                setCurrentFontSize(fontSize.default);
+            }
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [size, fontSize]);
+
+    // Calculate the radius based on the current size
+    const radius = currentSize / 2;
     const innerRadius = radius * 0.65;
 
-    // Path definition for text to follow
+    // Rest of the component remains the same, just use currentSize instead of size
     const pathDefinition = `M ${radius}, ${radius} m -${radius * 0.8}, 0 a ${
         radius * 0.8
     },${radius * 0.8} 0 1,1 ${radius * 1.6},0 a ${radius * 0.8},${
@@ -71,7 +106,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         );
 
         // Calculate the empty space available for distribution
-        const emptySpace = circumference - totalTextLength * fontSize * 0.5; // Approximate char width
+        const emptySpace = circumference - totalTextLength * currentFontSize * 0.5; // Approximate char width
         const spaceBetweenSegments = emptySpace / segments.length;
 
         return segments.map((segment, index) => {
@@ -79,14 +114,14 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
             let offset = 0;
             for (let i = 0; i < index; i++) {
                 offset +=
-                    segments[i].length * fontSize * 0.5 + spaceBetweenSegments;
+                    segments[i].length * currentFontSize * 0.5 + spaceBetweenSegments;
             }
 
             // Convert to percentage of circumference
             const offsetPercentage = (offset / circumference) * 100;
 
             return (
-                <text key={index} fontSize={fontSize}>
+                <text key={index} fontSize={currentFontSize}>
                     <textPath
                         href={`#${pathId}`}
                         startOffset={`${offsetPercentage}%`}
@@ -129,14 +164,14 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         <motion.div
             className={`group relative inline-flex items-center justify-center rounded-full ${getVariantClass()}`}
             style={{
-                width: size,
-                height: size,
+                width: currentSize,
+                height: currentSize,
             }}
         >
             {/* Rotating SVG with text */}
             <motion.svg
-                className="absolute inset-0 h-full w-full fill-current group-hover:fill-accent"
-                viewBox={`0 0 ${size} ${size}`}
+                className="p-1 absolute inset-0 h-full w-full fill-current group-hover:fill-accent"
+                viewBox={`0 0 ${currentSize} ${currentSize}`}
                 animate={{ rotate: 360 }}
                 transition={{
                     duration: rotationDuration,

@@ -16,16 +16,16 @@ export default function Hero() {
             <NightSky />
 
             {/* Main intro content */}
-            <div className="absolute text-center top-[15vh] w-screen h-screen text-3xl md:text-5xl flex flex-col justify-center items-center gap-[5vh]">
+            <div className="absolute text-center top-[15vh] w-screen h-screen flex flex-col justify-center items-center gap-[5vh]">
                 <div
-                    className={`text-8xl md:text-[6.5rem] italic pr-[0.1em] clip-text ${displayFont}`}
+                    className={`text-7xl md:text-9xl italic px-4 clip-text ${displayFont}`}
                 >
                     <em>{`¿ JAXEN DUTTA ?`}</em>
                 </div>
 
                 <div className="w-2/3 flex justify-end">
                     <RotatingButton
-                        texts={["PROJECTS", "WORK", "RÉSUMÉ"]}
+                        texts={["PROJECTS", "WORK", "RÉSUMÉ", "CONTACT"]}
                         delimiters={["✦"]}
                         href="#projects"
                         centerIcon={GiMaterialsScience}
