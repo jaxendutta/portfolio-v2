@@ -2,7 +2,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { projectsData } from "@/data/projectData";
 import NameSection from "@/components/sections/project/sections/NameSection";
@@ -50,6 +50,7 @@ export default function ProjectPage() {
     const id = typeof projectId === "string" ? projectId : projectId?.[0] || "";
     const project = projectsData[id];
 
+    const mainRef = useRef<HTMLElement>(null);
     const [titleVisible, setTitleVisible] = useState(false);
     const [isLandscape, setIsLandscape] = useState(true);
 
@@ -86,6 +87,36 @@ export default function ProjectPage() {
         setIsLandscape(width > height);
     }, [width, height]);
 
+    // Simple wheel event handler to convert vertical scrolling to horizontal
+    useEffect(() => {
+        if (!isLandscape || !mainRef.current) return;
+
+        const mainElement = mainRef.current;
+
+        const handleWheel = (e: WheelEvent) => {
+            // Only prevent default for vertical scrolling
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                e.preventDefault();
+
+                // Apply the vertical delta to horizontal scrolling
+                const scrollAmount = e.deltaY * 200;
+
+                mainElement.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth", // Use 'auto' for more responsive feel maybe
+                });
+            }
+            // Let horizontal scrolling work naturally
+        };
+
+        // Add event listener with passive: false to allow preventDefault()
+        mainElement.addEventListener("wheel", handleWheel, { passive: false });
+
+        return () => {
+            mainElement.removeEventListener("wheel", handleWheel);
+        };
+    }, [isLandscape]);
+
     // Efficient header visibility management
     useEffect(() => {
         const updateHeaderVisibility = () => {
@@ -106,7 +137,7 @@ export default function ProjectPage() {
             rafId = requestAnimationFrame(updateHeaderVisibility);
         };
 
-        const container = document.querySelector("main");
+        const container = mainRef.current;
         if (container) {
             container.addEventListener("scroll", handleScroll);
             return () => {
@@ -124,6 +155,7 @@ export default function ProjectPage() {
             />
 
             <main
+                ref={mainRef}
                 className={`
                     h-screen w-screen scroll-smooth snap-mandatory no-scrollbar flex gap-20 scroll-pt-[100px] pt-[100px]
                     ${
