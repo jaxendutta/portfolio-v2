@@ -62,6 +62,7 @@ export const SocialItem = ({
                     stiffness: 500,
                     damping: 20,
                 }}
+                aria-label={copied ? `${item.platform} URL copied to clipboard` : `Copy ${item.platform} URL to clipboard`}
             >
                 {copied ? <IoCheckboxOutline /> : <BsCopy />}
             </motion.button>
