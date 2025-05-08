@@ -36,6 +36,7 @@ export interface ProjectData {
     colors?: ColorSet[];
     techStack?: Record<string, string[]>;
     footer?: string;
+    screenshotDevice?: "desktop" | "mobile" | "tablet";
 }
 
 export type ProjectsData = Record<string, ProjectData>;

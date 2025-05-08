@@ -6,6 +6,8 @@ import {
     GiArtificialIntelligence,
     GiBee,
     GiCardJoker,
+    GiOrbital,
+    GiNestedEclipses
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -14,18 +16,112 @@ const calloutStyle =
     "border border-2 border-dashed py-2 px-2 md:px-4 rounded-2xl mt-8";
 
 export const projectsData: ProjectsData = {
-    "evse-opt": {
-        name: "EVSE",
-        subtitle: "Network Optimization",
-        icon: GiBoltEye,
+    "portfolio-v2": {
+        name: "Portfolio v2",
+        icon: GiOrbital,
         type: "development",
-        date: new Date("2024-12-18"),
+        date: new Date("2025-04-10"),
+        screenshotDevice: "mobile",
         overview: [
             [
                 {
-                    className: "text",
+                    className: calloutStyle,
+                    content: "Modern Web Development Showcase",
+                },
+                {
                     content:
-                        "Engineered a Gurobi MILP model processing 7750+ locations to enhance KWC-CMA's EV charging station coverage by +80% while minimizing costs through strategic Level 2 to Level 3 upgrades.",
+                        "This portfolio site (v2) showcases my expertise in modern web development, featuring Next.js 15, React 19, and TailwindCSS 4.1. It combines striking visual design with optimal performance and accessibility. 🚀🎨",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Seamless User Experience",
+                },
+                {
+                    content:
+                        "The site delivers a smooth, intuitive experience with responsive design, dark/light mode, and smooth animations. Content is dynamically loaded for optimal performance. ⚡💻",
+                },
+            ],
+        ],
+        links: [
+            {
+                name: "GitHub",
+                url: "https://github.com/jaxendutta/portfolio-v2",
+            },
+            {
+                name: "Live Site",
+                url: "https://v2.anirban.ca",
+            },
+        ],
+        typography: [
+            {
+                name: "Major Mono Display",
+                fontFamily: '"Major Mono Display", monospace',
+                url: "https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap",
+                description:
+                    "Major Mono Display serves as the primary heading font, providing a distinctive, technical aesthetic that reflects my background in software development. Its monospaced, geometric design evokes a sense of precision and digital craftsmanship.",
+            },
+            {
+                name: "Fira Code",
+                fontFamily: '"Fira Code", monospace',
+                url: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap",
+                description:
+                    "Fira Code, with its developer-friendly ligatures and clean appearance, is used for code snippets and technical content. This font enhances readability while maintaining the site's modern, technical aesthetic.",
+            },
+        ],
+        colors: [
+            {
+                palette: ["#17181C", "#F4F1EA", "#D7482F", "#DEEFB7"],
+                description:
+                    "The dark theme features a deep charcoal background (#17181C) with warm off-white text (#F4F1EA), creating strong contrast for readability. Vibrant red (#D7482F) accents add energy while soft lime (#DEEFB7) highlights create visual interest.",
+            },
+            {
+                palette: ["#F4F1EA", "#001ECB", "#28B7D0", "#001ECB"],
+                description:
+                    "The light theme employs a warm off-white background (#F4F1EA) with deep blue text (#001ECB) for comfortable reading. Bright teal accents (#28B7D0) provide visual interest without sacrificing accessibility.",
+            },
+        ],
+        techStack: {
+            Frontend: [
+                "Next.js 15",
+                "React 19",
+                "TypeScript",
+                "TailwindCSS 4.1",
+                "Framer Motion",
+            ],
+            Backend: ["Server Actions", "Resend Email API"],
+            Development: ["ESLint", "Prettier", "Vercel"],
+        },
+        footer: "This portfolio site is built with Next.js 15 and React 19, highlighting my frontend development skills. The implementation leverages Server Components and React Server Actions for optimal performance and interactivity. I designed the UI with TailwindCSS 4.1 and Framer Motion to create a visually striking, responsive experience across all devices.",
+    },
+
+    "evse-opt": {
+        name: "Evse Network",
+        subtitle: "Optimizer",
+        icon: GiBoltEye,
+        type: "development",
+        date: new Date("2024-12-18"),
+        screenshotDevice: "mobile",
+        overview: [
+            [
+                {
+                    className: calloutStyle,
+                    content: "Tackling EV Infrastructure Challenges",
+                },
+                {
+                    content:
+                        "Developed a Mixed Integer Linear Programming (MILP) model to optimize the expansion of electric vehicle charging infrastructure across the Kitchener-Waterloo-Cambridge Census Metropolitan Area (KWC-CMA). The model processed over 7,750 potential locations to identify optimal placement strategies. 🔌🗺️",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Data-Driven Infrastructure Planning",
+                },
+                {
+                    content:
+                        "Leveraging advanced geospatial analysis and optimization techniques, the system identifies the most cost-effective deployment of charging stations while maximizing coverage and accessibility. The solution increased charging coverage by over 80% while minimizing installation costs through strategic Level 2 to Level 3 upgrades. 📊⚡",
                 },
             ],
         ],
@@ -44,18 +140,26 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            "Data Engineering": ["Python", "GeoPandas", "GIS", "SciPy"],
+            "Data Engineering": [
+                "Python",
+                "GeoPandas",
+                "GIS",
+                "SciPy",
+                "NumPy",
+                "Pandas",
+            ],
             "Data Visualization": ["Folium", "Matplotlib", "Seaborn"],
             Optimization: ["Gurobi", "MILP"],
-            Tools: ["Jupyter"],
         },
-        footer: "EVSE Network Optimization is a project focused on optimizing electric vehicle charging networks. The project utilizes advanced algorithms and data analysis techniques to improve the efficiency and accessibility of EV charging stations. By leveraging real-time data and predictive modeling, the project aims to enhance the overall user experience for electric vehicle owners, making charging more convenient and reliable.",
+        footer: "The EVSE Network Optimization System represents a significant contribution to sustainable urban planning. The model integrates constraints including population density, traffic patterns, existing infrastructure, and power grid limitations. By applying operations research principles to environmental challenges, the project demonstrates a practical application of mathematical modeling to real-world sustainability issues.",
     },
+
     fabler: {
         name: "Fabler",
         icon: GiArtificialIntelligence,
         type: "design",
         date: new Date("2024-08-18"),
+        screenshotDevice: "mobile",
         overview: [
             [
                 {
@@ -121,16 +225,86 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: ["Kotlin", "Jetpack Compose", "Android SDK"],
-            Backend: ["Python", "Ren'Py"],
+            Backend: ["Python", "Ren'Py", "FastAPI"],
             AI: ["OpenAI", "Stable Diffusion"],
-            Design: ["Figma", "Sketch", "Material Design", "Miro"],
+            Design: ["Figma", "Material Design", "Miro"],
         },
-        footer: "In a large-scale Android visual novel app project, I led development using Jetpack Compose (Kotlin) for the frontend and a Python backend. I spearheaded design and prototyping through Figma and user interviews, ensuring a user-friendly experience. The app features a responsive UI with custom components adhering to Material Design and leverages the OpenAI API to generate storylines and character profiles directly within the visual novels. Additionally, Stable Diffusion AI creates unique images for each story, while Ren'Py converts these elements into interactive narratives. This project demonstrates my expertise in integrating advanced AI systems for innovative mobile storytelling.",
+        footer: "In a large-scale Android visual novel app project, I led development using Jetpack Compose (Kotlin) for the frontend and a Python backend. I spearheaded design and prototyping through Figma and user interviews, ensuring a user-friendly experience. The app features a responsive UI with custom components adhering to Material Design and leverages the OpenAI API to generate storylines and character profiles directly within the visual novels.",
     },
+
+    "portfolio-v1": {
+        name: "Portfolio v1",
+        icon: GiNestedEclipses,
+        type: "development",
+        date: new Date("2023-12-22"),
+        screenshotDevice: "mobile",
+        overview: [
+            [
+                {
+                    className: calloutStyle,
+                    content: "Vanilla JavaScript Showcase",
+                },
+                {
+                    content:
+                        "My original portfolio site built with vanilla JavaScript, HTML5, and CSS3. It demonstrates fundamental web development skills and creative design implementation without depending on frameworks. 🌐✨",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Creative Interactive Elements",
+                },
+                {
+                    content:
+                        "Features custom animations, interactive UI elements, and responsive design principles implemented purely with vanilla JavaScript and CSS. The site includes dynamic content loading and theme switching capabilities. 🎭🎨",
+                },
+            ],
+        ],
+        links: [
+            {
+                name: "GitHub",
+                url: "https://github.com/jaxendutta/portfolio",
+            },
+            {
+                name: "Live Site",
+                url: "https://v1.anirban.ca",
+            },
+        ],
+        typography: [
+            {
+                name: "Major Mono Display",
+                fontFamily: '"Major Mono Display", monospace',
+                url: "https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap",
+                description:
+                    "Major Mono Display provides a distinctive, technical aesthetic for headings and titles. Its monospaced characters and unique uppercase/lowercase mixing creates visual interest throughout the site.",
+            },
+            {
+                name: "Fira Code",
+                fontFamily: '"Fira Code", monospace',
+                url: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap",
+                description:
+                    "Fira Code offers excellent readability for body text while maintaining the technical theme of the portfolio. Its subtle programming ligatures add a developer-focused touch to the content.",
+            },
+        ],
+        colors: [
+            {
+                palette: ["#17181C", "#F4F1EA", "#D7482F", "#DEEFB7"],
+                description:
+                    "The color scheme balances readability with visual impact. Dark backgrounds with high-contrast text ensure content legibility, while accent colors add personality and highlight interactive elements.",
+            },
+        ],
+        techStack: {
+            Frontend: ["HTML5", "CSS3", "JavaScript"],
+            Deployment: ["Netlify"],
+        },
+        footer: "My original portfolio was crafted with vanilla JavaScript, HTML5, and CSS3 to demonstrate core web development fundamentals. I implemented custom animations, interactive UI elements, and responsive design without relying on frameworks or libraries. The project demonstrates my ability to work directly with web standards and build performant websites from scratch.",
+    },
+
     hivemind: {
         name: "Hivemind",
         icon: GiBee,
         date: new Date("2023-08-18"),
+        screenshotDevice: "mobile",
         overview: [
             [
                 {
@@ -189,11 +363,16 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            Prototyping: ["Figma", "Sketch", "Miro"],
-            "UX Research": ["User Interviews", "User Testing"],
+            Design: ["Figma", "Miro"],
+            "UX Research": [
+                "User Interviews",
+                "User Testing",
+                "Persona Creation",
+            ],
         },
-        footer: "As the lead of Hivemind, a collaborative study app project, I directed the design and iOS prototype development efforts. Working with a diverse team, I facilitated Figma prototyping and conducted user interviews, refining the user experience. The app promotes seamless online connections for students worldwide, fostering collaborative study groups. Through iterative design and development, I ensured the app's functionality and visual elements aligned with user needs, resulting in an innovative platform for academic collaboration.",
+        footer: "As the lead of Hivemind, a collaborative study app project, I directed the design and iOS prototype development efforts. Working with a diverse team, I facilitated Figma prototyping and conducted user interviews, refining the user experience. The app promotes seamless online connections for students worldwide, fostering collaborative study groups.",
     },
+
     "space-invaders": {
         name: "Space Invaders",
         icon: FaSpaceAwesome,
@@ -256,14 +435,10 @@ export const projectsData: ProjectsData = {
         techStack: {
             Frontend: ["Kotlin", "JavaFX"],
             "Build Tools": ["Gradle"],
-            "Game Development": [
-                "Game Loop",
-                "Sprite Animation",
-                "Collision Detection",
-            ],
         },
         footer: "Created with Kotlin and JavaFX, this game features a visually engaging interface with a title screen, player-controlled ship, and dynamically moving alien fleet. Multiple levels were implemented, each intensifying the challenge as the player progresses. The use of smooth animations and audio feedback enhances the overall gaming atmosphere, showcasing elements of game development and animation techniques.",
     },
+
     "file-explorer": {
         name: "File Explorer",
         icon: AiOutlineFolderView,
@@ -325,10 +500,11 @@ export const projectsData: ProjectsData = {
         techStack: {
             Frontend: ["Kotlin", "JavaFX"],
             "Build Tools": ["Gradle"],
-            "File System Operations": ["Java NIO"],
+            "File System": ["Java NIO"],
         },
-        footer: "File Explorer features a comprehensive Menu Bar with options for creating folders, opening directories, and exiting the program. The Actions menu empowers users to rename, move, and delete selected files effortlessly. A versatile Tool Bar provides quick access to navigation and file manipulation options. The main File View displays a clear hierarchy of files and directories, complemented by a preview panel for supported file types. Stay informed with the Status Bar, which displays real-time information about the current directory and selected file.",
+        footer: "File Explorer features a comprehensive Menu Bar with options for creating folders, opening directories, and exiting the program. The Actions menu empowers users to rename, move, and delete selected files effortlessly. A versatile Tool Bar provides quick access to navigation and file manipulation options. The main File View displays a clear hierarchy of files and directories, complemented by a preview panel for supported file types.",
     },
+
     lightbox: {
         name: "Lightbox",
         icon: PiCodesandboxLogoLight,
@@ -390,9 +566,11 @@ export const projectsData: ProjectsData = {
         techStack: {
             Frontend: ["Kotlin", "JavaFX"],
             "Build Tools": ["Gradle"],
+            "Image Processing": ["JavaFX Image API"],
         },
-        footer: "Lightbox showcases a feature-rich Tool Bar equipped with various buttons for comprehensive image manipulation. Users can effortlessly add, delete, rotate, and zoom images, among other operations. The heart of the application, the Preview Pane, offers intuitive image selection, dragging, and stacking capabilities, providing a seamless workflow for managing multiple images. Stay informed with the Status Bar, which displays real-time information on the image count and currently selected image, enhancing user awareness and control throughout the editing process.",
+        footer: "Lightbox showcases a feature-rich Tool Bar equipped with various buttons for comprehensive image manipulation. Users can effortlessly add, delete, rotate, and zoom images, among other operations. The heart of the application, the Preview Pane, offers intuitive image selection, dragging, and stacking capabilities, providing a seamless workflow for managing multiple images.",
     },
+
     straights: {
         name: "Straights",
         icon: GiCardJoker,
@@ -440,16 +618,15 @@ export const projectsData: ProjectsData = {
         ],
         colors: [
             {
-                palette: ["#000000", "#FFFFFF"],
+                palette: ["#000000", "#FFFFFF", "#4A752C", "#B31B1B"],
                 description:
-                    "Straights pays homage to its terminal roots with a classic black (#000000) and white (#FFFFFF) color scheme. The stark contrast between these colors creates a visually striking interface that is reminiscent of traditional terminal displays.",
+                    "Straights pays homage to its terminal roots with a classic black (#000000) and white (#FFFFFF) color scheme, while adding card table green (#4A752C) and accent red (#B31B1B) for visual interest. The stark contrast between these colors creates a visually striking interface that is reminiscent of traditional card games while remaining accessible.",
             },
         ],
         techStack: {
             Backend: ["C++", "WebAssembly", "Emscripten"],
-            Frontend: ["HTML", "CSS", "JavaScript"],
-            "Game Development": ["Game State Management"],
+            Frontend: ["HTML5", "CSS3", "JavaScript"],
         },
-        footer: "Straights showcases the seamless integration of C++ and web technologies. The core game logic, originally written in C++, has been recompiled to WebAssembly using Emscripten. This WebAssembly module is then integrated into a modern web application, with HTML, CSS, and JavaScript working in harmony to render the game state and provide an interactive user interface. The result is a fast, efficient game engine with a sleek, accessible front-end, playable directly in the browser without any installations.",
+        footer: "Straights showcases the seamless integration of C++ and web technologies. The core game logic, originally written in C++, has been recompiled to WebAssembly using Emscripten. This WebAssembly module is then integrated into a modern web application, with HTML, CSS, and JavaScript working in harmony to render the game state and provide an interactive user interface.",
     },
 };

@@ -22,7 +22,7 @@ export default function ProjectCard({
     reversed = false,
 }: ProjectCardProps) {
     // Use mobile screenshot vs desktop logic based on the ID
-    const isMobileProject = ["evse-opt", "fabler", "hivemind"].includes(id);
+    const isMobileProject = project.screenshotDevice === "mobile";
     const projectLink = `/projects/${id}`;
 
     const exploreButton = (
@@ -60,10 +60,10 @@ export default function ProjectCard({
                                 fontStyle: "italic",
                             }}
                         >
-                            {project.name.toUpperCase()}
+                            {project.name}
                             {project.subtitle && (
                                 <span className="text-2xl md:text-3xl">
-                                    {` ${project.subtitle.toUpperCase()}`}
+                                    {` ${project.subtitle}`}
                                 </span>
                             )}
                         </Link>
