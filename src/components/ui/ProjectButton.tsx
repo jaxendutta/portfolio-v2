@@ -19,7 +19,7 @@ export default function ProjectButton({ link, index }: ProjectButtonProps) {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative inline-flex items-center px-2 py-1 uppercase group"
+            className="relative inline-flex items-center px-2 py-1 uppercase group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             style={{
                 textDecoration: "none",
                 color: isHovered ? "white" : "inherit",
@@ -51,10 +51,11 @@ export default function ProjectButton({ link, index }: ProjectButtonProps) {
                 {/* Arrow icon */}
                 <HiArrowUpRight
                     className={isHovered ? "opacity-100" : "opacity-0"}
+                    aria-hidden="true"
                 />
 
                 {/* Button text */}
-                {link.name.toUpperCase()}
+                <span>{link.name.toUpperCase()}</span>
             </div>
         </motion.a>
     );

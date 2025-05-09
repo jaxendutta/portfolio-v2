@@ -30,6 +30,23 @@ export default function RootLayout({
                 />
                 <link rel="icon" href="/favicon.ico" sizes="any" />
                 <link rel="icon" href="/favicon.png" type="image/png" />
+
+                {/* Preconnect for external resources */}
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link
+                    rel="preconnect"
+                    href="https://fonts.gstatic.com"
+                    crossOrigin="anonymous"
+                />
+                <link rel="preconnect" href="https://i.gifer.com" />
+
+                {/* Preload LCP image background */}
+                <link
+                    rel="preload"
+                    href="https://i.gifer.com/ByRk.gif"
+                    as="image"
+                    fetchPriority="high"
+                />
             </head>
             <body className="min-h-screen">
                 <Analytics />

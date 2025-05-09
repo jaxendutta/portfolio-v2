@@ -1,6 +1,6 @@
 // src/app/page.tsx
-"use client";
 
+import { Suspense } from "react";
 import ContactSection from "@/components/sections/contact/ContactSection";
 import Hero from "@/components/layout/Hero";
 import ProjectsSection from "@/components/sections/project/ProjectsSection";
@@ -14,8 +14,24 @@ export default function Home() {
             <Navbar />
             <main className="flex flex-col items-center justify-center relative">
                 <Hero />
-                <ProjectsSection />
-                <WorkSection />
+                <Suspense
+                    fallback={
+                        <div className="w-full h-[50vh] flex items-center justify-center">
+                            Loading projects...
+                        </div>
+                    }
+                >
+                    <ProjectsSection />
+                </Suspense>
+                <Suspense
+                    fallback={
+                        <div className="w-full h-[50vh] flex items-center justify-center">
+                            Loading work experience...
+                        </div>
+                    }
+                >
+                    <WorkSection />
+                </Suspense>
                 <ContactSection />
                 <Footer />
             </main>
