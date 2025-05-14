@@ -6,9 +6,46 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import BottomBar from "@/components/layout/BottomBar";
 
 export const metadata: Metadata = {
-    title: "Jaxen",
+    title: {
+        default: "Jaxen Dutta",
+        template: "%s | Jaxen Dutta",
+    },
     description:
         "Personal portfolio website for Anirban (Jaxen) Dutta - UX/UI Engineer, HCI Researcher, Web Designer, App Developer",
+    keywords: [
+        "UX/UI",
+        "Web Design",
+        "App Development",
+        "Portfolio",
+        "Jaxen Dutta",
+        "Anirban Dutta",
+    ],
+    authors: [{ name: "Jaxen Dutta" }],
+    creator: "Jaxen Dutta",
+    openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: "https://anirban.ca",
+        title: "Jaxen Dutta",
+        description:
+            "UX/UI Engineer, HCI Researcher, Web Designer, and App Developer portfolio showcasing innovative digital creations and technical expertise.",
+        siteName: "Jaxen Dutta | Portfolio",
+        images: [
+            {
+                url: "/og-image.png",
+                width: 1200,
+                height: 630,
+                alt: "Jaxen Dutta Portfolio Preview",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Jaxen Dutta | Portfolio",
+        description:
+            "UX/UI Engineer, HCI Researcher, Web Designer, and App Developer portfolio",
+        images: ["/og-image.png"],
+    },
 };
 
 export default function RootLayout({
