@@ -10,7 +10,7 @@ import Navbar from "@/components/layout/Navbar";
 
 export default function Home() {
     return (
-        <div className="max-w-screen min-h-screen overflow-clip">
+        <div className="max-w-screen min-h-screen">
             <Navbar />
             <main className="flex flex-col items-center justify-center relative">
                 <Hero />
