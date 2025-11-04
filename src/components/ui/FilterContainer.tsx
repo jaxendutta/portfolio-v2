@@ -2,7 +2,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 interface FilterContainerProps {
     children: ReactNode;
@@ -16,7 +16,7 @@ export default function FilterContainer({
     className = "",
 }: FilterContainerProps) {
     // Animation variants for the filter container
-    const containerVariants: any = {
+    const containerVariants: Variants = {
         hidden: {
             height: 0,
             opacity: 0,
