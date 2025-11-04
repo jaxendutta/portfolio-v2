@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import BottomBar from "@/components/layout/BottomBar";
 
 export const metadata: Metadata = {
+    metadataBase: new URL('https://anirban.ca'),
     title: {
         default: "Jaxen Dutta",
         template: "%s | Jaxen Dutta",
