@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
+import { AnimatePresence, motion, LayoutGroup, type Transition } from "framer-motion";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { HiArrowLeft, HiArrowRight, HiArrowUp } from "react-icons/hi";
 import { GrChapterNext, GrChapterPrevious } from "react-icons/gr";
@@ -58,7 +58,7 @@ export default function ProjectsPageHeader({
     };
 
     // Shared animation transition for consistency
-    const springTransition = {
+    const springTransition: Transition = {
         type: "spring",
         stiffness: 300,
         damping: 30,

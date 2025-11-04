@@ -16,7 +16,7 @@ export default function FilterContainer({
     className = "",
 }: FilterContainerProps) {
     // Animation variants for the filter container
-    const containerVariants = {
+    const containerVariants: any = {
         hidden: {
             height: 0,
             opacity: 0,
