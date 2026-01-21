@@ -2,11 +2,11 @@
 
 A modern, responsive portfolio website built with Next.js 15, React 19, and Tailwind CSS 4.1. This project represents a complete migration from the vanilla JavaScript implementation to a modern React architecture.
 
-## 🌐 Live Demo
+## Live Demo
 
 [Visit the Live Site](https://v2.anirban.ca)
 
-## ✨ Features
+## Features
 
 - **Modern React Architecture** - Built with React 19 and Next.js 15
 - **Responsive Design** - Fully responsive across all device sizes
@@ -22,7 +22,7 @@ A modern, responsive portfolio website built with Next.js 15, React 19, and Tail
 - **SEO Friendly** - SEO optimized with proper meta tags
 - **Accessibility** - WCAG compliant design and implementation
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Frontend**:
   - Next.js 15
@@ -41,7 +41,7 @@ A modern, responsive portfolio website built with Next.js 15, React 19, and Tail
   - Prettier
   - TurboRepo
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 /
@@ -62,7 +62,7 @@ A modern, responsive portfolio website built with Next.js 15, React 19, and Tail
 └── tailwind.config.ts # Tailwind CSS configuration
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -99,7 +99,7 @@ yarn dev
 
 The site will be available at `http://localhost:3000`
 
-## 📝 Development Workflow
+## Development Workflow
 
 - **Development**: `npm run dev` - Starts the development server with hot reloading
 - **Type checking**: `npm run typecheck` - Checks TypeScript types
@@ -107,7 +107,7 @@ The site will be available at `http://localhost:3000`
 - **Building**: `npm run build` - Creates an optimized production build
 - **Starting**: `npm run start` - Starts the production build locally
 
-## 📤 Deployment
+## Deployment
 
 The site is optimized for deployment on Vercel:
 
@@ -120,7 +120,7 @@ For other platforms, ensure that you:
 2. Set the necessary environment variables
 3. Deploy the `.next` folder
 
-## 🔄 Migrated Features
+## Migrated Features
 
 This project is a migration from a vanilla JavaScript implementation to a modern React architecture. Key improvements include:
 
@@ -130,11 +130,3 @@ This project is a migration from a vanilla JavaScript implementation to a modern
 - **Improved Animations**: Replaced custom animation code with Framer Motion
 - **Type Safety**: Added TypeScript typing throughout the application
 - **Modern Styling**: Migrated from custom CSS to Tailwind CSS
-
-## 📜 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-Created with ❤️ by Jaxen (Anirban) Dutta
